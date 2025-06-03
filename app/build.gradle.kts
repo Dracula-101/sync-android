@@ -98,6 +98,9 @@ dependencies {
     // Logging
     implementation(libs.timber)
 
+    // Memory leak detection
+    debugImplementation(libs.leakcanary.android)
+
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
