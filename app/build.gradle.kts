@@ -1,111 +1,58 @@
+import com.android.sync.SyncBuildType
+
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.kotlin.ksp)
-    alias(libs.plugins.dagger.hilt.android)
-    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.sync.android.application)
+    alias(libs.plugins.sync.android.application.compose)
+    alias(libs.plugins.sync.android.application.firebase)
+    alias(libs.plugins.sync.hilt)
+    alias(libs.plugins.kotlin.serialization)
 }
-
 android {
-    namespace = "com.android.sync"
-    compileSdk = libs.versions.compileSdk.get().toInt()
-
     defaultConfig {
         applicationId = "com.android.sync"
-        minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
-        versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        versionName = "0.0.1" // X.Y.Z; X = Major, Y = minor, Z = Patch level
     }
 
     buildTypes {
-        release {
+        debug {
+            applicationIdSuffix = SyncBuildType.DEBUG.applicationIdSuffix
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            isDebuggable = true
         }
-    }
+        release {
+            isMinifyEnabled = true
+            applicationIdSuffix = SyncBuildType.RELEASE.applicationIdSuffix
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-
-    buildFeatures {
-        compose = true
+            signingConfig = signingConfigs.named("debug").get()
+        }
     }
 
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
     }
+
+    namespace = "com.android.sync"
 }
 
 dependencies {
-    // AndroidX Core
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
+
     implementation(libs.androidx.activity.compose)
-
-    // Navigation
-    implementation(libs.androidx.navigation.compose)
-
-    // Lifecycle
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.lifecycle.viewmodel)
-
-    // Compose BOM
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material3.adaptive)
+    implementation(libs.androidx.compose.material3.adaptive.layout)
+    implementation(libs.androidx.compose.material3.adaptive.navigation)
+    implementation(libs.androidx.compose.material3.windowSizeClass)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.lifecycle.runtimeCompose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.window.core)
+    implementation(libs.kotlinx.serialization.json)
 
-    // Dependency Injection
-    implementation(libs.dagger.hilt)
-    ksp(libs.dagger.hilt.compiler)
-    implementation(libs.dagger.hilt.navigation.compose)
-
-    // Database
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
-
-    // Coroutines
-    implementation(libs.kotlin.coroutines)
-
-    // Networking
-    implementation(platform(libs.square.retrofit.bom))
-    implementation(libs.square.retrofit)
-    implementation(libs.square.retrofit.gson)
-    implementation(libs.square.okhttp)
-    implementation(libs.square.okhttp.logging)
-    implementation(libs.gson)
-
-    // Logging
-    implementation(libs.timber)
-
-    // Memory leak detection
-    debugImplementation(libs.leakcanary.android)
-
-    // Testing
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-
-    // Compose Testing
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    debugImplementation(libs.androidx.compose.ui.tooling)
+    ksp(libs.hilt.compiler)
 }
