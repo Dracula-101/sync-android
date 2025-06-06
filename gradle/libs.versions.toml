@@ -32,6 +32,13 @@ ksp = "2.1.0-1.0.29"
 okhttp = "4.12.0"
 retrofit = "2.11.0"
 room = "2.7.1"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+material = "1.12.0"
+junitJunit = "4.13.2"
+androidxJunit = "1.2.1"
+espressoCoreVersion = "3.6.1"
 
 [libraries]
 #====================<ACCOMPANIST>============================
@@ -99,6 +106,10 @@ firebase-performance-gradlePlugin = { group = "com.google.firebase", name = "per
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+junit = { group = "junit", name = "junit", version.ref = "junitJunit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCoreVersion" }
 
 [plugins]
 #====================<ANDROID>============================
@@ -132,7 +143,6 @@ room = { id = "androidx.room", version.ref = "room" }
 sync-android-application = { id = "sync.android.application" }
 sync-android-application-compose = { id = "sync.android.application.compose" }
 sync-android-application-firebase = { id = "sync.android.application.firebase" }
-sync-android-application-flavors = { id = "sync.android.application.flavors" }
 
 sync-android-feature = { id = "sync.android.feature" }
 sync-android-library = { id = "sync.android.library" }
@@ -143,3 +153,4 @@ sync-android-room = { id = "sync.android.room" }
 sync-android-test = { id = "sync.android.test" }
 sync-hilt = { id = "sync.hilt" }
 sync-jvm-library = { id = "sync.jvm.library" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
