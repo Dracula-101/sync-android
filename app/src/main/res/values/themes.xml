@@ -3,7 +3,7 @@
     <!--  SPLASH THEME  -->
     <style name="LaunchTheme" parent="Theme.SplashScreen">
         <item name="postSplashScreenTheme">@style/Theme.Sync</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/app_icon_foreground</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_screen_avd_anim</item>
         <item name="windowSplashScreenBackground">@color/app_primary</item>
     </style>
 

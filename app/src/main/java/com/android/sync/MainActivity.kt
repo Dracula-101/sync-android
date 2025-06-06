@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 
 class MainActivity : ComponentActivity() {
@@ -21,10 +22,10 @@ class MainActivity : ComponentActivity() {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(androidx.compose.ui.graphics.Color.Black),
+                    .background(Color.Black),
                 contentAlignment = Alignment.Center
             ) {
-                Text("Android Sync", color = androidx.compose.ui.graphics.Color.White)
+                Text("Android Sync", color = Color.White)
             }
         }
     }
