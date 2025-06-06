@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!--  SPLASH THEME  -->
     <style name="LaunchTheme" parent="Theme.SplashScreen">
         <item name="postSplashScreenTheme">@style/Theme.Sync</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/app_icon_foreground</item>
-        <item name="windowSplashScreenBackground">@color/ic_launcher_background</item>
+        <item name="windowSplashScreenBackground">@color/app_primary</item>
     </style>
-    <style name="Theme.Sync" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <!--  MAIN THEME  -->
+    <style name="Theme.Sync" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
 </resources>
