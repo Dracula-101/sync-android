@@ -40,6 +40,8 @@ android {
 
 dependencies {
 
+    implementation(projects.core.design)
+
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material3.adaptive)

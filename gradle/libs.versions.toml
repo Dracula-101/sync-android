@@ -111,6 +111,9 @@ junit = { group = "junit", name = "junit", version.ref = "junitJunit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCoreVersion" }
 
+#====================<MODULES>============================
+core-design = { module = "core:design" }
+
 [plugins]
 #====================<ANDROID>============================
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
