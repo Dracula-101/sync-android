@@ -19,6 +19,8 @@ import com.android.sync.core.design.colors.lightSyncColorScheme
 import com.android.sync.core.design.colors.toMaterialColorScheme
 import com.android.sync.core.design.shape.SyncShapes
 import com.android.sync.core.design.shape.syncShapes
+import com.android.sync.core.design.spacing.SyncSpacing
+import com.android.sync.core.design.spacing.syncSpacing
 import com.android.sync.core.design.type.SyncTypography
 import com.android.sync.core.design.type.syncTypography
 import com.android.sync.core.design.type.toMaterialTypography
@@ -47,6 +49,11 @@ object SyncTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalSyncTypography.current
+
+    val spacing: SyncSpacing
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalSyncSpacing.current
 }
 
 @Composable
@@ -85,6 +92,7 @@ fun SyncTheme(
         LocalSyncColorScheme provides syncColorScheme,
         LocalSyncShapes provides syncShapes,
         LocalSyncTypography provides syncTypography,
+        LocalSyncSpacing provides syncSpacing,
     ) {
         MaterialTheme(
             colorScheme = syncColorScheme.toMaterialColorScheme(defaultColorScheme = materialColorScheme),
@@ -103,3 +111,6 @@ val LocalSyncShapes: ProvidableCompositionLocal<SyncShapes> =
 
 val LocalSyncTypography: ProvidableCompositionLocal<SyncTypography> =
     compositionLocalOf { syncTypography }
+
+val LocalSyncSpacing: ProvidableCompositionLocal<SyncSpacing> =
+    compositionLocalOf { syncSpacing }

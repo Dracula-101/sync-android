@@ -27,17 +27,17 @@ internal val darkSyncColorScheme: SyncColorScheme = SyncColorScheme(
     ),
     outlinedButton = SyncColorScheme.OutlinedButtonColors(
         border = PrimitiveColors.primary500,
-        disabledBorder = PrimitiveColors.slate600,
-        background = Color.Transparent,
-        disabledBackground = Color.Transparent,
-        content = PrimitiveColors.primary400,
-        disabledContent = PrimitiveColors.slate500,
+        disabledBorder = PrimitiveColors.slate800,
+        background = PrimitiveColors.primary1000,
+        disabledBackground = PrimitiveColors.slate900,
+        content = PrimitiveColors.primary500,
+        disabledContent = PrimitiveColors.slate700,
     ),
     filledButton = SyncColorScheme.FilledButtonColors(
         background = PrimitiveColors.primary500,
-        disabledBackground = PrimitiveColors.slate700,
+        disabledBackground = PrimitiveColors.slate800,
         content = PrimitiveColors.slate50,
-        disabledContent = PrimitiveColors.slate400,
+        disabledContent = PrimitiveColors.slate700,
     ),
     toggleButton = SyncColorScheme.ToggleButtonColors(
         selectedBackground = PrimitiveColors.primary500,
@@ -89,8 +89,8 @@ internal val darkSyncColorScheme: SyncColorScheme = SyncColorScheme(
 internal val lightSyncColorScheme: SyncColorScheme = SyncColorScheme(
     text = SyncColorScheme.TextColors(
         primary = PrimitiveColors.slate900,
-        secondary = PrimitiveColors.slate600,
-        disabled = PrimitiveColors.slate400,
+        secondary = PrimitiveColors.slate700,
+        disabled = PrimitiveColors.slate500,
     ),
     background = SyncColorScheme.BackgroundColors(
         primary = PrimitiveColors.slate50,
@@ -108,9 +108,9 @@ internal val lightSyncColorScheme: SyncColorScheme = SyncColorScheme(
     outlinedButton = SyncColorScheme.OutlinedButtonColors(
         border = PrimitiveColors.primary500,
         disabledBorder = PrimitiveColors.slate300,
-        background = Color.Transparent,
-        disabledBackground = Color.Transparent,
-        content = PrimitiveColors.primary600,
+        background = PrimitiveColors.primary100,
+        disabledBackground = PrimitiveColors.slate200,
+        content = PrimitiveColors.primary500,
         disabledContent = PrimitiveColors.slate400,
     ),
     filledButton = SyncColorScheme.FilledButtonColors(
@@ -277,6 +277,7 @@ private data object PrimitiveColors {
     val primary800: Color = Color(color = 0xFF3730A3)
     val primary900: Color = Color(color = 0xFF312E81)
     val primary950: Color = Color(color = 0xFF1E1B4B)
+    val primary1000: Color = Color(color = 0xFF0F0C2A)
 
     val white: Color = Color(color = 0xFFFFFFFF)
     val slate50: Color = Color(color = 0xFFF8FAFC)

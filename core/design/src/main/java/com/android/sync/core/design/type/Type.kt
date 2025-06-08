@@ -134,7 +134,7 @@ internal val syncTypography: SyncTypography = SyncTypography(
         platformStyle = PlatformTextStyle(includeFontPadding = false),
     ),
     bodyLarge = TextStyle(
-        fontSize = 15.sp,
+        fontSize = 16.sp,
         lineHeight = 20.sp,
         fontFamily = FontFamily(Font(R.font.nunito_sans)),
         fontWeight = FontWeight.W400,
@@ -146,7 +146,7 @@ internal val syncTypography: SyncTypography = SyncTypography(
         platformStyle = PlatformTextStyle(includeFontPadding = false),
     ),
     bodyMedium = TextStyle(
-        fontSize = 13.sp,
+        fontSize = 14.sp,
         lineHeight = 18.sp,
         fontFamily = FontFamily(Font(R.font.nunito_sans)),
         fontWeight = FontWeight.W400,
@@ -171,7 +171,7 @@ internal val syncTypography: SyncTypography = SyncTypography(
     ),
     labelLarge = TextStyle(
         fontSize = 14.sp,
-        lineHeight = 20.sp,
+        lineHeight = 16.sp,
         fontFamily = FontFamily(Font(R.font.nunito_sans_semibold)),
         fontWeight = FontWeight.W600,
         letterSpacing = 0.sp,
@@ -183,7 +183,7 @@ internal val syncTypography: SyncTypography = SyncTypography(
     ),
     labelMedium = TextStyle(
         fontSize = 12.sp,
-        lineHeight = 16.sp,
+        lineHeight = 14.sp,
         fontFamily = FontFamily(Font(R.font.nunito_sans_semibold)),
         fontWeight = FontWeight.W600,
         letterSpacing = 0.sp,
@@ -194,8 +194,8 @@ internal val syncTypography: SyncTypography = SyncTypography(
         platformStyle = PlatformTextStyle(includeFontPadding = false),
     ),
     labelSmall = TextStyle(
-        fontSize = 12.sp,
-        lineHeight = 16.sp,
+        fontSize = 11.sp,
+        lineHeight = 14.sp,
         fontFamily = FontFamily(Font(R.font.nunito_sans)),
         fontWeight = FontWeight.W400,
         letterSpacing = 0.sp,
