@@ -8,6 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
+import timber.log.Timber
 import java.lang.reflect.Type
 
 /**
@@ -66,6 +67,7 @@ internal class NetworkResultCall<T>(
     private fun Throwable.toFailure(): NetworkResult<T> {
         // We rebuild the URL without query params, we do not want to log those
         val url = backingCall.request().url.toUrl().run { "$protocol://$authority$path" }
+        Timber.e(this, "Network request failed: $url")
         return NetworkResult.Failure(this)
     }
 

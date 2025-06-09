@@ -59,6 +59,9 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     ksp(libs.hilt.compiler)
 
+    // Logging
+    implementation(libs.timber)
+
     // Coroutines
     implementation(libs.kotlinx.coroutines.core)
 }
