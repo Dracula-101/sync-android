@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.konan.properties.loadProperties
 
 plugins {
     alias(libs.plugins.android.application)
@@ -11,6 +12,13 @@ plugins {
     alias(libs.plugins.gms)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.firebase.perf)
+}
+
+val secretPropertiesFile = rootProject.file("secrets.properties")
+val secretProperties = if (secretPropertiesFile.exists()) {
+    loadProperties(secretPropertiesFile.path)
+} else {
+    throw IllegalStateException("Secret properties file not found: ${secretPropertiesFile.path}")
 }
 
 android {
@@ -29,15 +37,29 @@ android {
 
     buildTypes {
         debug {
+            isDebuggable = true
             isMinifyEnabled = false
             applicationIdSuffix = ".debug"
+
+            buildConfigField(
+                "String",
+                "BACKEND_URL",
+                "\"${secretProperties.getProperty("DEV_BACKEND_URL", "http://localhost:8080")}\""
+            )
         }
 
         release {
-            isMinifyEnabled = false
+            isDebuggable = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
+            )
+
+            buildConfigField(
+                "String",
+                "BACKEND_URL",
+                "\"${secretProperties.getProperty("PROD_BACKEND_URL")}\""
             )
         }
     }

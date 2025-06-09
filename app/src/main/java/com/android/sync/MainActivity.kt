@@ -67,7 +67,7 @@ class MainActivity : ComponentActivity() {
                             onClick = { /* Handle click */ },
                             enabled = isEnabled.value,
                         ) {
-                            Text(text = "Outlined Button")
+                            Text(text = "Outlined Button ${BuildConfig.BACKEND_URL}")
                         }
                     }
                 }
