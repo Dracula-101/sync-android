@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.android.sync.core.network"
+    namespace = "com.application.sync.core.network"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -27,10 +27,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.valueOf("VERSION_${libs.versions.jvmTarget.get()}")
         targetCompatibility = JavaVersion.valueOf("VERSION_${libs.versions.jvmTarget.get()}")
-    }
-
-    buildFeatures {
-        buildConfig = true
     }
 }
 

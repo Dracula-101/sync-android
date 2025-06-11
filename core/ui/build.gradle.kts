@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.android.sync.core.ui"
+    namespace = "com.application.sync.core.ui"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -32,7 +32,6 @@ android {
 
     buildFeatures {
         compose = true
-        buildConfig = true
     }
 
     packaging {

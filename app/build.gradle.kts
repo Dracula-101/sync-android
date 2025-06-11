@@ -8,9 +8,9 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
-    alias(libs.plugins.gms)
-    alias(libs.plugins.firebase.crashlytics)
-    alias(libs.plugins.firebase.perf)
+    //alias(libs.plugins.gms)
+    //alias(libs.plugins.firebase.crashlytics)
+    //alias(libs.plugins.firebase.perf)
 }
 
 val secretPropertiesFile = rootProject.file("secrets.properties")
@@ -21,11 +21,11 @@ val secretProperties = if (secretPropertiesFile.exists()) {
 }
 
 android {
-    namespace = "com.android.sync"
+    namespace = "com.application.sync"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.android.sync"
+        applicationId = "com.application.sync"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
@@ -116,10 +116,10 @@ dependencies {
     implementation(libs.androidx.work.ktx)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.coil.kt.compose)
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.analytics)
-    implementation(libs.firebase.crashlytics)
-    implementation(libs.firebase.performance)
+    //implementation(platform(libs.firebase.bom))
+    //implementation(libs.firebase.analytics)
+    //implementation(libs.firebase.crashlytics)
+    //implementation(libs.firebase.performance)
     implementation(libs.hilt.android)
     implementation(libs.hilt.ext.work)
     implementation(libs.kotlin.stdlib)
