@@ -1,36 +1,25 @@
 package com.android.sync.core.network.util
 
 import com.android.sync.core.network.model.SyncError
-import kotlinx.serialization.json.Json
 import retrofit2.HttpException
+import java.io.IOException
 
 /**
- * Attempt to parse the error body to serializable type [T].
- *
- * Useful in service layer for parsing non-200 response bodies.
- *
- * If the receiver is not an [HttpException] or the error body cannot be parsed, null will be
- * returned.
- *
- * @param codes a list of HTTP codes associated with the error. Only responses with a matching code
- * will be attempted to be parsed.
- * @param json [Json] serializer to use.
+ * Convert a [Throwable] into a [SyncError].
  */
-internal inline fun <reified T> SyncError.parseErrorBodyOrNull(
-    codes: List<NetworkErrorCode>,
-    json: Json,
-): T? =
-    (this as? SyncError.Http)
-        ?.takeIf { codes.any { it.code == this.code } }
-        ?.responseBodyString
-        ?.let { responseBody ->
-            json.decodeFromStringOrNull(responseBody)
+fun Throwable.toSyncError(): SyncError {
+    return when (this) {
+        is IOException -> SyncError.Network(this)
+        is HttpException -> {
+            // For HttpException, we need to parse the response body to get the error details
+            // This will be handled in the NetworkResponseCall where we have access to Gson
+            SyncError.Http(
+                throwable = this,
+                message = "HTTP ${code()} error",
+                errors = null
+            )
         }
 
-/**
- * Helper for calling [parseErrorBodyOrNull] with a single code.
- */
-internal inline fun <reified T> SyncError.parseErrorBodyOrNull(
-    code: NetworkErrorCode,
-    json: Json,
-): T? = parseErrorBodyOrNull(codes = listOf(code), json = json)
+        else -> SyncError.Other(this)
+    }
+}

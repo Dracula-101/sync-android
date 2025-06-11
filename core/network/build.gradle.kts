@@ -3,9 +3,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.hilt)
-    alias(libs.plugins.ksp)
 }
 
 android {
@@ -46,18 +43,10 @@ kotlin {
 dependencies {
     // Network
     implementation(platform(libs.square.retrofit.bom))
-    implementation(libs.square.retrofit)
-    implementation(libs.square.retrofit.kotlinx.serialization)
     implementation(libs.square.okhttp)
     implementation(libs.square.okhttp.logging)
-
-    // Serialization
-    implementation(libs.kotlinx.serialization.json)
-
-    // Hilt
-    implementation(libs.hilt.android)
-    implementation(libs.androidx.core.ktx)
-    ksp(libs.hilt.compiler)
+    implementation(libs.square.retrofit)
+    implementation(libs.square.retrofit.gson)
 
     // Logging
     implementation(libs.timber)

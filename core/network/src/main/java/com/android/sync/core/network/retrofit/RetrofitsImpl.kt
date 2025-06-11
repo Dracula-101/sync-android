@@ -1,15 +1,13 @@
 package com.android.sync.core.network.retrofit
 
-import com.android.sync.core.network.core.NetworkResultCallAdapterFactory
-import com.android.sync.core.network.interceptor.AuthTokenInterceptor
+import com.android.sync.core.network.core.NetworkResponseCallAdapterFactory
 import com.android.sync.core.network.interceptor.HeadersInterceptor
 import com.android.sync.core.network.util.HEADER_AUTHORIZATION
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
+import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 
 /**
@@ -17,7 +15,7 @@ import timber.log.Timber
  */
 internal class RetrofitsImpl(
     private val baseUrl: String,
-    private val json: Json,
+    private val gson: Gson,
     private val headersInterceptor: HeadersInterceptor,
     private val logHttpBody: Boolean = false,
 ) : Retrofits {
@@ -59,8 +57,8 @@ internal class RetrofitsImpl(
 
     private val baseRetrofitBuilder: Retrofit.Builder by lazy {
         Retrofit.Builder()
-            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
-            .addCallAdapterFactory(NetworkResultCallAdapterFactory())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(NetworkResponseCallAdapterFactory(gson))
             .client(baseOkHttpClient)
     }
 
