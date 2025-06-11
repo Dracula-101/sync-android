@@ -13,16 +13,20 @@ internal val darkSyncColorScheme: SyncColorScheme = SyncColorScheme(
         disabled = PrimitiveColors.slate600,
     ),
     background = SyncColorScheme.BackgroundColors(
-        primary = PrimitiveColors.slate950,
+        primary = PrimitiveColors.slate1000,
         secondary = PrimitiveColors.slate900,
         tertiary = PrimitiveColors.slate800,
         surface = PrimitiveColors.slate850,
-        error = PrimitiveColors.red950,
+
+        success = PrimitiveColors.green900,
+        warning = PrimitiveColors.yellow900,
+        info = PrimitiveColors.blue900,
+        error = PrimitiveColors.red900,
     ),
     stroke = SyncColorScheme.StrokeColors(
-        primary = PrimitiveColors.slate700,
+        primary = PrimitiveColors.primary500,
         secondary = PrimitiveColors.slate600,
-        tertiary = PrimitiveColors.primary500,
+        tertiary = PrimitiveColors.slate500,
         error = PrimitiveColors.red500,
     ),
     outlinedButton = SyncColorScheme.OutlinedButtonColors(
@@ -89,19 +93,23 @@ internal val darkSyncColorScheme: SyncColorScheme = SyncColorScheme(
 internal val lightSyncColorScheme: SyncColorScheme = SyncColorScheme(
     text = SyncColorScheme.TextColors(
         primary = PrimitiveColors.slate900,
-        secondary = PrimitiveColors.slate700,
+        secondary = PrimitiveColors.slate600,
         disabled = PrimitiveColors.slate500,
     ),
     background = SyncColorScheme.BackgroundColors(
         primary = PrimitiveColors.slate50,
-        secondary = PrimitiveColors.white,
+        secondary = PrimitiveColors.slate100,
         tertiary = PrimitiveColors.slate100,
         surface = PrimitiveColors.white,
-        error = PrimitiveColors.red50,
+
+        success = PrimitiveColors.green100,
+        warning = PrimitiveColors.yellow100,
+        info = PrimitiveColors.blue100,
+        error = PrimitiveColors.red100,
     ),
     stroke = SyncColorScheme.StrokeColors(
         primary = PrimitiveColors.slate200,
-        secondary = PrimitiveColors.slate300,
+        secondary = PrimitiveColors.slate400,
         tertiary = PrimitiveColors.primary500,
         error = PrimitiveColors.red500,
     ),
@@ -183,6 +191,10 @@ internal fun dynamicSyncColorScheme(
             secondary = materialColorScheme.surface,
             tertiary = materialColorScheme.surfaceContainer,
             surface = materialColorScheme.surface,
+
+            success = materialColorScheme.primary,
+            warning = materialColorScheme.primaryContainer,
+            info = materialColorScheme.primary,
             error = materialColorScheme.errorContainer,
         ),
         stroke = SyncColorScheme.StrokeColors(
@@ -278,8 +290,22 @@ private data object PrimitiveColors {
     val primary700: Color = Color(color = 0xFF4338CA)
     val primary800: Color = Color(color = 0xFF3730A3)
     val primary900: Color = Color(color = 0xFF312E81)
-    val primary950: Color = Color(color = 0xFF1E1B4B)
     val primary1000: Color = Color(color = 0xFF0F0C2A)
+
+    // Secondary color - Vibrant Orange/Coral (perfect for social media engagement)
+    val secondary: Color = Color(color = 0xFFFF6B35)
+
+    val secondary50: Color = Color(color = 0xFFFFF4F1)
+    val secondary100: Color = Color(color = 0xFFFFE4DD)
+    val secondary200: Color = Color(color = 0xFFFFCDBB)
+    val secondary300: Color = Color(color = 0xFFFFAD8A)
+    val secondary400: Color = Color(color = 0xFFFF8C5A)
+    val secondary500: Color = Color(color = 0xFFFF6B35) // Secondary color
+    val secondary600: Color = Color(color = 0xFFE85A2B)
+    val secondary700: Color = Color(color = 0xFFD14A21)
+    val secondary800: Color = Color(color = 0xFFBA3918)
+    val secondary900: Color = Color(color = 0xFFA3290F)
+    val secondary1000: Color = Color(color = 0xFF2A0A04)
 
     val white: Color = Color(color = 0xFFFFFFFF)
     val slate50: Color = Color(color = 0xFFF8FAFC)
@@ -293,29 +319,54 @@ private data object PrimitiveColors {
     val slate800: Color = Color(color = 0xFF1E293B)
     val slate850: Color = Color(color = 0xFF172032)
     val slate900: Color = Color(color = 0xFF0F172A)
-    val slate950: Color = Color(color = 0xFF020617)
+    val slate1000: Color = Color(color = 0xFF0A0F1A)
 
     // Status colors
     val green50: Color = Color(color = 0xFFF0FDF4)
     val green100: Color = Color(color = 0xFFDCFCE7)
+    val green200: Color = Color(color = 0xFFB4F7CE)
+    val green300: Color = Color(color = 0xFF8CF2B5)
     val green400: Color = Color(color = 0xFF4ADE80)
     val green500: Color = Color(color = 0xFF22C55E)
     val green600: Color = Color(color = 0xFF16A34A)
+    val green700: Color = Color(color = 0xFF117A3A)
+    val green800: Color = Color(color = 0xFF0C512B)
+    val green900: Color = Color(color = 0xFF072A1B)
+    val green1000: Color = Color(color = 0xFF064E3B)
 
     val yellow50: Color = Color(color = 0xFFFEFCE8)
     val yellow100: Color = Color(color = 0xFFFEF3C7)
+    val yellow200: Color = Color(color = 0xFFFEE39B)
+    val yellow300: Color = Color(color = 0xFFFED26F)
     val yellow400: Color = Color(color = 0xFFFBBF24)
     val yellow500: Color = Color(color = 0xFFF59E0B)
     val yellow600: Color = Color(color = 0xFFD97706)
+    val yellow700: Color = Color(color = 0xFFB26505)
+    val yellow800: Color = Color(color = 0xFF8B5304)
+    val yellow900: Color = Color(color = 0xFF644103)
+    val yellow1000: Color = Color(color = 0xFF3D2F02)
 
     val red50: Color = Color(color = 0xFFFEF2F2)
     val red100: Color = Color(color = 0xFFFECDD3)
+    val red200: Color = Color(color = 0xFFFE9DA7)
+    val red300: Color = Color(color = 0xFFFE6D7B)
     val red400: Color = Color(color = 0xFFF87171)
     val red500: Color = Color(color = 0xFFEF4444)
     val red600: Color = Color(color = 0xFFDC2626)
-    val red950: Color = Color(color = 0xFF450A0A)
+    val red700: Color = Color(color = 0xFFC42020)
+    val red800: Color = Color(color = 0xFFAB1A1A)
+    val red900: Color = Color(color = 0xFF921414)
+    val red1000: Color = Color(color = 0xFF2D0707)
 
+    val blue50: Color = Color(color = 0xFFEFF6FF)
+    val blue100: Color = Color(color = 0xFFDBEAFE)
+    val blue200: Color = Color(color = 0xFFB3D2FD)
+    val blue300: Color = Color(color = 0xFF8BB9FC)
     val blue400: Color = Color(color = 0xFF60A5FA)
     val blue500: Color = Color(color = 0xFF3B82F6)
     val blue600: Color = Color(color = 0xFF2563EB)
+    val blue700: Color = Color(color = 0xFF1E4FD4)
+    val blue800: Color = Color(color = 0xFF173CBD)
+    val blue900: Color = Color(color = 0xFF1129A6)
+    val blue1000: Color = Color(color = 0xFF0A1590)
 }

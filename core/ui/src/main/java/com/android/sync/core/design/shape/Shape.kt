@@ -5,7 +5,7 @@ import androidx.compose.ui.unit.dp
 
 internal val syncShapes: SyncShapes = SyncShapes(
     card = RoundedCornerShape(12.dp),
-    button = RoundedCornerShape(6.dp),
+    button = RoundedCornerShape(10.dp),
     input = RoundedCornerShape(8.dp),
     chip = RoundedCornerShape(24.dp),
     dialog = RoundedCornerShape(16.dp),

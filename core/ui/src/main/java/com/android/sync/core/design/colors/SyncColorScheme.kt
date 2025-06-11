@@ -32,6 +32,10 @@ data class SyncColorScheme(
         val secondary: Color,
         val tertiary: Color,
         val surface: Color,
+
+        val success: Color,
+        val warning: Color,
+        val info: Color,
         val error: Color,
     )
 
