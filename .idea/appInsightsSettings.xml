@@ -9,10 +9,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.application.sync" />
+                  <option name="mobileSdkAppId" value="1:170167977947:android:54521addc3c4168e5dc9fe" />
+                  <option name="projectId" value="sync-firebase-app" />
+                  <option name="projectNumber" value="170167977947" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

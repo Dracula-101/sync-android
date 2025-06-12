@@ -8,9 +8,9 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
-    //alias(libs.plugins.gms)
-    //alias(libs.plugins.firebase.crashlytics)
-    //alias(libs.plugins.firebase.perf)
+    alias(libs.plugins.gms)
+    alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.firebase.perf)
 }
 
 val secretPropertiesFile = rootProject.file("secrets.properties")
@@ -38,13 +38,14 @@ android {
         debug {
             isDebuggable = true
             isMinifyEnabled = false
-            applicationIdSuffix = ".debug"
 
             buildConfigField(
                 "String",
                 "BACKEND_URL",
                 "\"${secretProperties.getProperty("DEV_BACKEND_URL", "http://localhost:8080")}\""
             )
+
+            manifestPlaceholders["crashlytics_enabled"] = "false"
         }
 
         release {
@@ -60,6 +61,8 @@ android {
                 "BACKEND_URL",
                 "\"${secretProperties.getProperty("PROD_BACKEND_URL")}\""
             )
+
+            manifestPlaceholders["crashlytics_enabled"] = "true"
         }
     }
 
@@ -103,6 +106,9 @@ dependencies {
     implementation(libs.androidx.compose.material3.adaptive.layout)
     implementation(libs.androidx.compose.material3.adaptive.navigation)
     implementation(libs.androidx.compose.material3.windowSizeClass)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
     debugImplementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
@@ -116,10 +122,10 @@ dependencies {
     implementation(libs.androidx.work.ktx)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.coil.kt.compose)
-    //implementation(platform(libs.firebase.bom))
-    //implementation(libs.firebase.analytics)
-    //implementation(libs.firebase.crashlytics)
-    //implementation(libs.firebase.performance)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.performance)
     implementation(libs.hilt.android)
     implementation(libs.hilt.ext.work)
     implementation(libs.kotlin.stdlib)
