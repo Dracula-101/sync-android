@@ -5,7 +5,6 @@ import com.application.sync.core.network.model.NetworkResponse
 import com.application.sync.core.network.model.SyncError
 import com.application.sync.core.network.model.ValidationFieldError
 import com.application.sync.core.network.model.result.LoginResult
-import timber.log.Timber
 
 internal class AuthServiceImpl(
     private val authApi: AuthApi
@@ -15,20 +14,14 @@ internal class AuthServiceImpl(
         email: String,
         password: String
     ): LoginResult {
-        return when (val response = authApi.login(email, password)) {
-            is NetworkResponse.Success -> {
-                Timber.d("Login successful: ${response.data.user}")
-                LoginResult.Success(
-                    user = response.data.user,
-                    accessToken = response.data.accessToken,
-                    refreshToken = response.data.refreshToken
-                )
-            }
+        return when (val response = authApi.loginWithEmail(email, password)) {
+            is NetworkResponse.Success -> LoginResult.Success(
+                user = response.data.user,
+                accessToken = response.data.accessToken,
+                refreshToken = response.data.refreshToken
+            )
 
-            is NetworkResponse.Error -> {
-                Timber.e("Login failed: ${response.error}")
-                handleLoginError(response.error)
-            }
+            is NetworkResponse.Error -> handleLoginError(response.error)
         }
     }
 

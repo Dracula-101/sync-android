@@ -10,7 +10,7 @@ internal interface AuthApi {
 
     @FormUrlEncoded
     @POST("/api/v1/auth/login")
-    suspend fun login(
+    suspend fun loginWithEmail(
         @Field("email") email: String,
         @Field("password") password: String
     ): NetworkResponse<LoginResponse>
