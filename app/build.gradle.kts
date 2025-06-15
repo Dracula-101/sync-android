@@ -95,8 +95,9 @@ room {
 
 dependencies {
 
-    implementation(projects.core.ui)
     implementation(projects.core.network)
+    implementation(projects.ui.design)
+    implementation(projects.ui.components)
 
     implementation(libs.accompanist.permissions)
     implementation(libs.androidx.activity.compose)

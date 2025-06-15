@@ -12,7 +12,7 @@ androidxComposeBom = "2025.06.00"
 androidxComposeMaterial3Adaptive = "1.1.0"
 androidxCore = "1.16.0"
 androidxCoreSplashscreen = "1.0.1"
-androidxSecurityCrypto = "1.1.0-alpha06"
+androidxSecurityCrypto = "1.1.0-beta01"
 androidxDataStore = "1.1.7"
 androidxHiltNavigationCompose = "1.2.0"
 androidxLifecycle = "2.9.1"
@@ -20,7 +20,7 @@ androidxNavigation = "2.9.0"
 androidxWindowManager = "1.4.0"
 androidxWork = "2.10.1"
 coil = "2.7.0"
-firebaseBom = "33.14.0"
+firebaseBom = "33.15.0"
 firebaseCrashlyticsPlugin = "3.0.4"
 firebasePerfPlugin = "1.4.2"
 gmsPlugin = "4.4.2"
@@ -29,14 +29,19 @@ hiltExt = "1.2.0"
 kotlin = "2.1.0"
 kotlinxCoroutines = "1.10.1"
 kotlinxDatetime = "0.6.1"
-kotlinxSerializationJson = "1.8.0"
 ksp = "2.1.0-1.0.29"
 okhttp = "4.12.0"
 retrofit = "2.11.0"
 retrofitBom = "3.0.0"
 room = "2.7.1"
-material = "1.12.0"
 timber = "5.0.1"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+materialVersion = "1.12.0"
+lifecycleRuntimeKtx = "2.9.1"
+composeBom = "2025.06.00"
+material = "1.12.0"
 
 [libraries]
 #====================<ACCOMPANIST>============================
@@ -78,7 +83,6 @@ firebase-performance = { group = "com.google.firebase", name = "firebase-perf" }
 
 #====================<HILT>============================
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
-hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 hilt-ext-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "hiltExt" }
 hilt-ext-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hiltExt" }
@@ -104,6 +108,14 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 
 #====================<LOGGING>============================
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 #====================<ANDROID>============================

@@ -31,4 +31,6 @@ rootProject.name = "Sync"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
 include(":core:network")
-include(":core:ui")
+include(":ui-showcase")
+include(":ui:design")
+include(":ui:components")
