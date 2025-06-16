@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -46,6 +47,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
+import com.application.sync.ui.components.modifier.verticalColumnScrollbar
 import com.application.sync.ui.design.theme.SyncTheme
 import kotlin.math.max
 import kotlin.math.min
@@ -112,7 +114,7 @@ private fun DropdownMenuContent(
     ) { expanded ->
         if (expanded) 1f else 0f
     }
-
+    val scrollState = rememberScrollState()
     Surface(
         modifier = modifier
             .graphicsLayer {
@@ -135,7 +137,17 @@ private fun DropdownMenuContent(
         Column(
             modifier = Modifier
                 .width(IntrinsicSize.Max)
-                .verticalScroll(rememberScrollState()),
+                .heightIn(max = 450.dp)
+                .padding(end = 2.dp)
+                .verticalColumnScrollbar(
+                    scrollState = scrollState,
+                    width = 4.dp,
+                    showScrollBarTrack = true,
+                    scrollBarTrackColor = SyncTheme.colorScheme.background.surface,
+                    scrollBarColor = SyncTheme.colorScheme.stroke.secondary,
+                    scrollBarCornerRadius = 32f,
+                )
+                .verticalScroll(scrollState),
             content = content,
             horizontalAlignment = Alignment.Start
         )
@@ -160,7 +172,8 @@ fun DropdownMenuItem(
                 interactionSource = interactionSource,
             )
             .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 6.dp),
+            .padding(horizontal = 8.dp, vertical = 6.dp)
+            .padding(end = 2.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
