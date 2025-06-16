@@ -457,6 +457,7 @@ fun DropdownMenuShowcase() {
                 )
             }
             DropdownMenuSeparator()
+            DropdownMenuLabel("Manage")
             DropdownMenuGroup {
                 DropdownMenuItem(
                     text = { Text("Team") },

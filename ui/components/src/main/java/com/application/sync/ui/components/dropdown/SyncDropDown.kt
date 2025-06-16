@@ -173,7 +173,7 @@ fun DropdownMenuItem(
                 }
             ) {
                 Box(
-                    modifier = Modifier.size(18.dp),
+                    modifier = Modifier.size(20.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     leading()
@@ -188,7 +188,7 @@ fun DropdownMenuItem(
                 SyncTheme.colorScheme.text.disabled
             }
         ) {
-            ProvideTextStyle(SyncTheme.typography.bodyMedium) {
+            ProvideTextStyle(SyncTheme.typography.bodyLarge) {
                 Box(modifier = Modifier.weight(1f)) {
                     text()
                 }
@@ -213,7 +213,7 @@ fun DropdownMenuItem(
 fun DropdownMenuLabel(text: String) {
     Text(
         text = text,
-        style = SyncTheme.typography.titleMedium,
+        style = SyncTheme.typography.titleLarge,
         fontWeight = FontWeight.ExtraBold,
         modifier = Modifier
             .padding(horizontal = 8.dp)
@@ -236,7 +236,7 @@ fun DropdownMenuShortcut(
 ) {
     Text(
         text = text,
-        style = SyncTheme.typography.bodyMedium,
+        style = SyncTheme.typography.titleSmall,
         color = SyncTheme.colorScheme.text.secondary,
         modifier = modifier
     )
