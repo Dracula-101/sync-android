@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
+import com.application.sync.ui.components.util.IconResource
 import com.application.sync.ui.design.theme.SyncTheme
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
@@ -31,7 +32,7 @@ fun SyncIconButton(
         ),
         colors = IconButtonDefaults.iconButtonColors(
             contentColor = SyncTheme.colorScheme.icon.primary,
-            containerColor = SyncTheme.colorScheme.background.surface,
+            containerColor = SyncTheme.colorScheme.background.secondary,
             disabledContentColor = SyncTheme.colorScheme.text.disabled,
             disabledContainerColor = SyncTheme.colorScheme.background.secondary,
         ),

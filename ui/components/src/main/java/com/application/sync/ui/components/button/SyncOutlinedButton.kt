@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.application.sync.ui.components.util.IconResource
 import com.application.sync.ui.design.theme.SyncTheme
 
 @Composable

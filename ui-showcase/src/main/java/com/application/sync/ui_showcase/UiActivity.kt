@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -27,14 +28,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
+import com.application.sync.ui.components.badge.BadgeVariant
+import com.application.sync.ui.components.badge.SyncBadge
+import com.application.sync.ui.components.badge.SyncOutlineBadge
 import com.application.sync.ui.components.button.ButtonVariant
-import com.application.sync.ui.components.button.IconResource
 import com.application.sync.ui.components.button.SyncFilledButton
 import com.application.sync.ui.components.button.SyncIconButton
+import com.application.sync.ui.components.button.SyncLoadingButton
 import com.application.sync.ui.components.button.SyncOutlinedButton
 import com.application.sync.ui.components.button.SyncTextButton
 import com.application.sync.ui.components.divider.SyncDivider
 import com.application.sync.ui.components.spacing.SyncSpacer
+import com.application.sync.ui.components.util.IconResource
 import com.application.sync.ui.design.theme.SyncTheme
 
 class UiActivity : ComponentActivity() {
@@ -75,6 +80,8 @@ class UiActivity : ComponentActivity() {
                         TextShowcase()
                         SyncDivider()
                         ButtonShowcase()
+                        SyncDivider()
+                        BadgeShowcase()
                     }
                 }
             }
@@ -231,5 +238,56 @@ fun ButtonShowcase() {
             size = SyncTheme.spacing.large,
             icon = IconResource.Drawable(R.drawable.done_24),
         )
+    }
+    SyncSpacer()
+    val isLoading = remember { mutableStateOf(true) }
+    Text(
+        text = "Loading Buttons",
+        style = SyncTheme.typography.titleLarge,
+    )
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        SyncLoadingButton(isLoading = isLoading.value) {
+            Text(text = "Loading Button")
+        }
+        Button(
+            onClick = { isLoading.value = !isLoading.value },
+        ) {
+            Text(text = "Toggle")
+        }
+    }
+}
+
+@Composable
+fun BadgeShowcase() {
+    Text(
+        text = "Badges",
+        style = SyncTheme.typography.titleLarge,
+    )
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        BadgeVariant.entries.forEach { variant ->
+            SyncBadge(
+                // icon = IconResource.Drawable(R.drawable.done_24),
+                text = variant.name,
+                variant = variant,
+            )
+        }
+    }
+    Text(
+        text = "Outline Badges",
+        style = SyncTheme.typography.titleLarge,
+    )
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        BadgeVariant.entries.forEach { variant ->
+            SyncOutlineBadge(
+                text = variant.name,
+                variant = variant,
+            )
+        }
     }
 }

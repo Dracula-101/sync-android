@@ -21,27 +21,16 @@ fun SyncFilledButton(
     val colors = when (variant) {
         ButtonVariant.Default -> buttonTheme
         ButtonVariant.Secondary -> buttonTheme.copy(
-            background = SyncTheme.colorScheme.stroke.secondary.copy(
-                alpha = 0.7f
-            )
+            background = SyncTheme.colorScheme.stroke.secondary.copy(alpha = 0.7f)
         )
-
         ButtonVariant.Success -> buttonTheme.copy(
-            background = SyncTheme.colorScheme.status.success.copy(
-                alpha = 0.7f
-            )
+            background = SyncTheme.colorScheme.status.success.copy(alpha = 0.7f)
         )
-
         ButtonVariant.Warning -> buttonTheme.copy(
-            background = SyncTheme.colorScheme.status.warning.copy(
-                alpha = 0.7f
-            )
+            background = SyncTheme.colorScheme.status.warning.copy(alpha = 0.7f)
         )
-
         ButtonVariant.Error -> buttonTheme.copy(
-            background = SyncTheme.colorScheme.status.error.copy(
-                alpha = 0.7f
-            )
+            background = SyncTheme.colorScheme.status.error.copy(alpha = 0.7f)
         )
     }
     Button(

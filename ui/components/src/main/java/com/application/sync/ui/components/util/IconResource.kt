@@ -1,9 +1,8 @@
-package com.application.sync.ui.components.button
+package com.application.sync.ui.components.util
 
 import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
-
 
 sealed class IconResource {
     data class Vector(val imageVector: ImageVector) : IconResource()

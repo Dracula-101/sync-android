@@ -17,10 +17,10 @@ fun SyncTextButton(
         onClick = onClick,
         enabled = enabled,
         colors = ButtonDefaults.textButtonColors(
-            contentColor = SyncTheme.colorScheme.stroke.primary,
-            containerColor = SyncTheme.colorScheme.outlinedButton.background,
-            disabledContainerColor = SyncTheme.colorScheme.background.secondary,
-            disabledContentColor = SyncTheme.colorScheme.text.disabled,
+            contentColor = SyncTheme.colorScheme.text.primary,
+            containerColor = SyncTheme.colorScheme.background.secondary,
+            disabledContentColor = SyncTheme.colorScheme.outlinedButton.disabledContent,
+            disabledContainerColor = SyncTheme.colorScheme.outlinedButton.disabledBackground,
         ),
         shape = SyncTheme.shapes.button,
         contentPadding = PaddingValues(

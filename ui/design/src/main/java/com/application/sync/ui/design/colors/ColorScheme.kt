@@ -108,7 +108,7 @@ internal val lightSyncColorScheme: SyncColorScheme = SyncColorScheme(
         error = PrimitiveColors.red100,
     ),
     stroke = SyncColorScheme.StrokeColors(
-        primary = PrimitiveColors.slate200,
+        primary = PrimitiveColors.primary500,
         secondary = PrimitiveColors.slate400,
         tertiary = PrimitiveColors.primary500,
         error = PrimitiveColors.red500,
