@@ -16,13 +16,28 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Help
+import androidx.compose.material.icons.automirrored.filled.Logout
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Api
+import androidx.compose.material.icons.filled.Code
+import androidx.compose.material.icons.filled.CreditCard
+import androidx.compose.material.icons.filled.Group
+import androidx.compose.material.icons.filled.Keyboard
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -40,6 +55,12 @@ import com.application.sync.ui.components.button.SyncTextButton
 import com.application.sync.ui.components.checkbox.CheckboxSize
 import com.application.sync.ui.components.checkbox.SyncCheckbox
 import com.application.sync.ui.components.divider.SyncDivider
+import com.application.sync.ui.components.dropdown.DropdownMenuGroup
+import com.application.sync.ui.components.dropdown.DropdownMenuItem
+import com.application.sync.ui.components.dropdown.DropdownMenuLabel
+import com.application.sync.ui.components.dropdown.DropdownMenuSeparator
+import com.application.sync.ui.components.dropdown.DropdownMenuShortcut
+import com.application.sync.ui.components.dropdown.SyncDropdownMenu
 import com.application.sync.ui.components.progress.SyncCircularProgressIndicator
 import com.application.sync.ui.components.progress.SyncLinearProgressIndicator
 import com.application.sync.ui.components.spacing.SyncSpacer
@@ -93,6 +114,8 @@ class UiActivity : ComponentActivity() {
                         ProgressShowcase()
                         SyncDivider()
                         SwitchShowcase()
+                        SyncDivider()
+                        DropdownMenuShowcase()
                     }
                 }
             }
@@ -383,5 +406,94 @@ fun SwitchShowcase() {
             onCheckedChange = {},
             enabled = false,
         )
+    }
+}
+
+@Composable
+fun DropdownMenuShowcase() {
+    var expanded by remember { mutableStateOf(false) }
+
+    Box {
+        Button(
+            onClick = { expanded = true },
+            colors = ButtonDefaults.outlinedButtonColors(
+                containerColor = SyncTheme.colorScheme.outlinedButton.background,
+                contentColor = SyncTheme.colorScheme.outlinedButton.content
+            ),
+            shape = SyncTheme.shapes.button
+        ) {
+            Text("Open")
+        }
+
+        SyncDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+        ) {
+            DropdownMenuLabel("My Account")
+            DropdownMenuGroup {
+                DropdownMenuItem(
+                    text = { Text("Profile") },
+                    onClick = { expanded = false },
+                    leading = { Icon(Icons.Default.Person, contentDescription = null) },
+                    trailingIcon = { DropdownMenuShortcut("⇧⌘P") },
+                )
+                DropdownMenuItem(
+                    text = { Text("Billing") },
+                    onClick = { expanded = false },
+                    leading = { Icon(Icons.Default.CreditCard, contentDescription = null) },
+                    trailingIcon = { DropdownMenuShortcut("⌘B") },
+                )
+                DropdownMenuItem(
+                    text = { Text("Settings") },
+                    onClick = { expanded = false },
+                    leading = { Icon(Icons.Default.Settings, contentDescription = null) },
+                    trailingIcon = { DropdownMenuShortcut("⌘S") }
+                )
+                DropdownMenuItem(
+                    text = { Text("Keyboard shortcuts") },
+                    onClick = { expanded = false },
+                    leading = { Icon(Icons.Default.Keyboard, contentDescription = null) },
+                    trailingIcon = { DropdownMenuShortcut("⌘K") }
+                )
+            }
+            DropdownMenuSeparator()
+            DropdownMenuGroup {
+                DropdownMenuItem(
+                    text = { Text("Team") },
+                    onClick = { expanded = false },
+                    leading = { Icon(Icons.Default.Group, contentDescription = null) }
+                )
+                DropdownMenuItem(
+                    text = { Text("New Team") },
+                    onClick = { expanded = false },
+                    leading = { Icon(Icons.Default.Add, contentDescription = null) },
+                    trailingIcon = { DropdownMenuShortcut("⌘+T") }
+                )
+            }
+            DropdownMenuSeparator()
+            DropdownMenuItem(
+                text = { Text("GitHub") },
+                onClick = { expanded = false },
+                leading = { Icon(Icons.Default.Code, contentDescription = null) }
+            )
+            DropdownMenuItem(
+                text = { Text("Support") },
+                onClick = { expanded = false },
+                leading = { Icon(Icons.AutoMirrored.Filled.Help, contentDescription = null) }
+            )
+            DropdownMenuItem(
+                text = { Text("API") },
+                onClick = { },
+                enabled = false,
+                leading = { Icon(Icons.Default.Api, contentDescription = null) }
+            )
+            DropdownMenuSeparator()
+            DropdownMenuItem(
+                text = { Text("Log out") },
+                onClick = { expanded = false },
+                leading = { Icon(Icons.AutoMirrored.Filled.Logout, contentDescription = null) },
+                trailingIcon = { DropdownMenuShortcut("⇧⌘Q") }
+            )
+        }
     }
 }

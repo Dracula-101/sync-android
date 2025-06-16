@@ -9,6 +9,7 @@ internal val syncShapes: SyncShapes = SyncShapes(
     input = RoundedCornerShape(8.dp),
     chip = RoundedCornerShape(24.dp),
     dialog = RoundedCornerShape(16.dp),
+    dropdown = RoundedCornerShape(8.dp),
     snackbar = RoundedCornerShape(8.dp),
     fab = RoundedCornerShape(16.dp),
     progressIndicator = RoundedCornerShape(4.dp),

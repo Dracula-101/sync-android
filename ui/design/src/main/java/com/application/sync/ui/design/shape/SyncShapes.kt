@@ -8,6 +8,7 @@ data class SyncShapes(
     val input: CornerBasedShape,
     val chip: CornerBasedShape,
     val dialog: CornerBasedShape,
+    val dropdown: CornerBasedShape,
     val snackbar: CornerBasedShape,
     val fab: CornerBasedShape,
     val progressIndicator: CornerBasedShape,
