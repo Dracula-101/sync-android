@@ -21,6 +21,7 @@ data class SyncSpacing(
 
     // Margin variations
     val marginTiny: Dp,
+    val marginExtraSmall: Dp,
     val marginSmall: Dp,
     val marginMedium: Dp,
     val marginLarge: Dp,

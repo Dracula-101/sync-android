@@ -18,7 +18,8 @@ internal val syncSpacing = SyncSpacing(
     paddingExtraLarge = 32.dp,
 
     // Margin variations
-    marginTiny = 4.dp,
+    marginTiny = 2.dp,
+    marginExtraSmall = 4.dp,
     marginSmall = 8.dp,
     marginMedium = 16.dp,
     marginLarge = 24.dp,

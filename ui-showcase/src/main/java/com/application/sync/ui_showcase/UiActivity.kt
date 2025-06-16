@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
@@ -26,12 +27,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
-import com.application.sync.ui.components.button.OutlinedButtonVariant
+import com.application.sync.ui.components.button.ButtonVariant
+import com.application.sync.ui.components.button.IconResource
 import com.application.sync.ui.components.button.SyncFilledButton
+import com.application.sync.ui.components.button.SyncIconButton
 import com.application.sync.ui.components.button.SyncOutlinedButton
+import com.application.sync.ui.components.button.SyncTextButton
 import com.application.sync.ui.components.divider.SyncDivider
 import com.application.sync.ui.components.spacing.SyncSpacer
-import com.application.sync.ui.components.spacing.SyncSpacerSize
 import com.application.sync.ui.design.theme.SyncTheme
 
 class UiActivity : ComponentActivity() {
@@ -152,20 +155,26 @@ fun ButtonShowcase() {
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        SyncOutlinedButton {
-            Text(text = "Primary")
+        ButtonVariant.entries.forEach { variant ->
+            SyncOutlinedButton(variant = variant) {
+                Text(text = variant.name)
+            }
         }
-        SyncOutlinedButton(variant = OutlinedButtonVariant.Secondary) {
-            Text(text = "Secondary")
+        Box(modifier = Modifier.fillMaxWidth())
+        ButtonVariant.entries.forEach { variant ->
+            SyncOutlinedButton(variant = variant, enabled = false) {
+                Text(text = variant.name)
+            }
         }
-        SyncOutlinedButton(variant = OutlinedButtonVariant.Success) {
-            Text(text = "Success")
-        }
-        SyncOutlinedButton(variant = OutlinedButtonVariant.Warning) {
-            Text(text = "Warning")
-        }
-        SyncOutlinedButton(variant = OutlinedButtonVariant.Error) {
-            Text(text = "Error")
+        Box(modifier = Modifier.fillMaxWidth())
+        ButtonVariant.entries.forEach { variant ->
+            SyncOutlinedButton(
+                onClick = {},
+                variant = variant,
+                icon = IconResource.Drawable(R.drawable.done_24),
+            ) {
+                Text(text = variant.name)
+            }
         }
     }
     SyncSpacer()
@@ -176,9 +185,51 @@ fun ButtonShowcase() {
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        SyncFilledButton {
-            Text(text = "Primary")
+        ButtonVariant.entries.forEach { variant ->
+            SyncFilledButton(variant = variant) {
+                Text(text = variant.name)
+            }
         }
-        SyncSpacer(size = SyncSpacerSize.ExtraSmall)
+        Box(modifier = Modifier.fillMaxWidth())
+        ButtonVariant.entries.forEach { variant ->
+            SyncFilledButton(variant = variant, enabled = false) {
+                Text(text = variant.name)
+            }
+        }
+    }
+    SyncSpacer()
+    Text(
+        text = "Text Buttons",
+        style = SyncTheme.typography.titleLarge,
+    )
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        SyncTextButton(onClick = {}) {
+            Text(text = "Default")
+        }
+        SyncTextButton(onClick = {}, enabled = false) {
+            Text(text = "Default")
+        }
+    }
+    SyncSpacer()
+    Text(
+        text = "Icon Buttons",
+        style = SyncTheme.typography.titleLarge,
+    )
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        SyncIconButton(
+            onClick = {},
+            size = SyncTheme.spacing.large,
+            icon = IconResource.Drawable(R.drawable.done_24),
+        )
+        SyncIconButton(
+            onClick = {},
+            enabled = false,
+            size = SyncTheme.spacing.large,
+            icon = IconResource.Drawable(R.drawable.done_24),
+        )
     }
 }
