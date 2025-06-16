@@ -43,6 +43,7 @@ import com.application.sync.ui.components.divider.SyncDivider
 import com.application.sync.ui.components.progress.SyncCircularProgressIndicator
 import com.application.sync.ui.components.progress.SyncLinearProgressIndicator
 import com.application.sync.ui.components.spacing.SyncSpacer
+import com.application.sync.ui.components.switch.SyncSwitch
 import com.application.sync.ui.components.util.IconResource
 import com.application.sync.ui.design.theme.SyncTheme
 
@@ -90,6 +91,8 @@ class UiActivity : ComponentActivity() {
                         CheckboxShowcase()
                         SyncDivider()
                         ProgressShowcase()
+                        SyncDivider()
+                        SwitchShowcase()
                     }
                 }
             }
@@ -341,6 +344,44 @@ fun ProgressShowcase() {
     SyncSpacer()
     SyncLinearProgressIndicator()
     SyncSpacer()
-    SyncCircularProgressIndicator()
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+        SyncCircularProgressIndicator()
+        (10..100 step 10).forEach { progress ->
+            SyncCircularProgressIndicator(
+                progress = { progress / 100f },
+            )
+        }
+    }
     SyncSpacer()
+}
+
+@Composable
+fun SwitchShowcase() {
+    Text(
+        text = "Switches",
+        style = SyncTheme.typography.titleLarge,
+    )
+    SyncSpacer()
+    val isChecked = remember { mutableStateOf(false) }
+    Row {
+        SyncSwitch(
+            checked = { isChecked.value },
+            onCheckedChange = { isChecked.value = it },
+        )
+        SyncSpacer()
+        SyncSwitch(
+            checked = { false },
+            onCheckedChange = {},
+            enabled = false,
+        )
+        SyncSpacer()
+        SyncSwitch(
+            checked = { true },
+            onCheckedChange = {},
+            enabled = false,
+        )
+    }
 }
