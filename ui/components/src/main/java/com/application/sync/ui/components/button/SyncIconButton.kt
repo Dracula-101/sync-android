@@ -33,8 +33,8 @@ fun SyncIconButton(
         colors = IconButtonDefaults.iconButtonColors(
             contentColor = SyncTheme.colorScheme.icon.primary,
             containerColor = SyncTheme.colorScheme.background.secondary,
-            disabledContentColor = SyncTheme.colorScheme.text.disabled,
-            disabledContainerColor = SyncTheme.colorScheme.background.secondary,
+            disabledContentColor = SyncTheme.colorScheme.outlinedButton.disabledContent,
+            disabledContainerColor = SyncTheme.colorScheme.outlinedButton.disabledBackground,
         ),
         content = {
             when (icon) {

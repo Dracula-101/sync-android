@@ -37,7 +37,11 @@ import com.application.sync.ui.components.button.SyncIconButton
 import com.application.sync.ui.components.button.SyncLoadingButton
 import com.application.sync.ui.components.button.SyncOutlinedButton
 import com.application.sync.ui.components.button.SyncTextButton
+import com.application.sync.ui.components.checkbox.CheckboxSize
+import com.application.sync.ui.components.checkbox.SyncCheckbox
 import com.application.sync.ui.components.divider.SyncDivider
+import com.application.sync.ui.components.progress.SyncCircularProgressIndicator
+import com.application.sync.ui.components.progress.SyncLinearProgressIndicator
 import com.application.sync.ui.components.spacing.SyncSpacer
 import com.application.sync.ui.components.util.IconResource
 import com.application.sync.ui.design.theme.SyncTheme
@@ -82,6 +86,10 @@ class UiActivity : ComponentActivity() {
                         ButtonShowcase()
                         SyncDivider()
                         BadgeShowcase()
+                        SyncDivider()
+                        CheckboxShowcase()
+                        SyncDivider()
+                        ProgressShowcase()
                     }
                 }
             }
@@ -290,4 +298,49 @@ fun BadgeShowcase() {
             )
         }
     }
+}
+
+@Composable
+fun CheckboxShowcase() {
+    Text(
+        text = "Checkboxes",
+        style = SyncTheme.typography.titleLarge,
+    )
+    Column {
+        CheckboxSize.entries.forEach { size ->
+            Row {
+                val checkedState = remember { mutableStateOf(false) }
+                SyncCheckbox(
+                    checked = { checkedState.value },
+                    onCheckedChange = { checkedState.value = it },
+                    size = size,
+                )
+                SyncCheckbox(
+                    checked = { true },
+                    onCheckedChange = {},
+                    enabled = false,
+                    size = size,
+                )
+                SyncCheckbox(
+                    checked = { false },
+                    onCheckedChange = {},
+                    enabled = false,
+                    size = size,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun ProgressShowcase() {
+    Text(
+        text = "Indicators",
+        style = SyncTheme.typography.titleLarge,
+    )
+    SyncSpacer()
+    SyncLinearProgressIndicator()
+    SyncSpacer()
+    SyncCircularProgressIndicator()
+    SyncSpacer()
 }
