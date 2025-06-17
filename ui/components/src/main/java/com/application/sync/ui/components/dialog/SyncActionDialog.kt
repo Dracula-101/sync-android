@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,6 +18,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -150,6 +152,103 @@ fun SyncActionDialog(
                                     text = primaryActionText,
                                     style = SyncTheme.typography.bodyLarge,
                                 )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SyncActionDialog(
+    onDismissRequest: () -> Unit,
+    title: (() -> Composable),
+    content: (() -> Composable),
+    actions: @Composable RowScope.() -> Unit,
+    actionsAlignment: Alignment.Horizontal = Alignment.End,
+    modifier: Modifier = Modifier
+) {
+    BasicAlertDialog(
+        onDismissRequest = onDismissRequest,
+        properties = DialogProperties(
+            dismissOnBackPress = true,
+            dismissOnClickOutside = true,
+            usePlatformDefaultWidth = false
+        )
+    ) {
+        Box(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                shape = SyncTheme.shapes.dialog,
+                colors = CardDefaults.cardColors(
+                    containerColor = SyncTheme.colorScheme.dialog.background
+                ),
+                border = BorderStroke(
+                    width = 2.dp,
+                    color = SyncTheme.colorScheme.background.tertiary.copy(alpha = 0.5f)
+                ),
+                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+            ) {
+                Box {
+                    IconButton(
+                        onClick = onDismissRequest,
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .padding(12.dp),
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_close_24),
+                            contentDescription = "Close dialog",
+                            modifier = Modifier
+                                .height(18.dp)
+                                .width(18.dp),
+                            colorFilter = ColorFilter.tint(SyncTheme.colorScheme.text.primary),
+                        )
+                    }
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 24.dp)
+                            .padding(top = 24.dp, bottom = 20.dp),
+                    ) {
+                        ProvideTextStyle(
+                            value = SyncTheme.typography.headlineMedium.copy(
+                                color = SyncTheme.colorScheme.dialog.title,
+                            ),
+                            content = { title() },
+                        )
+                        SyncSpacer(size = SyncSpacerSize.Small)
+                        ProvideTextStyle(
+                            value = SyncTheme.typography.bodyLarge.copy(
+                                color = SyncTheme.colorScheme.dialog.content.copy(alpha = 0.8f),
+                            ),
+                            content = { content() },
+                        )
+                        SyncSpacer(size = SyncSpacerSize.Large)
+                        ProvideTextStyle(
+                            value = SyncTheme.typography.bodyLarge.copy(
+                                color = SyncTheme.colorScheme.text.primary
+                            )
+                        ) {
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(
+                                    12.dp,
+                                    actionsAlignment
+                                ),
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                actions()
                             }
                         }
                     }
