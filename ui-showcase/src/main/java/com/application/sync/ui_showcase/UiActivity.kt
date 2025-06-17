@@ -55,6 +55,7 @@ import com.application.sync.ui.components.checkbox.CheckboxSize
 import com.application.sync.ui.components.checkbox.SyncCheckbox
 import com.application.sync.ui.components.dialog.SyncActionDialog
 import com.application.sync.ui.components.dialog.SyncCompactActionDialog
+import com.application.sync.ui.components.dialog.SyncIconActionDialog
 import com.application.sync.ui.components.divider.SyncDivider
 import com.application.sync.ui.components.dropdown.DropdownMenuGroup
 import com.application.sync.ui.components.dropdown.DropdownMenuItem
@@ -560,6 +561,35 @@ fun ShowCompactDialogShowcase(
 }
 
 @Composable
+fun ShowIconActionDialogShowcase(
+    button: String,
+    title: String,
+    content: String,
+    icon: IconResource? = null,
+    primaryAction: String? = null,
+    secondaryAction: String? = null
+) {
+    var showDialog by remember { mutableStateOf(false) }
+    SyncFilledButton(
+        onClick = { showDialog = true },
+    ) {
+        Text(button)
+    }
+    if (showDialog) {
+        SyncIconActionDialog(
+            onDismissRequest = { showDialog = false },
+            title = title,
+            message = content,
+            icon = icon,
+            positiveButtonText = primaryAction,
+            negativeButtonText = secondaryAction,
+            onPositiveButtonClick = {},
+            onNegativeButtonClick = {}
+        )
+    }
+}
+
+@Composable
 fun DialogShowcase() {
     Text(
         text = "Dialogs",
@@ -630,6 +660,43 @@ fun DialogShowcase() {
             button = "Single Action Dialog",
             title = "Network Error",
             content = "Unable to connect to the server. Please check your internet connection and try again.",
+            primaryAction = "Retry"
+        )
+    }
+    SyncSpacer()
+    Text(
+        text = "Icon Action Dialogs",
+        style = SyncTheme.typography.bodyLarge,
+    )
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        ShowIconActionDialogShowcase(
+            button = "Delete Item",
+            title = "Delete Item",
+            content = "Are you sure you want to delete this item? This action cannot be undone.",
+            icon = IconResource.Drawable(R.drawable.delete_24),
+            primaryAction = "Delete",
+            secondaryAction = "Cancel",
+        )
+        ShowIconActionDialogShowcase(
+            button = "Success Dialog",
+            title = "Success!",
+            content = "Your changes have been saved successfully.",
+            icon = IconResource.Drawable(R.drawable.done_24),
+            primaryAction = "OK"
+        )
+        ShowIconActionDialogShowcase(
+            button = "Confirm Save",
+            title = "Save Changes?",
+            content = "You have unsaved changes. Would you like to save them before continuing?",
+            icon = IconResource.Drawable(R.drawable.save_24),
+            primaryAction = "Save",
+            secondaryAction = "Discard"
+        )
+        ShowIconActionDialogShowcase(
+            button = "Single Action Dialog",
+            title = "Network Error",
+            content = "Unable to connect to the server. Please check your internet connection and try again.",
+            icon = IconResource.Drawable(R.drawable.error_24),
             primaryAction = "Retry"
         )
     }

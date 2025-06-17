@@ -1,20 +1,18 @@
 package com.application.sync.ui.components.button
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.application.sync.ui.components.util.IconResource
+import com.application.sync.ui.components.util.toComposable
 import com.application.sync.ui.design.theme.SyncTheme
 
 @Composable
@@ -86,30 +84,7 @@ fun SyncOutlinedButton(
                     else Modifier
                 )
             ) {
-                when (icon) {
-                    is IconResource.Vector -> {
-                        Icon(
-                            imageVector = icon.imageVector,
-                            contentDescription = null,
-                        )
-                    }
-
-                    is IconResource.Drawable -> {
-                        Icon(
-                            painter = painterResource(icon.resId),
-                            contentDescription = null,
-                        )
-                    }
-
-                    is IconResource.IconPainter -> {
-                        Image(
-                            painter = icon.painter,
-                            contentDescription = null,
-                        )
-                    }
-
-                    null -> {}
-                }
+                icon?.toComposable()
             }
             ProvideTextStyle(
                 value = SyncTheme.typography.bodyLarge,

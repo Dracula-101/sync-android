@@ -1,16 +1,14 @@
 package com.application.sync.ui.components.button
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import com.application.sync.ui.components.util.IconResource
+import com.application.sync.ui.components.util.toComposable
 import com.application.sync.ui.design.theme.SyncTheme
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
@@ -37,31 +35,9 @@ fun SyncIconButton(
             disabledContainerColor = SyncTheme.colorScheme.outlinedButton.disabledBackground,
         ),
         content = {
-            when (icon) {
-                is IconResource.Vector -> {
-                    Icon(
-                        imageVector = icon.imageVector,
-                        contentDescription = null,
-                        modifier = Modifier.size(size)
-                    )
-                }
-
-                is IconResource.Drawable -> {
-                    Icon(
-                        painter = painterResource(icon.resId),
-                        contentDescription = null,
-                        modifier = Modifier.size(size)
-                    )
-                }
-
-                is IconResource.IconPainter -> {
-                    Image(
-                        painter = icon.painter,
-                        contentDescription = null,
-                        modifier = Modifier.size(size)
-                    )
-                }
-            }
+            icon.toComposable(
+                modifier = Modifier.size(size)
+            )
         }
     )
 }
