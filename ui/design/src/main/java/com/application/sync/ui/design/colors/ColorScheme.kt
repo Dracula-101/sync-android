@@ -51,6 +51,14 @@ internal val darkSyncColorScheme: SyncColorScheme = SyncColorScheme(
         disabledBackground = PrimitiveColors.slate700,
         disabledContent = PrimitiveColors.slate500,
     ),
+    switch = SyncColorScheme.SwitchColors(
+        track = PrimitiveColors.slate800,
+        thumb = PrimitiveColors.slate500,
+        thumbPressed = PrimitiveColors.slate800,
+        trackPressed = PrimitiveColors.primary500,
+        disabledTrack = PrimitiveColors.slate900,
+        disabledThumb = PrimitiveColors.slate800,
+    ),
     chip = SyncColorScheme.ChipColors(
         background = PrimitiveColors.slate800,
         content = PrimitiveColors.slate200,
@@ -134,6 +142,14 @@ internal val lightSyncColorScheme: SyncColorScheme = SyncColorScheme(
         unselectedContent = PrimitiveColors.slate700,
         disabledBackground = PrimitiveColors.slate200,
         disabledContent = PrimitiveColors.slate400,
+    ),
+    switch = SyncColorScheme.SwitchColors(
+        track = PrimitiveColors.slate300,
+        thumb = PrimitiveColors.slate400,
+        thumbPressed = PrimitiveColors.slate200,
+        trackPressed = PrimitiveColors.primary500,
+        disabledTrack = PrimitiveColors.slate300,
+        disabledThumb = PrimitiveColors.slate400,
     ),
     chip = SyncColorScheme.ChipColors(
         background = PrimitiveColors.slate100,
@@ -230,6 +246,14 @@ internal fun dynamicSyncColorScheme(
             content = materialColorScheme.onSurface,
             disabledBackground = materialColorScheme.onSurface.copy(alpha = 0.12f),
             disabledContent = materialColorScheme.onSurface.copy(alpha = 0.38f),
+        ),
+        switch = SyncColorScheme.SwitchColors(
+            track = materialColorScheme.onSurface.copy(alpha = 0.38f),
+            thumb = materialColorScheme.primary,
+            thumbPressed = materialColorScheme.primaryContainer,
+            trackPressed = materialColorScheme.primary.copy(alpha = 0.12f),
+            disabledTrack = materialColorScheme.onSurface.copy(alpha = 0.12f),
+            disabledThumb = materialColorScheme.onSurface.copy(alpha = 0.38f),
         ),
         input = SyncColorScheme.InputColors(
             background = materialColorScheme.surface,

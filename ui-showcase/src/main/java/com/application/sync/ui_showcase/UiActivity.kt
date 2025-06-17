@@ -28,7 +28,6 @@ import androidx.compose.material.icons.filled.Keyboard
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
@@ -54,6 +53,8 @@ import com.application.sync.ui.components.button.SyncOutlinedButton
 import com.application.sync.ui.components.button.SyncTextButton
 import com.application.sync.ui.components.checkbox.CheckboxSize
 import com.application.sync.ui.components.checkbox.SyncCheckbox
+import com.application.sync.ui.components.dialog.SyncActionDialog
+import com.application.sync.ui.components.dialog.SyncCompactActionDialog
 import com.application.sync.ui.components.divider.SyncDivider
 import com.application.sync.ui.components.dropdown.DropdownMenuGroup
 import com.application.sync.ui.components.dropdown.DropdownMenuItem
@@ -116,6 +117,8 @@ class UiActivity : ComponentActivity() {
                         SwitchShowcase()
                         SyncDivider()
                         DropdownMenuShowcase()
+                        SyncDivider()
+                        DialogShowcase()
                     }
                 }
             }
@@ -412,17 +415,16 @@ fun SwitchShowcase() {
 @Composable
 fun DropdownMenuShowcase() {
     var expanded by remember { mutableStateOf(false) }
-
+    Text(
+        text = "Dropdown Menu",
+        style = SyncTheme.typography.titleLarge,
+    )
+    SyncSpacer()
     Box {
-        Button(
+        SyncOutlinedButton(
             onClick = { expanded = true },
-            colors = ButtonDefaults.outlinedButtonColors(
-                containerColor = SyncTheme.colorScheme.outlinedButton.background,
-                contentColor = SyncTheme.colorScheme.outlinedButton.content
-            ),
-            shape = SyncTheme.shapes.button
         ) {
-            Text("Open")
+            Text(text = "Open Menu")
         }
 
         SyncDropdownMenu(
@@ -496,5 +498,139 @@ fun DropdownMenuShowcase() {
                 trailingIcon = { DropdownMenuShortcut("⇧⌘Q") }
             )
         }
+    }
+}
+
+@Composable
+fun ShowDialogShowcase(
+    button: String,
+    title: String,
+    content: String,
+    primaryAction: String,
+    secondaryAction: String? = null,
+    isDestructive: Boolean = false
+) {
+    var showDialog by remember { mutableStateOf(false) }
+    SyncFilledButton(
+        onClick = { showDialog = true },
+    ) {
+        Text(button)
+    }
+    if (showDialog) {
+        SyncActionDialog(
+            onDismissRequest = { showDialog = false },
+            title = title,
+            content = content,
+            primaryActionText = primaryAction,
+            onPrimaryAction = {},
+            secondaryActionText = secondaryAction,
+            onSecondaryAction = {},
+            destructive = isDestructive
+        )
+    }
+}
+
+@Composable
+fun ShowCompactDialogShowcase(
+    button: String,
+    title: String,
+    content: String,
+    primaryAction: String,
+    secondaryAction: String? = null,
+    isDestructive: Boolean = false
+) {
+    var showDialog by remember { mutableStateOf(false) }
+    SyncFilledButton(
+        onClick = { showDialog = true },
+    ) {
+        Text(button)
+    }
+    if (showDialog) {
+        SyncCompactActionDialog(
+            onDismissRequest = { showDialog = false },
+            title = title,
+            content = content,
+            primaryActionText = primaryAction,
+            onPrimaryAction = {},
+            secondaryActionText = secondaryAction,
+            onSecondaryAction = {},
+            destructive = isDestructive
+        )
+    }
+}
+
+@Composable
+fun DialogShowcase() {
+    Text(
+        text = "Dialogs",
+        style = SyncTheme.typography.titleLarge,
+    )
+    SyncSpacer()
+    Text(
+        text = "Action Dialogs",
+        style = SyncTheme.typography.bodyLarge,
+    )
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        ShowDialogShowcase(
+            button = "Delete Item",
+            title = "Delete Item",
+            content = "Are you sure you want to delete this item? This action cannot be undone.",
+            primaryAction = "Delete",
+            secondaryAction = "Cancel",
+            isDestructive = true
+        )
+        ShowDialogShowcase(
+            button = "Success Dialog",
+            title = "Success!",
+            content = "Your changes have been saved successfully.",
+            primaryAction = "OK"
+        )
+        ShowDialogShowcase(
+            button = "Confirm Save",
+            title = "Save Changes?",
+            content = "You have unsaved changes. Would you like to save them before continuing?",
+            primaryAction = "Save",
+            secondaryAction = "Discard"
+        )
+        ShowDialogShowcase(
+            button = "Single Action Dialog",
+            title = "Network Error",
+            content = "Unable to connect to the server. Please check your internet connection and try again.",
+            primaryAction = "Retry"
+        )
+    }
+    SyncSpacer()
+    Text(
+        text = "Compact Action Dialogs",
+        style = SyncTheme.typography.bodyLarge,
+    )
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        ShowCompactDialogShowcase(
+            button = "Delete",
+            title = "Delete Item",
+            content = "Are you sure you want to delete this item? This action cannot be undone.",
+            primaryAction = "Delete",
+            secondaryAction = "Cancel",
+            isDestructive = true
+        )
+        ShowCompactDialogShowcase(
+            button = "Success Dialog",
+            title = "Success!",
+            content = "Your changes have been saved successfully.",
+            primaryAction = "OK"
+        )
+        ShowCompactDialogShowcase(
+            button = "Confirm Save",
+            title = "Save Changes?",
+            content = "You have unsaved changes. Would you like to save them before continuing?",
+            primaryAction = "Save",
+            secondaryAction = "Discard"
+        )
+        ShowCompactDialogShowcase(
+            button = "Single Action Dialog",
+            title = "Network Error",
+            content = "Unable to connect to the server. Please check your internet connection and try again.",
+            primaryAction = "Retry"
+        )
     }
 }

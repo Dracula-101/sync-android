@@ -58,15 +58,17 @@ fun SyncSwitch(
     )
 
     val trackColor = when {
-        !enabled && isChecked -> SyncTheme.colorScheme.stroke.secondary.copy(alpha = 0.5f)
-        !enabled -> SyncTheme.colorScheme.background.tertiary
-        isChecked -> SyncTheme.colorScheme.stroke.primary
-        else -> SyncTheme.colorScheme.input.background
+        !enabled && isChecked -> SyncTheme.colorScheme.switch.disabledTrack
+        !enabled -> SyncTheme.colorScheme.switch.disabledTrack
+        isChecked -> SyncTheme.colorScheme.switch.trackPressed
+        else -> SyncTheme.colorScheme.switch.track
     }
 
     val thumbColor = when {
-        !enabled -> SyncTheme.colorScheme.text.disabled
-        else -> SyncTheme.colorScheme.background.secondary
+        !enabled && isChecked -> SyncTheme.colorScheme.switch.disabledThumb
+        !enabled -> SyncTheme.colorScheme.switch.disabledThumb
+        isChecked -> SyncTheme.colorScheme.switch.thumbPressed
+        else -> SyncTheme.colorScheme.switch.thumb
     }
 
     Box(

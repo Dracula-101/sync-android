@@ -14,6 +14,7 @@ data class SyncColorScheme(
     val chip: ChipColors,
     val input: InputColors,
     val icon: IconColors,
+    val switch: SwitchColors,
     val snackbar: SnackbarColors,
     val dialog: DialogColors,
     val status: StatusColors,
@@ -73,6 +74,16 @@ data class SyncColorScheme(
         val unselectedContent: Color,
         val disabledBackground: Color,
         val disabledContent: Color,
+    )
+
+    @Immutable
+    data class SwitchColors(
+        val track: Color,
+        val thumb: Color,
+        val thumbPressed: Color,
+        val trackPressed: Color,
+        val disabledTrack: Color,
+        val disabledThumb: Color,
     )
 
     @Immutable
