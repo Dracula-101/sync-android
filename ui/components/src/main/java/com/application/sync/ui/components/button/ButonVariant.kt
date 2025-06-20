@@ -17,11 +17,6 @@ enum class ButtonVariant {
     Success,
 
     /*
-    Represents a button variant that indicates a warning or caution.
-     */
-    Warning,
-
-    /*
     Represents a button variant that indicates an error or destructive action.
      */
     Error

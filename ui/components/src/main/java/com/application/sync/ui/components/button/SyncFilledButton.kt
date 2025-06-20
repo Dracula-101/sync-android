@@ -2,10 +2,11 @@ package com.application.sync.ui.components.button
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.application.sync.ui.design.colors.SyncColorScheme
 import com.application.sync.ui.design.theme.SyncTheme
 
 
@@ -17,36 +18,16 @@ fun SyncFilledButton(
     variant: ButtonVariant = ButtonVariant.Default,
     content: @Composable () -> Unit = {},
 ) {
-    val buttonTheme = SyncTheme.colorScheme.filledButton
-    val colors = when (variant) {
-        ButtonVariant.Default -> buttonTheme
-        ButtonVariant.Secondary -> buttonTheme.copy(
-            background = SyncTheme.colorScheme.stroke.secondary.copy(alpha = 0.7f)
-        )
-        ButtonVariant.Success -> buttonTheme.copy(
-            background = SyncTheme.colorScheme.status.success.copy(alpha = 0.7f)
-        )
-        ButtonVariant.Warning -> buttonTheme.copy(
-            background = SyncTheme.colorScheme.status.warning.copy(alpha = 0.7f)
-        )
-        ButtonVariant.Error -> buttonTheme.copy(
-            background = SyncTheme.colorScheme.status.error.copy(alpha = 0.7f)
-        )
-    }
+    val colors = SyncTheme.colorScheme.filledButtonColors(variant)
     Button(
         onClick = onClick,
         enabled = enabled,
         modifier = modifier,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = colors.background,
-            disabledContainerColor = colors.disabledBackground,
-            contentColor = colors.content,
-            disabledContentColor = colors.disabledContent,
-        ),
+        colors = colors,
         shape = SyncTheme.shapes.button,
         contentPadding = PaddingValues(
-            horizontal = SyncTheme.spacing.medium,
-            vertical = SyncTheme.spacing.small,
+            horizontal = SyncTheme.spacing.padding.medium,
+            vertical = SyncTheme.spacing.padding.small,
         ),
         interactionSource = null,
         content = {
@@ -56,4 +37,41 @@ fun SyncFilledButton(
             )
         }
     )
+}
+
+
+@Composable
+fun SyncColorScheme.filledButtonColors(
+    variant: ButtonVariant = ButtonVariant.Default,
+    disabledAlpha: Float = 0.5f,
+): ButtonColors {
+    return when (variant) {
+        ButtonVariant.Default -> ButtonColors(
+            contentColor = primary.onColor,
+            disabledContentColor = primary.onColor.copy(alpha = disabledAlpha),
+            containerColor = primary.color,
+            disabledContainerColor = primary.color.copy(alpha = disabledAlpha),
+        )
+
+        ButtonVariant.Secondary -> ButtonColors(
+            containerColor = primary.containerColor,
+            disabledContainerColor = primary.containerColor.copy(alpha = disabledAlpha),
+            contentColor = primary.onContainerColor,
+            disabledContentColor = primary.onContainerColor.copy(alpha = disabledAlpha),
+        )
+
+        ButtonVariant.Success -> ButtonColors(
+            containerColor = success.color,
+            disabledContainerColor = success.color.copy(alpha = disabledAlpha),
+            contentColor = success.onColor,
+            disabledContentColor = success.onColor.copy(alpha = disabledAlpha),
+        )
+
+        ButtonVariant.Error -> ButtonColors(
+            containerColor = error.color,
+            disabledContainerColor = error.color.copy(alpha = disabledAlpha),
+            contentColor = error.onColor,
+            disabledContentColor = error.onColor.copy(alpha = disabledAlpha),
+        )
+    }
 }

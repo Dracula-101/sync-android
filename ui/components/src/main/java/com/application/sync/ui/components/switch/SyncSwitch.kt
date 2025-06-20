@@ -16,9 +16,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.application.sync.ui.design.colors.SyncColorScheme
 import com.application.sync.ui.design.theme.SyncTheme
 
 /**
@@ -47,35 +49,21 @@ fun SyncSwitch(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     val isChecked = checked()
-
     val trackRadius = height / 2
     val thumbTravel = width - thumbSize - (thumbPadding * 2)
-
     val thumbOffset by animateFloatAsState(
         targetValue = if (isChecked) (thumbPadding + thumbTravel).value else thumbPadding.value,
         animationSpec = tween(durationMillis = 150),
         label = "thumb_position"
     )
+    val colors = SyncTheme.colorScheme.switchColors(enabled)
 
-    val trackColor = when {
-        !enabled && isChecked -> SyncTheme.colorScheme.switch.disabledTrack
-        !enabled -> SyncTheme.colorScheme.switch.disabledTrack
-        isChecked -> SyncTheme.colorScheme.switch.trackPressed
-        else -> SyncTheme.colorScheme.switch.track
-    }
-
-    val thumbColor = when {
-        !enabled && isChecked -> SyncTheme.colorScheme.switch.disabledThumb
-        !enabled -> SyncTheme.colorScheme.switch.disabledThumb
-        isChecked -> SyncTheme.colorScheme.switch.thumbPressed
-        else -> SyncTheme.colorScheme.switch.thumb
-    }
 
     Box(
         modifier = modifier
             .size(width = width, height = height)
             .clip(RoundedCornerShape(trackRadius))
-            .background(trackColor),
+            .background(if (enabled) colors.trackColor else colors.disabledTrackColor),
         contentAlignment = Alignment.CenterStart
     ) {
         Box(
@@ -90,7 +78,26 @@ fun SyncSwitch(
                 )
                 .size(thumbSize)
                 .clip(CircleShape)
-                .background(thumbColor)
+                .background(if (enabled) colors.thumbColor else colors.disabledThumbColor)
         )
     }
+}
+
+data class SwitchColors(
+    val trackColor: Color,
+    val thumbColor: Color,
+    val disabledTrackColor: Color,
+    val disabledThumbColor: Color
+)
+
+@Composable
+fun SyncColorScheme.switchColors(
+    enabled: Boolean = true
+): SwitchColors {
+    return SwitchColors(
+        trackColor = if (enabled) primary.containerColor else primary.containerColor.copy(alpha = 0.5f),
+        thumbColor = if (enabled) primary.onContainerColor else primary.onContainerColor.copy(alpha = 0.5f),
+        disabledTrackColor = primary.containerColor.copy(alpha = 0.5f),
+        disabledThumbColor = primary.onContainerColor.copy(alpha = 0.5f)
+    )
 }

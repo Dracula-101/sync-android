@@ -29,7 +29,7 @@ import com.application.sync.ui.design.theme.SyncTheme
 @Composable
 fun SyncCircularProgressIndicator(
     modifier: Modifier = Modifier,
-    color: Color = SyncTheme.colorScheme.stroke.primary,
+    color: Color = SyncTheme.colorScheme.primary.color,
 ) {
     val infiniteTransition = rememberInfiniteTransition(label = "progress_rotation")
 
@@ -45,10 +45,10 @@ fun SyncCircularProgressIndicator(
         ),
         label = "rotation"
     )
-    val strokeWidth = SyncTheme.spacing.dividerMedium
+    val strokeWidth = SyncTheme.dimen.border.medium
 
     Canvas(
-        modifier = modifier.size(SyncTheme.spacing.heightTiny)
+        modifier = modifier.size(SyncTheme.dimen.height.large)
     ) {
         drawCircularProgressIndicator(
             color = color,
@@ -72,9 +72,9 @@ fun SyncCircularProgressIndicator(
 fun SyncCircularProgressIndicator(
     progress: () -> Float,
     modifier: Modifier = Modifier,
-    color: Color = SyncTheme.colorScheme.stroke.primary,
-    strokeWidth: Dp = SyncTheme.spacing.dividerMedium,
-    size: Dp = SyncTheme.spacing.heightTiny,
+    color: Color = SyncTheme.colorScheme.primary.color,
+    strokeWidth: Dp = SyncTheme.dimen.border.large,
+    size: Dp = SyncTheme.dimen.height.large,
 ) {
     val animatedProgress by animateFloatAsState(
         targetValue = progress().coerceIn(0f, 1f),

@@ -128,10 +128,10 @@ private fun DropdownMenuContent(
                 shape = SyncTheme.shapes.dropdown
             ),
         shape = SyncTheme.shapes.dropdown,
-        color = SyncTheme.colorScheme.background.surface,
+        color = SyncTheme.colorScheme.surfaceVariant.color,
         border = BorderStroke(
-            width = 2.dp,
-            color = SyncTheme.colorScheme.background.tertiary
+            width = SyncTheme.dimen.border.medium,
+            color = SyncTheme.colorScheme.secondary.color.copy(alpha = 0.2f)
         )
     ) {
         Column(
@@ -143,8 +143,8 @@ private fun DropdownMenuContent(
                     scrollState = scrollState,
                     width = 4.dp,
                     showScrollBarTrack = true,
-                    scrollBarTrackColor = SyncTheme.colorScheme.background.surface,
-                    scrollBarColor = SyncTheme.colorScheme.stroke.secondary,
+                    scrollBarTrackColor = SyncTheme.colorScheme.surface.color,
+                    scrollBarColor = SyncTheme.colorScheme.primary.color,
                     scrollBarCornerRadius = 32f,
                 )
                 .verticalScroll(scrollState),
@@ -179,11 +179,9 @@ fun DropdownMenuItem(
     ) {
         if (leading != null) {
             CompositionLocalProvider(
-                LocalContentColor provides if (enabled) {
-                    SyncTheme.colorScheme.icon.primary
-                } else {
-                    SyncTheme.colorScheme.icon.disabled
-                }
+                LocalContentColor provides SyncTheme.colorScheme.primary.onContainerColor.copy(
+                    alpha = if (enabled) 1f else 0.5f
+                )
             ) {
                 Box(
                     modifier = Modifier.size(20.dp),
@@ -195,11 +193,9 @@ fun DropdownMenuItem(
         }
 
         CompositionLocalProvider(
-            LocalContentColor provides if (enabled) {
-                SyncTheme.colorScheme.text.primary
-            } else {
-                SyncTheme.colorScheme.text.disabled
-            }
+            LocalContentColor provides SyncTheme.colorScheme.primary.onContainerColor.copy(
+                alpha = if (enabled) 1f else 0.5f
+            )
         ) {
             ProvideTextStyle(SyncTheme.typography.bodyLarge) {
                 Box(modifier = Modifier.weight(1f)) {
@@ -210,11 +206,9 @@ fun DropdownMenuItem(
 
         if (trailingIcon != null) {
             CompositionLocalProvider(
-                LocalContentColor provides if (enabled) {
-                    SyncTheme.colorScheme.icon.secondary
-                } else {
-                    SyncTheme.colorScheme.icon.disabled
-                }
+                LocalContentColor provides SyncTheme.colorScheme.primary.onContainerColor.copy(
+                    alpha = if (enabled) 1f else 0.5f
+                )
             ) {
                 trailingIcon()
             }
@@ -237,7 +231,6 @@ fun DropdownMenuLabel(text: String) {
 @Composable
 fun DropdownMenuSeparator() {
     HorizontalDivider(
-        color = SyncTheme.colorScheme.background.tertiary,
         thickness = 2.dp
     )
 }
@@ -250,7 +243,7 @@ fun DropdownMenuShortcut(
     Text(
         text = text,
         style = SyncTheme.typography.titleSmall,
-        color = SyncTheme.colorScheme.text.secondary,
+        color = SyncTheme.colorScheme.primary.color,
         modifier = modifier
     )
 }

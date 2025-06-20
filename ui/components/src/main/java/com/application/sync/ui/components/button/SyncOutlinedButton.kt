@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.runtime.Composable
@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.application.sync.ui.components.util.IconResource
 import com.application.sync.ui.components.util.toComposable
+import com.application.sync.ui.design.colors.SyncColorScheme
 import com.application.sync.ui.design.theme.SyncTheme
 
 @Composable
@@ -24,62 +25,26 @@ fun SyncOutlinedButton(
     icon: IconResource? = null,
     content: @Composable () -> Unit = {},
 ) {
-    val buttonTheme = SyncTheme.colorScheme.outlinedButton
-    val colors = when (variant) {
-        ButtonVariant.Default -> buttonTheme
-        ButtonVariant.Secondary -> buttonTheme.copy(
-            border = SyncTheme.colorScheme.stroke.secondary,
-            background = SyncTheme.colorScheme.background.secondary,
-            content = SyncTheme.colorScheme.text.secondary,
-        )
-
-        ButtonVariant.Success -> buttonTheme.copy(
-            border = SyncTheme.colorScheme.status.success,
-            background = SyncTheme.colorScheme.background.success,
-            content = SyncTheme.colorScheme.status.success,
-        )
-
-        ButtonVariant.Warning -> buttonTheme.copy(
-            border = SyncTheme.colorScheme.status.warning,
-            background = SyncTheme.colorScheme.background.warning,
-            content = SyncTheme.colorScheme.status.warning,
-        )
-
-        ButtonVariant.Error -> buttonTheme.copy(
-            border = SyncTheme.colorScheme.status.error,
-            background = SyncTheme.colorScheme.background.error,
-            content = SyncTheme.colorScheme.status.error,
-        )
-    }
-    val borderColor = if (enabled) {
-        colors.border.copy(alpha = 0.25f)
-    } else {
-        colors.disabledBorder
-    }
+    val colors = SyncTheme.colorScheme.outlinedButtonColors(variant)
     OutlinedButton(
         onClick = onClick,
         enabled = enabled,
         modifier = modifier,
-        colors = ButtonDefaults.outlinedButtonColors(
-            containerColor = colors.background.copy(0.5f),
-            disabledContainerColor = colors.disabledBackground,
-            contentColor = colors.content,
-            disabledContentColor = colors.disabledContent,
-        ),
+        colors = colors,
         shape = SyncTheme.shapes.button,
         border = BorderStroke(
-            width = 1.75.dp,
-            color = borderColor,
+            width = SyncTheme.dimen.border.medium,
+            color = colors.containerColor.copy(alpha = if (enabled) 1f else 0.5f),
         ),
         contentPadding = PaddingValues(
-            horizontal = SyncTheme.spacing.medium,
-            vertical = SyncTheme.spacing.small,
+            horizontal = SyncTheme.spacing.padding.medium,
+            vertical = SyncTheme.spacing.padding.small,
         ),
         content = {
             Box(
                 modifier = Modifier.then(
                     if (icon != null) Modifier
-                        .padding(end = SyncTheme.spacing.gapTiny)
+                        .padding(end = SyncTheme.spacing.gap.tiny)
                         .size(SyncTheme.typography.bodyLarge.fontSize.value.dp * 1.25f)
                     else Modifier
                 )
@@ -94,3 +59,39 @@ fun SyncOutlinedButton(
     )
 }
 
+@Composable
+fun SyncColorScheme.outlinedButtonColors(
+    variant: ButtonVariant = ButtonVariant.Default,
+    disabledAlpha: Float = 0.5f,
+): ButtonColors {
+    val color = when (variant) {
+        ButtonVariant.Default -> ButtonColors(
+            containerColor = primary.color,
+            disabledContainerColor = primary.color,
+            contentColor = primary.color,
+            disabledContentColor = primary.color,
+        )
+
+        ButtonVariant.Secondary -> ButtonColors(
+            containerColor = secondary.containerColor,
+            disabledContainerColor = secondary.containerColor,
+            contentColor = secondary.onContainerColor,
+            disabledContentColor = secondary.onContainerColor,
+        )
+
+        ButtonVariant.Success -> ButtonColors(
+            containerColor = success.color,
+            disabledContainerColor = success.color,
+            contentColor = success.onColor,
+            disabledContentColor = success.onColor,
+        )
+
+        ButtonVariant.Error -> ButtonColors(
+            containerColor = error.color,
+            disabledContainerColor = error.color,
+            contentColor = error.onColor,
+            disabledContentColor = error.onColor,
+        )
+    }
+    return color
+}

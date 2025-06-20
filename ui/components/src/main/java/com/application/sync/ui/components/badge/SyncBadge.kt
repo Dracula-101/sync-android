@@ -27,29 +27,28 @@ fun SyncBadge(
     icon: IconResource? = null,
 ) {
     val backgroundColor = when (variant) {
-        BadgeVariant.Default -> SyncTheme.colorScheme.stroke.primary
-        BadgeVariant.Secondary -> SyncTheme.colorScheme.stroke.secondary
-        BadgeVariant.Success -> SyncTheme.colorScheme.status.success
-        BadgeVariant.Warning -> SyncTheme.colorScheme.status.warning
-        BadgeVariant.Error -> SyncTheme.colorScheme.status.error
+        BadgeVariant.Default -> SyncTheme.colorScheme.primary.color
+        BadgeVariant.Secondary -> SyncTheme.colorScheme.secondary.color
+        BadgeVariant.Success -> SyncTheme.colorScheme.success.color
+        BadgeVariant.Error -> SyncTheme.colorScheme.error.color
     }
     Box(
         modifier = modifier
-            .padding(vertical = SyncTheme.spacing.extraSmall)
+            .padding(vertical = SyncTheme.spacing.padding.small)
             .clip(RoundedCornerShape(12.dp))
             .background(color = backgroundColor.copy(alpha = 0.7f))
             .padding(
-                horizontal = SyncTheme.spacing.small,
-                vertical = SyncTheme.spacing.extraSmall,
+                horizontal = SyncTheme.spacing.padding.medium,
+                vertical = SyncTheme.spacing.padding.tiny,
             ),
     ) {
         ProvideTextStyle(SyncTheme.typography.labelMedium) {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(SyncTheme.spacing.gapTiny),
+                horizontalArrangement = Arrangement.spacedBy(SyncTheme.spacing.padding.tiny),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .then(
-                        if (icon != null) Modifier.padding(end = SyncTheme.spacing.extraSmall)
+                        if (icon != null) Modifier.padding(end = SyncTheme.spacing.padding.tiny)
                         else Modifier
                     )
             ) {

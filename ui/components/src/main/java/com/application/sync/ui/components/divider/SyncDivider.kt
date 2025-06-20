@@ -15,11 +15,10 @@ import com.application.sync.ui.design.theme.SyncTheme
 fun SyncDivider(
     modifier: Modifier = Modifier,
     thickness: Dp = 1.dp,
-    spacing: Dp = SyncTheme.spacing.small,
-    color: Color = SyncTheme.colorScheme.stroke.secondary,
+    spacing: Dp = SyncTheme.spacing.padding.small,
+    color: Color = SyncTheme.colorScheme.surfaceVariant.color,
     orientation: SyncDividerOrientation = SyncDividerOrientation.Horizontal,
 ) {
-    val alphaColor = color.copy(alpha = 0.5f)
     when (orientation) {
         SyncDividerOrientation.Horizontal -> {
             HorizontalDivider(
@@ -27,7 +26,7 @@ fun SyncDivider(
                     .padding(vertical = spacing)
                     .clip(SyncTheme.shapes.progressIndicator),
                 thickness = thickness,
-                color = alphaColor
+                color = color
             )
         }
 
@@ -37,7 +36,7 @@ fun SyncDivider(
                     .padding(horizontal = spacing)
                     .clip(SyncTheme.shapes.progressIndicator),
                 thickness = thickness,
-                color = alphaColor
+                color = color
             )
         }
     }

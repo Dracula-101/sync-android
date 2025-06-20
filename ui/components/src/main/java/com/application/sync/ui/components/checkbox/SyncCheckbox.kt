@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.PathMeasure
@@ -25,6 +26,7 @@ import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.application.sync.ui.design.colors.SyncColorScheme
 import com.application.sync.ui.design.theme.SyncTheme
 
 
@@ -37,7 +39,7 @@ fun SyncCheckbox(
     modifier: Modifier = Modifier,
 ) {
     val isChecked = checked()
-    val colorScheme = SyncTheme.colorScheme
+    val checkboxColors = SyncTheme.colorScheme.checkboxColors()
 
     val (checkboxSize, clickTargetSize, cornerRadius, strokeWidth, checkmarkSize) = when (size) {
         CheckboxSize.Small -> CheckboxDimensions(16.dp, 44.dp, 3.dp, 1.5.dp, 10.dp)
@@ -53,24 +55,6 @@ fun SyncCheckbox(
         ),
         label = "checkboxAnimation"
     )
-
-    val backgroundColor = when {
-        !enabled -> colorScheme.background.secondary
-        isChecked -> colorScheme.stroke.primary
-        else -> colorScheme.input.background
-    }
-
-    val borderColor = when {
-        !enabled -> colorScheme.stroke.secondary.copy(alpha = 0.5f)
-        isChecked -> colorScheme.stroke.primary
-        else -> colorScheme.stroke.secondary
-    }
-
-    val checkColor = if (enabled) {
-        colorScheme.filledButton.content
-    } else {
-        colorScheme.text.disabled
-    }
 
     Box(
         modifier = modifier
@@ -88,10 +72,12 @@ fun SyncCheckbox(
             modifier = Modifier
                 .size(checkboxSize)
                 .clip(RoundedCornerShape(cornerRadius))
-                .background(backgroundColor)
+                .background(
+                    color = if (enabled) checkboxColors.backgroundColor else checkboxColors.disabledBackgroundColor
+                )
                 .border(
                     width = strokeWidth,
-                    color = borderColor,
+                    color = if (enabled) checkboxColors.borderColor else checkboxColors.disabledBorderColor,
                     shape = RoundedCornerShape(cornerRadius)
                 ),
             contentAlignment = Alignment.Center
@@ -108,7 +94,7 @@ fun SyncCheckbox(
 
                     drawPath(
                         path = path,
-                        color = checkColor,
+                        color = if (enabled) checkboxColors.checkColor else checkboxColors.disabledCheckColor,
                         style = Stroke(
                             width = strokeWidth.toPx(),
                             cap = StrokeCap.Round,
@@ -142,3 +128,26 @@ private val Path.length: Float
         pathMeasure.setPath(this, false)
         return pathMeasure.length
     }
+
+data class CheckboxColors(
+    val backgroundColor: Color,
+    val borderColor: Color,
+    val checkColor: Color,
+    val disabledBackgroundColor: Color,
+    val disabledBorderColor: Color,
+    val disabledCheckColor: Color
+)
+
+@Composable
+fun SyncColorScheme.checkboxColors(
+    disabledAlpha: Float = 0.5f,
+): CheckboxColors {
+    return CheckboxColors(
+        backgroundColor = primary.containerColor,
+        borderColor = primary.onContainerColor,
+        checkColor = primary.onContainerColor,
+        disabledBackgroundColor = primary.containerColor.copy(alpha = disabledAlpha),
+        disabledBorderColor = primary.onContainerColor.copy(alpha = disabledAlpha),
+        disabledCheckColor = primary.onContainerColor.copy(alpha = disabledAlpha)
+    )
+}

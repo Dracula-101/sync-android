@@ -25,11 +25,11 @@ fun SyncLoadingButton(
         content = {
             if (isLoading) {
                 CircularProgressIndicator(
-                    modifier = Modifier.size(SyncTheme.spacing.radiusExtraLarge),
+                    modifier = Modifier.size(SyncTheme.dimen.height.tiny),
                     strokeWidth = 2.dp,
-                    color = SyncTheme.colorScheme.outlinedButton.disabledContent,
+                    color = SyncTheme.colorScheme.primary.onContainerColor.copy(alpha = 0.7f),
                 )
-                Spacer(Modifier.size(SyncTheme.spacing.gapSmall))
+                Spacer(Modifier.size(SyncTheme.spacing.padding.small))
             }
             content()
         },

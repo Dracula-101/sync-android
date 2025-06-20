@@ -4,6 +4,5 @@ enum class BadgeVariant {
     Default,
     Secondary,
     Success,
-    Warning,
     Error;
 }

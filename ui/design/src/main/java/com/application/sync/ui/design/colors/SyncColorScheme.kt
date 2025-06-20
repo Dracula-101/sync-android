@@ -5,130 +5,59 @@ import androidx.compose.ui.graphics.Color
 
 @Immutable
 data class SyncColorScheme(
-    val text: TextColors,
-    val background: BackgroundColors,
-    val stroke: StrokeColors,
-    val outlinedButton: OutlinedButtonColors,
-    val filledButton: FilledButtonColors,
-    val toggleButton: ToggleButtonColors,
-    val chip: ChipColors,
-    val input: InputColors,
-    val icon: IconColors,
-    val switch: SwitchColors,
-    val snackbar: SnackbarColors,
-    val dialog: DialogColors,
-    val status: StatusColors,
-) {
+    val primary: MainColors,
+    val secondary: MainColors,
+    val tertiary: MainColors,
+    val error: MainColors,
+    val success: SimpleColors,
+    val surface: SimpleColors,
+    val background: SimpleColors,
+    val surfaceVariant: SimpleColors,
+    val inverse: InverseColors,
+    val outline: SingleColor,
+    val outlineVariant: SingleColor,
+    val shadow: SingleColor,
+    val scrim: SingleColor,
+    val surfaceTint: SingleColor,
+)
 
-    @Immutable
-    data class TextColors(
-        val primary: Color,
-        val secondary: Color,
-        val disabled: Color,
-    )
+@Immutable
+data class MainColors(
+    val color: Color,
+    val onColor: Color,
+    val containerColor: Color,
+    val onContainerColor: Color,
+)
 
-    @Immutable
-    data class BackgroundColors(
-        val primary: Color,
-        val secondary: Color,
-        val tertiary: Color,
-        val surface: Color,
+@Immutable
+data class InverseColors(
+    val primary: Color,
+    val onPrimary: Color,
+    val surface: Color,
+    val onSurface: Color,
+)
 
-        val success: Color,
-        val warning: Color,
-        val info: Color,
-        val error: Color,
-    )
+@Immutable
+data class SimpleColors(
+    val color: Color,
+    val onColor: Color,
+)
 
-    @Immutable
-    data class StrokeColors(
-        val primary: Color,
-        val secondary: Color,
-        val tertiary: Color,
-        val error: Color,
-    )
+@Immutable
+data class SingleColor(
+    val color: Color,
+)
 
-    @Immutable
-    data class OutlinedButtonColors(
-        val border: Color,
-        val disabledBorder: Color,
-        val background: Color,
-        val disabledBackground: Color,
-        val content: Color,
-        val disabledContent: Color,
-    )
-
-    @Immutable
-    data class FilledButtonColors(
-        val background: Color,
-        val disabledBackground: Color,
-        val content: Color,
-        val disabledContent: Color,
-    )
-
-    @Immutable
-    data class ToggleButtonColors(
-        val selectedBackground: Color,
-        val selectedContent: Color,
-        val unselectedBackground: Color,
-        val unselectedContent: Color,
-        val disabledBackground: Color,
-        val disabledContent: Color,
-    )
-
-    @Immutable
-    data class SwitchColors(
-        val track: Color,
-        val thumb: Color,
-        val thumbPressed: Color,
-        val trackPressed: Color,
-        val disabledTrack: Color,
-        val disabledThumb: Color,
-    )
-
-    @Immutable
-    data class ChipColors(
-        val background: Color,
-        val content: Color,
-        val disabledBackground: Color,
-        val disabledContent: Color,
-    )
-
-    @Immutable
-    data class InputColors(
-        val background: Color,
-        val content: Color,
-        val placeholder: Color,
-        val error: Color,
-    )
-
-    @Immutable
-    data class IconColors(
-        val primary: Color,
-        val secondary: Color,
-        val disabled: Color,
-    )
-
-    @Immutable
-    data class SnackbarColors(
-        val background: Color,
-        val content: Color,
-        val action: Color,
-        val actionDisabled: Color,
-    )
-
-    @Immutable
-    data class DialogColors(
-        val background: Color,
-        val content: Color,
-        val title: Color,
-    )
-
-    @Immutable
-    data class StatusColors(
-        val success: Color,
-        val warning: Color,
-        val error: Color,
-        val info: Color,
-    )
-}
+@Immutable
+data class Shades(
+    val color50: Color,
+    val color100: Color,
+    val color200: Color,
+    val color300: Color,
+    val color400: Color,
+    val color500: Color,
+    val color600: Color,
+    val color700: Color,
+    val color800: Color,
+    val color900: Color,
+)

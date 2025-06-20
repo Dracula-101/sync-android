@@ -40,6 +40,7 @@ fun SyncIconActionDialog(
     onNegativeButtonClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
+    val colors = SyncTheme.colorScheme.dialogColors()
     BasicAlertDialog(
         onDismissRequest = onDismissRequest,
         properties = androidx.compose.ui.window.DialogProperties(
@@ -59,12 +60,10 @@ fun SyncIconActionDialog(
                     .fillMaxWidth()
                     .wrapContentHeight(),
                 shape = SyncTheme.shapes.dialog,
-                colors = CardDefaults.cardColors(
-                    containerColor = SyncTheme.colorScheme.dialog.background
-                ),
+                colors = CardDefaults.cardColors(containerColor = colors.background),
                 border = BorderStroke(
-                    width = 2.dp,
-                    color = SyncTheme.colorScheme.background.tertiary.copy(alpha = 0.5f)
+                    width = SyncTheme.dimen.border.medium,
+                    color = colors.border
                 ),
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
             ) {
@@ -80,20 +79,20 @@ fun SyncIconActionDialog(
                         modifier = Modifier
                             .size(80.dp)
                             .align(Alignment.CenterHorizontally),
-                        color = SyncTheme.colorScheme.icon.primary
+                        color = colors.title
                     )
                     Text(
                         text = title,
                         style = SyncTheme.typography.headlineMedium,
                         modifier = Modifier
                             .padding(horizontal = 8.dp),
-                        color = SyncTheme.colorScheme.text.primary,
+                        color = colors.title
                     )
                     SyncSpacer(size = SyncSpacerSize.Small)
                     Text(
                         text = message,
                         style = SyncTheme.typography.titleMedium,
-                        color = SyncTheme.colorScheme.text.secondary,
+                        color = colors.content,
                         modifier = Modifier
                             .padding(horizontal = 8.dp),
                         textAlign = TextAlign.Center

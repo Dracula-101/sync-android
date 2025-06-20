@@ -48,6 +48,7 @@ fun SyncCompactActionDialog(
     destructive: Boolean = false,
     modifier: Modifier = Modifier
 ) {
+    val colors = SyncTheme.colorScheme.dialogColors()
     BasicAlertDialog(
         onDismissRequest = onDismissRequest,
         properties = DialogProperties(
@@ -68,11 +69,11 @@ fun SyncCompactActionDialog(
                     .wrapContentHeight(),
                 shape = SyncTheme.shapes.dialog,
                 colors = CardDefaults.cardColors(
-                    containerColor = SyncTheme.colorScheme.dialog.background
+                    containerColor = colors.background
                 ),
                 border = BorderStroke(
-                    width = 2.dp,
-                    color = SyncTheme.colorScheme.background.tertiary.copy(alpha = 0.5f)
+                    width = SyncTheme.dimen.border.medium,
+                    color = colors.border
                 ),
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
             ) {
@@ -88,7 +89,7 @@ fun SyncCompactActionDialog(
                             modifier = Modifier
                                 .width(18.dp)
                                 .height(18.dp),
-                            colorFilter = ColorFilter.tint(SyncTheme.colorScheme.text.primary),
+                            colorFilter = ColorFilter.tint(colors.title),
                         )
                     }
                     Column(
@@ -100,7 +101,7 @@ fun SyncCompactActionDialog(
                         Text(
                             text = title,
                             style = SyncTheme.typography.headlineMedium,
-                            color = SyncTheme.colorScheme.dialog.title,
+                            color = colors.title,
                             textAlign = TextAlign.Start,
                             modifier = Modifier.fillMaxWidth()
                         )
@@ -108,7 +109,7 @@ fun SyncCompactActionDialog(
                         Text(
                             text = content,
                             style = SyncTheme.typography.bodyLarge,
-                            color = SyncTheme.colorScheme.dialog.content.copy(alpha = 0.8f),
+                            color = colors.content,
                             textAlign = TextAlign.Start,
                             modifier = Modifier.fillMaxWidth()
                         )
@@ -177,6 +178,7 @@ fun SyncCompactActionDialog(
     actionsAlignment: Alignment.Horizontal = Alignment.End,
     modifier: Modifier = Modifier
 ) {
+    val colors = SyncTheme.colorScheme.dialogColors()
     BasicAlertDialog(
         onDismissRequest = onDismissRequest,
         properties = DialogProperties(
@@ -196,12 +198,10 @@ fun SyncCompactActionDialog(
                     .fillMaxWidth()
                     .wrapContentHeight(),
                 shape = SyncTheme.shapes.dialog,
-                colors = CardDefaults.cardColors(
-                    containerColor = SyncTheme.colorScheme.dialog.background
-                ),
+                colors = CardDefaults.cardColors(containerColor = colors.background),
                 border = BorderStroke(
-                    width = 2.dp,
-                    color = SyncTheme.colorScheme.background.tertiary.copy(alpha = 0.5f)
+                    width = SyncTheme.dimen.border.medium,
+                    color = colors.border
                 ),
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
             ) {
@@ -217,7 +217,7 @@ fun SyncCompactActionDialog(
                             modifier = Modifier
                                 .width(18.dp)
                                 .height(18.dp),
-                            colorFilter = ColorFilter.tint(SyncTheme.colorScheme.text.primary),
+                            colorFilter = ColorFilter.tint(colors.title),
                         )
                     }
                     Column(
@@ -227,16 +227,12 @@ fun SyncCompactActionDialog(
                             .padding(top = 12.dp, bottom = 8.dp),
                     ) {
                         ProvideTextStyle(
-                            value = SyncTheme.typography.headlineMedium.copy(
-                                color = SyncTheme.colorScheme.dialog.title
-                            ),
+                            value = SyncTheme.typography.headlineMedium.copy(color = colors.title),
                             content = { title() },
                         )
                         SyncSpacer(size = SyncSpacerSize.Small)
                         ProvideTextStyle(
-                            value = SyncTheme.typography.bodyLarge.copy(
-                                color = SyncTheme.colorScheme.dialog.content.copy(alpha = 0.8f)
-                            ),
+                            value = SyncTheme.typography.bodyLarge.copy(color = colors.content),
                             content = { content() },
                         )
                         SyncSpacer(size = SyncSpacerSize.Large)
