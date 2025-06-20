@@ -294,6 +294,27 @@ fun ButtonShowcase() {
         ) {
             Text(text = "Toggle")
         }
+        SyncLoadingButton(isLoading = isLoading.value, variant = ButtonVariant.Secondary) {
+            Text(text = "Loading Button")
+        }
+        SyncLoadingButton(
+            isLoading = isLoading.value,
+            variant = ButtonVariant.Success,
+        ) {
+            Text(text = "Loading Button")
+        }
+        SyncLoadingButton(
+            isLoading = isLoading.value,
+            variant = ButtonVariant.Warning,
+        ) {
+            Text(text = "Loading Button")
+        }
+        SyncLoadingButton(
+            isLoading = isLoading.value,
+            variant = ButtonVariant.Error,
+        ) {
+            Text(text = "Loading Button")
+        }
     }
 }
 

@@ -3,9 +3,11 @@ package com.application.sync.ui.components.util
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
@@ -19,14 +21,14 @@ sealed class IconResource {
 @Composable
 fun IconResource.toComposable(
     modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
+    color: Color? = null,
 ) {
     when (this) {
         is IconResource.Vector -> {
             Icon(
                 imageVector = imageVector,
                 contentDescription = null,
-                tint = color,
+                tint = color ?: LocalContentColor.current,
                 modifier = modifier
             )
         }
@@ -35,7 +37,7 @@ fun IconResource.toComposable(
             Icon(
                 painter = painterResource(resId),
                 contentDescription = null,
-                tint = color,
+                tint = color ?: LocalContentColor.current,
                 modifier = modifier
             )
         }
@@ -44,9 +46,7 @@ fun IconResource.toComposable(
             Image(
                 painter = painter,
                 contentDescription = null,
-                colorFilter = if (color != Color.Unspecified) {
-                    androidx.compose.ui.graphics.ColorFilter.tint(color)
-                } else null,
+                colorFilter = color?.let { ColorFilter.tint(it) },
                 modifier = modifier,
             )
         }

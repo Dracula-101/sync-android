@@ -103,7 +103,10 @@ fun SyncIconActionDialog(
                         modifier = Modifier
                             .padding(horizontal = 8.dp)
                             .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End),
+                        horizontalArrangement = Arrangement.spacedBy(
+                            8.dp,
+                            Alignment.CenterHorizontally
+                        ),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (negativeButtonText != null && onNegativeButtonClick != null) {
@@ -112,6 +115,7 @@ fun SyncIconActionDialog(
                                     onNegativeButtonClick()
                                     onDismissRequest()
                                 },
+                                modifier = Modifier.weight(1f),
                             ) {
                                 Text(
                                     text = negativeButtonText,
@@ -125,6 +129,7 @@ fun SyncIconActionDialog(
                                     onPositiveButtonClick()
                                     onDismissRequest()
                                 },
+                                modifier = Modifier.weight(1f),
                             ) {
                                 Text(
                                     text = positiveButtonText,

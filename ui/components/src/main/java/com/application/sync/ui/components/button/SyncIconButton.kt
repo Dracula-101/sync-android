@@ -36,7 +36,7 @@ fun SyncIconButton(
         ),
         content = {
             icon.toComposable(
-                modifier = Modifier.size(size)
+                modifier = Modifier.size(size),
             )
         }
     )

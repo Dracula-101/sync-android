@@ -14,12 +14,14 @@ fun SyncLoadingButton(
     isLoading: Boolean = true,
     enabled: Boolean = true,
     modifier: Modifier = Modifier,
+    variant: ButtonVariant = ButtonVariant.Default,
     content: @Composable () -> Unit = {},
 ) {
     SyncOutlinedButton(
         onClick = onClick,
         enabled = enabled && !isLoading,
         modifier = modifier,
+        variant = variant,
         content = {
             if (isLoading) {
                 CircularProgressIndicator(
