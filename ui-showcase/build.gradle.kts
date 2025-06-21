@@ -20,6 +20,11 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.valueOf("VERSION_${libs.versions.jvmTarget.get()}")
         targetCompatibility = JavaVersion.valueOf("VERSION_${libs.versions.jvmTarget.get()}")
@@ -43,6 +48,9 @@ kotlin {
 }
 
 dependencies {
+    lintChecks(projects.lint)
+    implementation(projects.lint)
+
     implementation(projects.ui.design)
     implementation(projects.ui.components)
 

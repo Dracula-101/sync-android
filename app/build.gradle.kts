@@ -34,6 +34,12 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
+        checkDependencies = true
+    }
+
     buildTypes {
         debug {
             isDebuggable = true
@@ -94,6 +100,9 @@ room {
 }
 
 dependencies {
+
+    lintChecks(projects.lint)
+    implementation(projects.lint)
 
     implementation(projects.core.network)
     implementation(projects.ui.design)
