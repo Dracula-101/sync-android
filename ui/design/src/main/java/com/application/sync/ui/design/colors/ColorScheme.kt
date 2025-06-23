@@ -52,8 +52,8 @@ internal val darkSyncColorScheme: SyncColorScheme = SyncColorScheme(
         disabledContent = PrimitiveColors.slate500,
     ),
     switch = SyncColorScheme.SwitchColors(
-        track = PrimitiveColors.slate800,
-        thumb = PrimitiveColors.slate500,
+        track = PrimitiveColors.slate700,
+        thumb = PrimitiveColors.slate800,
         thumbPressed = PrimitiveColors.slate800,
         trackPressed = PrimitiveColors.primary500,
         disabledTrack = PrimitiveColors.slate900,
@@ -144,12 +144,12 @@ internal val lightSyncColorScheme: SyncColorScheme = SyncColorScheme(
         disabledContent = PrimitiveColors.slate400,
     ),
     switch = SyncColorScheme.SwitchColors(
-        track = PrimitiveColors.slate300,
-        thumb = PrimitiveColors.slate400,
-        thumbPressed = PrimitiveColors.slate200,
+        track = PrimitiveColors.slate200,
+        thumb = PrimitiveColors.slate50,
+        thumbPressed = PrimitiveColors.slate50,
         trackPressed = PrimitiveColors.primary500,
-        disabledTrack = PrimitiveColors.slate300,
-        disabledThumb = PrimitiveColors.slate400,
+        disabledTrack = PrimitiveColors.slate200,
+        disabledThumb = PrimitiveColors.slate300,
     ),
     chip = SyncColorScheme.ChipColors(
         background = PrimitiveColors.slate100,

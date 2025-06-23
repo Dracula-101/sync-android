@@ -40,7 +40,7 @@ fun SyncSwitch(
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    width: Dp = 44.dp,
+    width: Dp = 42.dp,
     height: Dp = 24.dp,
     thumbSize: Dp = 20.dp,
     thumbPadding: Dp = 2.dp,
@@ -58,15 +58,23 @@ fun SyncSwitch(
     )
 
     val trackColor = when {
-        !enabled && isChecked -> SyncTheme.colorScheme.switch.disabledTrack
-        !enabled -> SyncTheme.colorScheme.switch.disabledTrack
+        !enabled -> {
+            when {
+                isChecked -> SyncTheme.colorScheme.switch.disabledTrack
+                else -> SyncTheme.colorScheme.switch.disabledThumb
+            }
+        }
         isChecked -> SyncTheme.colorScheme.switch.trackPressed
         else -> SyncTheme.colorScheme.switch.track
     }
 
     val thumbColor = when {
-        !enabled && isChecked -> SyncTheme.colorScheme.switch.disabledThumb
-        !enabled -> SyncTheme.colorScheme.switch.disabledThumb
+        !enabled -> {
+            when {
+                isChecked -> SyncTheme.colorScheme.switch.disabledThumb
+                else -> SyncTheme.colorScheme.switch.disabledTrack
+            }
+        }
         isChecked -> SyncTheme.colorScheme.switch.thumbPressed
         else -> SyncTheme.colorScheme.switch.thumb
     }
