@@ -17,7 +17,7 @@ fun SyncIconButton(
     onClick: () -> Unit = {},
     enabled: Boolean = true,
     icon: IconResource,
-    size: Dp = SyncTheme.spacing.iconMedium,
+    size: Dp = SyncTheme.dimen.icon.medium,
     modifier: Modifier = Modifier,
 ) {
     IconButton(
@@ -28,12 +28,7 @@ fun SyncIconButton(
             shape = SyncTheme.shapes.button,
             pressedShape = SyncTheme.shapes.button,
         ),
-        colors = IconButtonDefaults.iconButtonColors(
-            contentColor = SyncTheme.colorScheme.icon.primary,
-            containerColor = SyncTheme.colorScheme.background.secondary,
-            disabledContentColor = SyncTheme.colorScheme.outlinedButton.disabledContent,
-            disabledContainerColor = SyncTheme.colorScheme.outlinedButton.disabledBackground,
-        ),
+        colors = SyncTheme.colorScheme.iconButtonColors(),
         content = {
             icon.toComposable(
                 modifier = Modifier.size(size),

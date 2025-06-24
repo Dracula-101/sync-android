@@ -1,134 +1,38 @@
 package com.application.sync.ui.design.colors
 
-import androidx.compose.runtime.Immutable
-import androidx.compose.ui.graphics.Color
 
-@Immutable
+/**
+ * Represents a complete color scheme for an application theme.
+ *
+ * This data class encapsulates all the primary color categories used throughout
+ * the application, providing a centralized way to manage and access theme colors.
+ * Each color category contains multiple color variants and shades for different
+ * UI states and contexts.
+ *
+ * @property primary Primary brand colors used for key UI elements like buttons,
+ *                   floating action buttons, and active states
+ * @property secondary Secondary colors used for less prominent UI elements,
+ *                     providing visual hierarchy and accent colors
+ * @property background Background colors for different surfaces and containers,
+ *                      including main background and elevated surfaces
+ * @property surface Surface colors for cards, sheets, and other elevated components
+ *                   that sit above the background
+ * @property error Error state colors used for validation messages, alerts,
+ *                 and destructive actions
+ * @property outline Outline colors used for borders, dividers, and component
+ *                   boundaries to define visual separation
+ * @property scrim Scrim colors used for overlays, modals, and dim effects
+ *                 that appear over other content
+ * @property inverse Inverse colors used when content needs to stand out against
+ *                   the primary color scheme, typically for high contrast scenarios
+ */
 data class SyncColorScheme(
-    val text: TextColors,
+    val primary: PrimaryColors,
+    val secondary: SecondaryColors,
     val background: BackgroundColors,
-    val stroke: StrokeColors,
-    val outlinedButton: OutlinedButtonColors,
-    val filledButton: FilledButtonColors,
-    val toggleButton: ToggleButtonColors,
-    val chip: ChipColors,
-    val input: InputColors,
-    val icon: IconColors,
-    val switch: SwitchColors,
-    val snackbar: SnackbarColors,
-    val dialog: DialogColors,
-    val status: StatusColors,
-) {
-
-    @Immutable
-    data class TextColors(
-        val primary: Color,
-        val secondary: Color,
-        val disabled: Color,
-    )
-
-    @Immutable
-    data class BackgroundColors(
-        val primary: Color,
-        val secondary: Color,
-        val tertiary: Color,
-        val surface: Color,
-
-        val success: Color,
-        val warning: Color,
-        val info: Color,
-        val error: Color,
-    )
-
-    @Immutable
-    data class StrokeColors(
-        val primary: Color,
-        val secondary: Color,
-        val tertiary: Color,
-        val error: Color,
-    )
-
-    @Immutable
-    data class OutlinedButtonColors(
-        val border: Color,
-        val disabledBorder: Color,
-        val background: Color,
-        val disabledBackground: Color,
-        val content: Color,
-        val disabledContent: Color,
-    )
-
-    @Immutable
-    data class FilledButtonColors(
-        val background: Color,
-        val disabledBackground: Color,
-        val content: Color,
-        val disabledContent: Color,
-    )
-
-    @Immutable
-    data class ToggleButtonColors(
-        val selectedBackground: Color,
-        val selectedContent: Color,
-        val unselectedBackground: Color,
-        val unselectedContent: Color,
-        val disabledBackground: Color,
-        val disabledContent: Color,
-    )
-
-    @Immutable
-    data class SwitchColors(
-        val track: Color,
-        val thumb: Color,
-        val thumbPressed: Color,
-        val trackPressed: Color,
-        val disabledTrack: Color,
-        val disabledThumb: Color,
-    )
-
-    @Immutable
-    data class ChipColors(
-        val background: Color,
-        val content: Color,
-        val disabledBackground: Color,
-        val disabledContent: Color,
-    )
-
-    @Immutable
-    data class InputColors(
-        val background: Color,
-        val content: Color,
-        val placeholder: Color,
-        val error: Color,
-    )
-
-    @Immutable
-    data class IconColors(
-        val primary: Color,
-        val secondary: Color,
-        val disabled: Color,
-    )
-
-    @Immutable
-    data class SnackbarColors(
-        val background: Color,
-        val content: Color,
-        val action: Color,
-        val actionDisabled: Color,
-    )
-
-    @Immutable
-    data class DialogColors(
-        val background: Color,
-        val content: Color,
-        val title: Color,
-    )
-
-    @Immutable
-    data class StatusColors(
-        val success: Color,
-        val warning: Color,
-        val error: Color,
-        val info: Color,
-    )
-}
+    val surface: SurfaceColors,
+    val error: ErrorColors,
+    val outline: OutlineColors,
+    val scrim: ScrimColors,
+    val inverse: InverseColors,
+)

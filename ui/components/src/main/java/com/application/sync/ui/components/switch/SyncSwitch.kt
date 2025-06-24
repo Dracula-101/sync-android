@@ -22,16 +22,12 @@ import androidx.compose.ui.unit.dp
 import com.application.sync.ui.design.theme.SyncTheme
 
 /**
- * A modern switch component following shadcn/ui design principles with improved visual hierarchy.
+ * A modern switch component that can be used to toggle between two states.
  *
  * @param checked Function that returns the current checked state
  * @param onCheckedChange Function called when the switch state should change
  * @param modifier Modifier to be applied to the switch
  * @param enabled Whether the switch is enabled for interaction
- * @param width Width of the switch track
- * @param height Height of the switch track
- * @param thumbSize Size of the switch thumb
- * @param thumbPadding Padding for thumb positioning
  * @param interactionSource The MutableInteractionSource representing the stream of interactions
  */
 @Composable
@@ -47,6 +43,7 @@ fun SyncSwitch(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     val isChecked = checked()
+    val colors = SyncTheme.colorScheme.switchColors()
 
     val trackRadius = height / 2
     val thumbTravel = width - thumbSize - (thumbPadding * 2)
@@ -58,25 +55,15 @@ fun SyncSwitch(
     )
 
     val trackColor = when {
-        !enabled -> {
-            when {
-                isChecked -> SyncTheme.colorScheme.switch.disabledTrack
-                else -> SyncTheme.colorScheme.switch.disabledThumb
-            }
-        }
-        isChecked -> SyncTheme.colorScheme.switch.trackPressed
-        else -> SyncTheme.colorScheme.switch.track
+        !enabled -> if (isChecked) colors.disabledTrack else colors.disabledThumb
+        isChecked -> colors.trackPressed
+        else -> colors.track
     }
 
     val thumbColor = when {
-        !enabled -> {
-            when {
-                isChecked -> SyncTheme.colorScheme.switch.disabledThumb
-                else -> SyncTheme.colorScheme.switch.disabledTrack
-            }
-        }
-        isChecked -> SyncTheme.colorScheme.switch.thumbPressed
-        else -> SyncTheme.colorScheme.switch.thumb
+        !enabled -> if (isChecked) colors.disabledThumb else colors.disabledTrack
+        isChecked -> colors.thumbPressed
+        else -> colors.thumb
     }
 
     Box(

@@ -1,7 +1,6 @@
 package com.application.sync.ui.components.button
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -16,16 +15,11 @@ fun SyncTextButton(
     TextButton(
         onClick = onClick,
         enabled = enabled,
-        colors = ButtonDefaults.textButtonColors(
-            contentColor = SyncTheme.colorScheme.text.primary,
-            containerColor = SyncTheme.colorScheme.background.secondary,
-            disabledContentColor = SyncTheme.colorScheme.outlinedButton.disabledContent,
-            disabledContainerColor = SyncTheme.colorScheme.outlinedButton.disabledBackground,
-        ),
+        colors = SyncTheme.colorScheme.textButtonColors(),
         shape = SyncTheme.shapes.button,
         contentPadding = PaddingValues(
-            horizontal = SyncTheme.spacing.medium,
-            vertical = SyncTheme.spacing.small,
+            horizontal = SyncTheme.spacing.padding.medium,
+            vertical = SyncTheme.spacing.padding.small,
         ),
         content = {
             ProvideTextStyle(

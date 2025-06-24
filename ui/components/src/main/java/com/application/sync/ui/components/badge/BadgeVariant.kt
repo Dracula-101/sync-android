@@ -1,9 +1,7 @@
 package com.application.sync.ui.components.badge
 
 enum class BadgeVariant {
-    Default,
+    Primary,
     Secondary,
-    Success,
-    Warning,
     Error;
 }

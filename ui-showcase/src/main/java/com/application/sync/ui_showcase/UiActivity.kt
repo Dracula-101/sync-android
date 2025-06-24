@@ -85,7 +85,7 @@ class UiActivity : ComponentActivity() {
                             .statusBarsPadding()
                             .consumeWindowInsets(padding)
                             .verticalScroll(rememberScrollState())
-                            .padding(SyncTheme.spacing.medium)
+                            .padding(SyncTheme.spacing.padding.medium)
                             .fillMaxSize(),
                     ) {
                         Row(
@@ -95,7 +95,7 @@ class UiActivity : ComponentActivity() {
                         ) {
                             Text(
                                 text = "Sync UI",
-                                color = SyncTheme.colorScheme.text.primary,
+                                color = SyncTheme.colorScheme.primary.color,
                                 fontSize = 32.sp,
                                 fontWeight = FontWeight.Bold,
                             )
@@ -268,13 +268,13 @@ fun ButtonShowcase() {
     ) {
         SyncIconButton(
             onClick = {},
-            size = SyncTheme.spacing.large,
+            size = SyncTheme.spacing.gap.large,
             icon = IconResource.Drawable(R.drawable.done_24),
         )
         SyncIconButton(
             onClick = {},
             enabled = false,
-            size = SyncTheme.spacing.large,
+            size = SyncTheme.spacing.gap.large,
             icon = IconResource.Drawable(R.drawable.done_24),
         )
     }
@@ -296,18 +296,6 @@ fun ButtonShowcase() {
             Text(text = "Toggle")
         }
         SyncLoadingButton(isLoading = isLoading.value, variant = ButtonVariant.Secondary) {
-            Text(text = "Loading Button")
-        }
-        SyncLoadingButton(
-            isLoading = isLoading.value,
-            variant = ButtonVariant.Success,
-        ) {
-            Text(text = "Loading Button")
-        }
-        SyncLoadingButton(
-            isLoading = isLoading.value,
-            variant = ButtonVariant.Warning,
-        ) {
             Text(text = "Loading Button")
         }
         SyncLoadingButton(

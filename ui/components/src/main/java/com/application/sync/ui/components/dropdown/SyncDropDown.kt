@@ -39,10 +39,12 @@ import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntRect
 import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
@@ -114,7 +116,10 @@ private fun DropdownMenuContent(
     ) { expanded ->
         if (expanded) 1f else 0f
     }
+
     val scrollState = rememberScrollState()
+    val dropdownColors = SyncTheme.colorScheme.dropdownColors()
+
     Surface(
         modifier = modifier
             .graphicsLayer {
@@ -128,10 +133,10 @@ private fun DropdownMenuContent(
                 shape = SyncTheme.shapes.dropdown
             ),
         shape = SyncTheme.shapes.dropdown,
-        color = SyncTheme.colorScheme.background.surface,
+        color = dropdownColors.background,
         border = BorderStroke(
             width = 2.dp,
-            color = SyncTheme.colorScheme.background.tertiary
+            color = dropdownColors.border
         )
     ) {
         Column(
@@ -143,8 +148,8 @@ private fun DropdownMenuContent(
                     scrollState = scrollState,
                     width = 4.dp,
                     showScrollBarTrack = true,
-                    scrollBarTrackColor = SyncTheme.colorScheme.background.surface,
-                    scrollBarColor = SyncTheme.colorScheme.stroke.secondary,
+                    scrollBarTrackColor = dropdownColors.scrollTrack,
+                    scrollBarColor = dropdownColors.scrollThumb,
                     scrollBarCornerRadius = 32f,
                 )
                 .verticalScroll(scrollState),
@@ -180,9 +185,9 @@ fun DropdownMenuItem(
         if (leading != null) {
             CompositionLocalProvider(
                 LocalContentColor provides if (enabled) {
-                    SyncTheme.colorScheme.icon.primary
+                    SyncTheme.colorScheme.primary.color
                 } else {
-                    SyncTheme.colorScheme.icon.disabled
+                    SyncTheme.colorScheme.primary.alpha300
                 }
             ) {
                 Box(
@@ -196,9 +201,9 @@ fun DropdownMenuItem(
 
         CompositionLocalProvider(
             LocalContentColor provides if (enabled) {
-                SyncTheme.colorScheme.text.primary
+                SyncTheme.colorScheme.primary.color
             } else {
-                SyncTheme.colorScheme.text.disabled
+                SyncTheme.colorScheme.primary.alpha300
             }
         ) {
             ProvideTextStyle(SyncTheme.typography.bodyLarge) {
@@ -211,9 +216,9 @@ fun DropdownMenuItem(
         if (trailingIcon != null) {
             CompositionLocalProvider(
                 LocalContentColor provides if (enabled) {
-                    SyncTheme.colorScheme.icon.secondary
+                    SyncTheme.colorScheme.secondary.color
                 } else {
-                    SyncTheme.colorScheme.icon.disabled
+                    SyncTheme.colorScheme.secondary.alpha300
                 }
             ) {
                 trailingIcon()
@@ -237,7 +242,7 @@ fun DropdownMenuLabel(text: String) {
 @Composable
 fun DropdownMenuSeparator() {
     HorizontalDivider(
-        color = SyncTheme.colorScheme.background.tertiary,
+        color = SyncTheme.colorScheme.background.color,
         thickness = 2.dp
     )
 }
@@ -250,7 +255,7 @@ fun DropdownMenuShortcut(
     Text(
         text = text,
         style = SyncTheme.typography.titleSmall,
-        color = SyncTheme.colorScheme.text.secondary,
+        color = SyncTheme.colorScheme.secondary.color,
         modifier = modifier
     )
 }
@@ -262,41 +267,33 @@ fun DropdownMenuGroup(
     Column(content = content)
 }
 
-// Position provider for dropdown menu
 private data class DropdownMenuPositionProvider(
     val contentOffset: DpOffset,
-    val density: androidx.compose.ui.unit.Density,
+    val density: Density,
     val onPositionCalculated: (IntRect, IntRect) -> Unit = { _, _ -> }
 ) : PopupPositionProvider {
     override fun calculatePosition(
         anchorBounds: IntRect,
         windowSize: IntSize,
-        layoutDirection: androidx.compose.ui.unit.LayoutDirection,
+        layoutDirection: LayoutDirection,
         popupContentSize: IntSize
     ): IntOffset {
         val contentOffsetX = with(density) { contentOffset.x.roundToPx() }
         val contentOffsetY = with(density) { contentOffset.y.roundToPx() }
 
-        val toRight = anchorBounds.left + contentOffsetX
-        val toLeft = anchorBounds.right - contentOffsetX - popupContentSize.width
-        val toDisplayRight = toRight + popupContentSize.width
-        val x = if (layoutDirection == androidx.compose.ui.unit.LayoutDirection.Ltr) {
-            when {
-                toDisplayRight <= windowSize.width -> toRight
-                toLeft >= 0 -> toLeft
-                else -> toRight
-            }
-        } else {
-            when {
-                toLeft >= 0 -> toLeft
-                toDisplayRight <= windowSize.width -> toRight
-                else -> toLeft
-            }
+        val toRight = anchorBounds.right + contentOffsetX
+        val toLeft = anchorBounds.left - popupContentSize.width - contentOffsetX
+
+        val x = when {
+            toRight + popupContentSize.width <= windowSize.width -> toRight
+            toLeft >= 0 -> toLeft
+            else -> anchorBounds.left
         }
 
         val toBottom = maxOf(anchorBounds.bottom + contentOffsetY, contentOffsetY)
-        val toTop = anchorBounds.top - contentOffsetY - popupContentSize.height
+        val toTop = anchorBounds.top - popupContentSize.height - contentOffsetY
         val toCenter = anchorBounds.top - popupContentSize.height / 2
+
         val y = sequenceOf(toBottom, toTop, toCenter).firstOrNull {
             it >= 0 && it + popupContentSize.height <= windowSize.height
         } ?: toTop

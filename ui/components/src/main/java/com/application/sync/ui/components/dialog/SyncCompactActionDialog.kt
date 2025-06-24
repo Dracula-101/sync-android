@@ -48,6 +48,7 @@ fun SyncCompactActionDialog(
     destructive: Boolean = false,
     modifier: Modifier = Modifier
 ) {
+    val dialogColors = SyncTheme.colorScheme.dialogColors()
     BasicAlertDialog(
         onDismissRequest = onDismissRequest,
         properties = DialogProperties(
@@ -67,20 +68,14 @@ fun SyncCompactActionDialog(
                     .fillMaxWidth()
                     .wrapContentHeight(),
                 shape = SyncTheme.shapes.dialog,
-                colors = CardDefaults.cardColors(
-                    containerColor = SyncTheme.colorScheme.dialog.background
-                ),
-                border = BorderStroke(
-                    width = 2.dp,
-                    color = SyncTheme.colorScheme.background.tertiary.copy(alpha = 0.5f)
-                ),
+                colors = SyncTheme.colorScheme.dialogCardColors(),
+                border = BorderStroke(2.dp, dialogColors.border.copy(alpha = 0.5f)),
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
             ) {
                 Box {
                     IconButton(
                         onClick = onDismissRequest,
-                        modifier = Modifier
-                            .align(Alignment.TopEnd),
+                        modifier = Modifier.align(Alignment.TopEnd),
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_close_24),
@@ -88,19 +83,19 @@ fun SyncCompactActionDialog(
                             modifier = Modifier
                                 .width(18.dp)
                                 .height(18.dp),
-                            colorFilter = ColorFilter.tint(SyncTheme.colorScheme.text.primary),
+                            colorFilter = ColorFilter.tint(SyncTheme.colorScheme.primary.color),
                         )
                     }
+
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 14.dp)
-                            .padding(top = 12.dp, bottom = 8.dp),
+                            .padding(horizontal = 14.dp, vertical = 12.dp),
                     ) {
                         Text(
                             text = title,
                             style = SyncTheme.typography.headlineMedium,
-                            color = SyncTheme.colorScheme.dialog.title,
+                            color = dialogColors.title,
                             textAlign = TextAlign.Start,
                             modifier = Modifier.fillMaxWidth()
                         )
@@ -108,11 +103,12 @@ fun SyncCompactActionDialog(
                         Text(
                             text = content,
                             style = SyncTheme.typography.bodyLarge,
-                            color = SyncTheme.colorScheme.dialog.content.copy(alpha = 0.8f),
+                            color = dialogColors.content.copy(alpha = 0.8f),
                             textAlign = TextAlign.Start,
                             modifier = Modifier.fillMaxWidth()
                         )
                         SyncSpacer(size = SyncSpacerSize.Large)
+
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -135,18 +131,13 @@ fun SyncCompactActionDialog(
                                         textAlign = TextAlign.Center
                                     )
                                 }
-
                             }
                             SyncFilledButton(
                                 onClick = {
                                     onPrimaryAction()
                                     onDismissRequest()
                                 },
-                                variant = if (destructive) {
-                                    ButtonVariant.Error
-                                } else {
-                                    ButtonVariant.Default
-                                },
+                                variant = if (destructive) ButtonVariant.Error else ButtonVariant.Primary,
                                 modifier = Modifier
                                     .weight(1f)
                                     .wrapContentHeight(),
@@ -166,17 +157,17 @@ fun SyncCompactActionDialog(
     }
 }
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SyncCompactActionDialog(
     onDismissRequest: () -> Unit,
-    title: (() -> Composable),
-    content: (() -> Composable),
+    title: () -> Composable,
+    content: () -> Composable,
     actions: @Composable RowScope.() -> Unit,
     actionsAlignment: Alignment.Horizontal = Alignment.End,
     modifier: Modifier = Modifier
 ) {
+    val dialogColors = SyncTheme.colorScheme.dialogColors()
     BasicAlertDialog(
         onDismissRequest = onDismissRequest,
         properties = DialogProperties(
@@ -196,20 +187,14 @@ fun SyncCompactActionDialog(
                     .fillMaxWidth()
                     .wrapContentHeight(),
                 shape = SyncTheme.shapes.dialog,
-                colors = CardDefaults.cardColors(
-                    containerColor = SyncTheme.colorScheme.dialog.background
-                ),
-                border = BorderStroke(
-                    width = 2.dp,
-                    color = SyncTheme.colorScheme.background.tertiary.copy(alpha = 0.5f)
-                ),
+                colors = SyncTheme.colorScheme.dialogCardColors(),
+                border = BorderStroke(2.dp, dialogColors.border.copy(alpha = 0.5f)),
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
             ) {
                 Box {
                     IconButton(
                         onClick = onDismissRequest,
-                        modifier = Modifier
-                            .align(Alignment.TopEnd),
+                        modifier = Modifier.align(Alignment.TopEnd),
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_close_24),
@@ -217,44 +202,41 @@ fun SyncCompactActionDialog(
                             modifier = Modifier
                                 .width(18.dp)
                                 .height(18.dp),
-                            colorFilter = ColorFilter.tint(SyncTheme.colorScheme.text.primary),
+                            colorFilter = ColorFilter.tint(SyncTheme.colorScheme.primary.color),
                         )
                     }
+
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 14.dp)
-                            .padding(top = 12.dp, bottom = 8.dp),
+                            .padding(horizontal = 14.dp, vertical = 12.dp),
                     ) {
-                        ProvideTextStyle(
-                            value = SyncTheme.typography.headlineMedium.copy(
-                                color = SyncTheme.colorScheme.dialog.title
-                            ),
-                            content = { title() },
-                        )
+                        ProvideTextStyle(SyncTheme.typography.headlineMedium.copy(color = dialogColors.title)) {
+                            title()
+                        }
                         SyncSpacer(size = SyncSpacerSize.Small)
                         ProvideTextStyle(
-                            value = SyncTheme.typography.bodyLarge.copy(
-                                color = SyncTheme.colorScheme.dialog.content.copy(alpha = 0.8f)
-                            ),
-                            content = { content() },
-                        )
+                            SyncTheme.typography.bodyLarge.copy(
+                                color = dialogColors.content.copy(
+                                    alpha = 0.8f
+                                )
+                            )
+                        ) {
+                            content()
+                        }
                         SyncSpacer(size = SyncSpacerSize.Large)
-                        ProvideTextStyle(
-                            value = SyncTheme.typography.bodyLarge,
-                            content = {
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.spacedBy(
-                                        8.dp,
-                                        alignment = actionsAlignment
-                                    ),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    actions()
-                                }
+                        ProvideTextStyle(SyncTheme.typography.bodyLarge) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(
+                                    8.dp,
+                                    actionsAlignment
+                                ),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                actions()
                             }
-                        )
+                        }
                     }
                 }
             }

@@ -31,7 +31,7 @@ import com.application.sync.ui.design.theme.SyncTheme
 @Composable
 fun SyncLinearProgressIndicator(
     modifier: Modifier = Modifier,
-    color: Color = SyncTheme.colorScheme.stroke.primary,
+    color: Color = SyncTheme.colorScheme.primary.color,
 ) {
     val infiniteTransition = rememberInfiniteTransition(label = "progress_animation")
 
@@ -51,7 +51,7 @@ fun SyncLinearProgressIndicator(
     Canvas(
         modifier = modifier
             .fillMaxWidth()
-            .height(SyncTheme.spacing.dividerThick)
+            .height(SyncTheme.dimen.height.small)
             .clip(SyncTheme.shapes.progressIndicator)
     ) {
         drawLinearProgressIndicator(
@@ -74,7 +74,7 @@ fun SyncLinearProgressIndicator(
 fun SyncLinearProgressIndicator(
     progress: () -> Float,
     modifier: Modifier = Modifier,
-    color: Color = SyncTheme.colorScheme.stroke.primary,
+    color: Color = SyncTheme.colorScheme.primary.color,
     strokeWidth: Dp = 4.dp,
 ) {
     val animatedProgress by animateFloatAsState(

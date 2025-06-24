@@ -54,24 +54,21 @@ fun SyncCheckbox(
         label = "checkboxAnimation"
     )
 
-    val backgroundColor = when {
-        !enabled -> colorScheme.background.secondary
-        isChecked -> colorScheme.stroke.primary
-        else -> colorScheme.input.background
+    val checkboxTheme = SyncTheme.colorScheme.checkboxColors()
+    val boxColor = when {
+        !enabled -> checkboxTheme.disabledCheckedBoxColor
+        isChecked -> checkboxTheme.checkedBoxColor
+        else -> checkboxTheme.uncheckedBoxColor
     }
-
     val borderColor = when {
-        !enabled -> colorScheme.stroke.secondary.copy(alpha = 0.5f)
-        isChecked -> colorScheme.stroke.primary
-        else -> colorScheme.stroke.secondary
+        !enabled -> checkboxTheme.disabledBorderColor
+        isChecked -> checkboxTheme.checkedBorderColor
+        else -> checkboxTheme.uncheckedBorderColor
     }
-
-    val checkColor = if (enabled) {
-        colorScheme.filledButton.content
-    } else {
-        colorScheme.text.disabled
+    val checkColor = when {
+        isChecked -> checkboxTheme.checkedCheckmarkColor
+        else -> checkboxTheme.uncheckedCheckmarkColor
     }
-
     Box(
         modifier = modifier
             .size(clickTargetSize)
@@ -88,7 +85,7 @@ fun SyncCheckbox(
             modifier = Modifier
                 .size(checkboxSize)
                 .clip(RoundedCornerShape(cornerRadius))
-                .background(backgroundColor)
+                .background(boxColor)
                 .border(
                     width = strokeWidth,
                     color = borderColor,

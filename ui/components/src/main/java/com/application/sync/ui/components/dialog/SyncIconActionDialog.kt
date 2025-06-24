@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 import com.application.sync.ui.components.button.SyncFilledButton
 import com.application.sync.ui.components.button.SyncOutlinedButton
 import com.application.sync.ui.components.spacing.SyncSpacer
@@ -40,9 +41,11 @@ fun SyncIconActionDialog(
     onNegativeButtonClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
+    val dialogColors = SyncTheme.colorScheme.dialogColors()
+
     BasicAlertDialog(
         onDismissRequest = onDismissRequest,
-        properties = androidx.compose.ui.window.DialogProperties(
+        properties = DialogProperties(
             dismissOnBackPress = true,
             dismissOnClickOutside = true,
             usePlatformDefaultWidth = false
@@ -59,12 +62,10 @@ fun SyncIconActionDialog(
                     .fillMaxWidth()
                     .wrapContentHeight(),
                 shape = SyncTheme.shapes.dialog,
-                colors = CardDefaults.cardColors(
-                    containerColor = SyncTheme.colorScheme.dialog.background
-                ),
+                colors = SyncTheme.colorScheme.dialogCardColors(),
                 border = BorderStroke(
                     width = 2.dp,
-                    color = SyncTheme.colorScheme.background.tertiary.copy(alpha = 0.5f)
+                    color = dialogColors.border.copy(alpha = 0.5f)
                 ),
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
             ) {
@@ -76,29 +77,33 @@ fun SyncIconActionDialog(
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     SyncSpacer(size = SyncSpacerSize.Small)
+
                     icon?.toComposable(
                         modifier = Modifier
                             .size(80.dp)
                             .align(Alignment.CenterHorizontally),
-                        color = SyncTheme.colorScheme.icon.primary
+                        color = SyncTheme.colorScheme.primary.color
                     )
+
                     Text(
                         text = title,
                         style = SyncTheme.typography.headlineMedium,
-                        modifier = Modifier
-                            .padding(horizontal = 8.dp),
-                        color = SyncTheme.colorScheme.text.primary,
+                        color = dialogColors.title,
+                        modifier = Modifier.padding(horizontal = 8.dp)
                     )
+
                     SyncSpacer(size = SyncSpacerSize.Small)
+
                     Text(
                         text = message,
                         style = SyncTheme.typography.titleMedium,
-                        color = SyncTheme.colorScheme.text.secondary,
-                        modifier = Modifier
-                            .padding(horizontal = 8.dp),
-                        textAlign = TextAlign.Center
+                        color = dialogColors.content.copy(alpha = 0.8f),
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(horizontal = 8.dp)
                     )
+
                     SyncSpacer()
+
                     Row(
                         modifier = Modifier
                             .padding(horizontal = 8.dp)

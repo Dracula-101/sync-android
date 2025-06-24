@@ -49,6 +49,8 @@ fun SyncActionDialog(
     destructive: Boolean = false,
     modifier: Modifier = Modifier
 ) {
+    val dialogColors = SyncTheme.colorScheme.dialogColors()
+
     BasicAlertDialog(
         onDismissRequest = onDismissRequest,
         properties = DialogProperties(
@@ -68,12 +70,10 @@ fun SyncActionDialog(
                     .fillMaxWidth()
                     .wrapContentHeight(),
                 shape = SyncTheme.shapes.dialog,
-                colors = CardDefaults.cardColors(
-                    containerColor = SyncTheme.colorScheme.dialog.background
-                ),
+                colors = SyncTheme.colorScheme.dialogCardColors(),
                 border = BorderStroke(
                     width = 2.dp,
-                    color = SyncTheme.colorScheme.background.tertiary.copy(alpha = 0.5f)
+                    color = dialogColors.border.copy(alpha = 0.5f)
                 ),
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
             ) {
@@ -90,7 +90,7 @@ fun SyncActionDialog(
                             modifier = Modifier
                                 .height(18.dp)
                                 .width(18.dp),
-                            colorFilter = ColorFilter.tint(SyncTheme.colorScheme.text.primary),
+                            colorFilter = ColorFilter.tint(dialogColors.content),
                         )
                     }
                     Column(
@@ -102,7 +102,7 @@ fun SyncActionDialog(
                         Text(
                             text = title,
                             style = SyncTheme.typography.headlineMedium,
-                            color = SyncTheme.colorScheme.dialog.title,
+                            color = dialogColors.title,
                             textAlign = TextAlign.Start,
                             modifier = Modifier.fillMaxWidth()
                         )
@@ -110,7 +110,7 @@ fun SyncActionDialog(
                         Text(
                             text = content,
                             style = SyncTheme.typography.bodyLarge,
-                            color = SyncTheme.colorScheme.dialog.content.copy(alpha = 0.8f),
+                            color = dialogColors.content.copy(alpha = 0.8f),
                             textAlign = TextAlign.Start,
                             modifier = Modifier.fillMaxWidth()
                         )
@@ -144,7 +144,7 @@ fun SyncActionDialog(
                                 variant = if (destructive) {
                                     ButtonVariant.Error
                                 } else {
-                                    ButtonVariant.Default
+                                    ButtonVariant.Primary
                                 },
                                 modifier = Modifier.wrapContentHeight(),
                             ) {
@@ -165,12 +165,14 @@ fun SyncActionDialog(
 @Composable
 fun SyncActionDialog(
     onDismissRequest: () -> Unit,
-    title: (() -> Composable),
-    content: (() -> Composable),
+    title: @Composable () -> Unit,
+    content: @Composable () -> Unit,
     actions: @Composable RowScope.() -> Unit,
     actionsAlignment: Alignment.Horizontal = Alignment.End,
     modifier: Modifier = Modifier
 ) {
+    val dialogColors = SyncTheme.colorScheme.dialogColors()
+
     BasicAlertDialog(
         onDismissRequest = onDismissRequest,
         properties = DialogProperties(
@@ -190,12 +192,10 @@ fun SyncActionDialog(
                     .fillMaxWidth()
                     .wrapContentHeight(),
                 shape = SyncTheme.shapes.dialog,
-                colors = CardDefaults.cardColors(
-                    containerColor = SyncTheme.colorScheme.dialog.background
-                ),
+                colors = SyncTheme.colorScheme.dialogCardColors(),
                 border = BorderStroke(
                     width = 2.dp,
-                    color = SyncTheme.colorScheme.background.tertiary.copy(alpha = 0.5f)
+                    color = dialogColors.border.copy(alpha = 0.5f)
                 ),
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
             ) {
@@ -212,7 +212,7 @@ fun SyncActionDialog(
                             modifier = Modifier
                                 .height(18.dp)
                                 .width(18.dp),
-                            colorFilter = ColorFilter.tint(SyncTheme.colorScheme.text.primary),
+                            colorFilter = ColorFilter.tint(dialogColors.content),
                         )
                     }
                     Column(
@@ -223,21 +223,21 @@ fun SyncActionDialog(
                     ) {
                         ProvideTextStyle(
                             value = SyncTheme.typography.headlineMedium.copy(
-                                color = SyncTheme.colorScheme.dialog.title,
+                                color = dialogColors.title,
                             ),
-                            content = { title() },
+                            content = title,
                         )
                         SyncSpacer(size = SyncSpacerSize.Small)
                         ProvideTextStyle(
                             value = SyncTheme.typography.bodyLarge.copy(
-                                color = SyncTheme.colorScheme.dialog.content.copy(alpha = 0.8f),
+                                color = dialogColors.content.copy(alpha = 0.8f),
                             ),
-                            content = { content() },
+                            content = content,
                         )
                         SyncSpacer(size = SyncSpacerSize.Large)
                         ProvideTextStyle(
                             value = SyncTheme.typography.bodyLarge.copy(
-                                color = SyncTheme.colorScheme.text.primary
+                                color = dialogColors.content
                             )
                         ) {
                             Row(

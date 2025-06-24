@@ -1,13 +1,8 @@
 package com.application.sync.ui.design.theme
 
 import android.app.Activity
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ProvidableCompositionLocal
@@ -16,14 +11,14 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.application.sync.ui.design.colors.DarkColorScheme
+import com.application.sync.ui.design.colors.LightColorScheme
 import com.application.sync.ui.design.colors.SyncColorScheme
-import com.application.sync.ui.design.colors.darkSyncColorScheme
-import com.application.sync.ui.design.colors.dynamicSyncColorScheme
-import com.application.sync.ui.design.colors.lightSyncColorScheme
 import com.application.sync.ui.design.colors.toMaterialColorScheme
+import com.application.sync.ui.design.dimension.SyncDimensions
+import com.application.sync.ui.design.dimension.syncDimensions
 import com.application.sync.ui.design.shape.SyncShapes
 import com.application.sync.ui.design.shape.syncShapes
 import com.application.sync.ui.design.spacing.SyncSpacing
@@ -34,7 +29,7 @@ import com.application.sync.ui.design.type.toMaterialTypography
 
 object SyncTheme {
     /**
-     * Retrieves the current [SyncColorScheme].
+     * Retrieves the current [SyncComponentColors].
      */
     val colorScheme: SyncColorScheme
         @Composable
@@ -57,42 +52,31 @@ object SyncTheme {
         @ReadOnlyComposable
         get() = LocalSyncTypography.current
 
+    /**
+     * Retrieves the current [SyncSpacing].
+     */
     val spacing: SyncSpacing
         @Composable
         @ReadOnlyComposable
         get() = LocalSyncSpacing.current
+
+    /**
+     * Retrieves the current [SyncDimensions].
+     */
+    val dimen: SyncDimensions
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalSyncDimensions.current
 }
 
 @Composable
 fun SyncTheme(
     isDarkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
-    val materialColorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (isDarkTheme) {
-                dynamicDarkColorScheme(context = context)
-            } else {
-                dynamicLightColorScheme(context = context)
-            }
-        }
-
-        isDarkTheme -> darkColorScheme()
-        else -> lightColorScheme()
-    }
-
     val syncColorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            dynamicSyncColorScheme(
-                materialColorScheme = materialColorScheme,
-                isDarkTheme = isDarkTheme,
-            )
-        }
-
-        isDarkTheme -> darkSyncColorScheme
-        else -> lightSyncColorScheme
+        isDarkTheme -> DarkColorScheme
+        else -> LightColorScheme
     }
 
     val view = LocalView.current
@@ -113,9 +97,10 @@ fun SyncTheme(
         LocalSyncShapes provides syncShapes,
         LocalSyncTypography provides syncTypography,
         LocalSyncSpacing provides syncSpacing,
+        LocalSyncDimensions provides syncDimensions
     ) {
         MaterialTheme(
-            colorScheme = syncColorScheme.toMaterialColorScheme(defaultColorScheme = materialColorScheme),
+            colorScheme = syncColorScheme.toMaterialColorScheme(),
             typography = syncTypography.toMaterialTypography(),
             content = content
         )
@@ -124,7 +109,7 @@ fun SyncTheme(
 
 
 val LocalSyncColorScheme: ProvidableCompositionLocal<SyncColorScheme> =
-    compositionLocalOf { lightSyncColorScheme }
+    compositionLocalOf { DarkColorScheme }
 
 val LocalSyncShapes: ProvidableCompositionLocal<SyncShapes> =
     compositionLocalOf { syncShapes }
@@ -134,3 +119,6 @@ val LocalSyncTypography: ProvidableCompositionLocal<SyncTypography> =
 
 val LocalSyncSpacing: ProvidableCompositionLocal<SyncSpacing> =
     compositionLocalOf { syncSpacing }
+
+val LocalSyncDimensions: ProvidableCompositionLocal<SyncDimensions> =
+    compositionLocalOf { syncDimensions }

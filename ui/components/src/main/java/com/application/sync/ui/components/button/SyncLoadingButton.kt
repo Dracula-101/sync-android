@@ -14,9 +14,10 @@ fun SyncLoadingButton(
     isLoading: Boolean = true,
     enabled: Boolean = true,
     modifier: Modifier = Modifier,
-    variant: ButtonVariant = ButtonVariant.Default,
+    variant: ButtonVariant = ButtonVariant.Primary,
     content: @Composable () -> Unit = {},
 ) {
+    val buttonTheme = SyncTheme.colorScheme.outlinedButtonColors(variant)
     SyncOutlinedButton(
         onClick = onClick,
         enabled = enabled && !isLoading,
@@ -25,11 +26,11 @@ fun SyncLoadingButton(
         content = {
             if (isLoading) {
                 CircularProgressIndicator(
-                    modifier = Modifier.size(SyncTheme.spacing.radiusExtraLarge),
+                    modifier = Modifier.size(SyncTheme.spacing.radius.medium),
                     strokeWidth = 2.dp,
-                    color = SyncTheme.colorScheme.outlinedButton.disabledContent,
+                    color = buttonTheme.disabledContainerColor,
                 )
-                Spacer(Modifier.size(SyncTheme.spacing.gapSmall))
+                Spacer(Modifier.size(SyncTheme.spacing.gap.extraSmall))
             }
             content()
         },
