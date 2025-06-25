@@ -18,7 +18,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import com.application.sync.ui.design.theme.SyncTheme
 
 /**
@@ -32,6 +31,7 @@ import com.application.sync.ui.design.theme.SyncTheme
 fun SyncLinearProgressIndicator(
     modifier: Modifier = Modifier,
     color: Color = SyncTheme.colorScheme.primary.color,
+    strokeWidth: Dp = SyncTheme.dimen.divider.large,
 ) {
     val infiniteTransition = rememberInfiniteTransition(label = "progress_animation")
 
@@ -51,7 +51,7 @@ fun SyncLinearProgressIndicator(
     Canvas(
         modifier = modifier
             .fillMaxWidth()
-            .height(SyncTheme.dimen.height.small)
+            .height(strokeWidth)
             .clip(SyncTheme.shapes.progressIndicator)
     ) {
         drawLinearProgressIndicator(
@@ -75,7 +75,7 @@ fun SyncLinearProgressIndicator(
     progress: () -> Float,
     modifier: Modifier = Modifier,
     color: Color = SyncTheme.colorScheme.primary.color,
-    strokeWidth: Dp = 4.dp,
+    strokeWidth: Dp = SyncTheme.dimen.divider.large,
 ) {
     val animatedProgress by animateFloatAsState(
         targetValue = progress().coerceIn(0f, 1f),

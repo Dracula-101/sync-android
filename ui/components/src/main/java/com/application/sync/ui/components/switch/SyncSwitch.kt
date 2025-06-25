@@ -55,13 +55,13 @@ fun SyncSwitch(
     )
 
     val trackColor = when {
-        !enabled -> if (isChecked) colors.disabledTrack else colors.disabledThumb
+        !enabled -> if (isChecked) colors.disabledCheckedTrack else colors.disabledThumb
         isChecked -> colors.trackPressed
         else -> colors.track
     }
 
     val thumbColor = when {
-        !enabled -> if (isChecked) colors.disabledThumb else colors.disabledTrack
+        !enabled -> if (isChecked) colors.disabledCheckedThumb else colors.disabledTrack
         isChecked -> colors.thumbPressed
         else -> colors.thumb
     }

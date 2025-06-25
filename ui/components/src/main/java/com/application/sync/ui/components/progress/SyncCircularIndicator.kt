@@ -45,10 +45,10 @@ fun SyncCircularProgressIndicator(
         ),
         label = "rotation"
     )
-    val strokeWidth = SyncTheme.dimen.divider.medium
+    val strokeWidth = SyncTheme.dimen.divider.large
 
     Canvas(
-        modifier = modifier.size(SyncTheme.dimen.height.small)
+        modifier = modifier.size(SyncTheme.dimen.icon.medium)
     ) {
         drawCircularProgressIndicator(
             color = color,
@@ -73,8 +73,8 @@ fun SyncCircularProgressIndicator(
     progress: () -> Float,
     modifier: Modifier = Modifier,
     color: Color = SyncTheme.colorScheme.primary.color,
-    strokeWidth: Dp = SyncTheme.dimen.divider.medium,
-    size: Dp = SyncTheme.dimen.height.extraSmall,
+    strokeWidth: Dp = SyncTheme.dimen.divider.large,
+    size: Dp = SyncTheme.dimen.icon.medium,
 ) {
     val animatedProgress by animateFloatAsState(
         targetValue = progress().coerceIn(0f, 1f),

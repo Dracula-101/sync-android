@@ -31,7 +31,7 @@ fun SyncOutlinedButton(
         shape = SyncTheme.shapes.button,
         border = BorderStroke(
             width = SyncTheme.dimen.border.small,
-            color = SyncTheme.colorScheme.outlinedButtonBorderColor(variant)
+            color = SyncTheme.colorScheme.outlinedButtonBorderColor(variant, enabled = enabled)
         ),
         contentPadding = PaddingValues(
             horizontal = SyncTheme.spacing.padding.medium,

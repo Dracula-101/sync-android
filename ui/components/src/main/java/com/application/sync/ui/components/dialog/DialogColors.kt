@@ -34,7 +34,5 @@ internal fun SyncColorScheme.dialogColors(): DialogColors {
  */
 @Composable
 internal fun SyncColorScheme.dialogCardColors(): CardColors {
-    return CardDefaults.cardColors(
-        containerColor = surface.container
-    )
+    return CardDefaults.cardColors()
 }

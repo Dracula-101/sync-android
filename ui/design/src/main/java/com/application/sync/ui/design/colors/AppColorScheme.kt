@@ -138,6 +138,64 @@ internal val DarkColorScheme = SyncColorScheme(
     )
 )
 
+internal fun dynamicTheme(dynamicColorScheme: ColorScheme): SyncColorScheme {
+    return SyncColorScheme(
+        primary = PrimaryColors(
+            color = dynamicColorScheme.primary,
+            onColor = dynamicColorScheme.onPrimary,
+            container = dynamicColorScheme.primaryContainer,
+            onContainer = dynamicColorScheme.onPrimaryContainer,
+            bright = dynamicColorScheme.primary.copy(alpha = 0.85f),
+            dim = dynamicColorScheme.primary.copy(alpha = 0.6f)
+        ),
+        secondary = SecondaryColors(
+            color = dynamicColorScheme.secondary,
+            onColor = dynamicColorScheme.onSecondary,
+            container = dynamicColorScheme.secondaryContainer,
+            onContainer = dynamicColorScheme.onSecondaryContainer
+        ),
+        background = BackgroundColors(
+            color = dynamicColorScheme.background,
+            onColor = dynamicColorScheme.onBackground,
+            bright = dynamicColorScheme.background.copy(alpha = 0.85f),
+            dim = dynamicColorScheme.background.copy(alpha = 0.6f)
+        ),
+        surface = SurfaceColors(
+            color = dynamicColorScheme.surface,
+            onColor = dynamicColorScheme.onSurface,
+            variant = dynamicColorScheme.surfaceVariant,
+            container = dynamicColorScheme.surfaceVariant.copy(alpha = 0.9f),
+            onContainer = dynamicColorScheme.onSurfaceVariant,
+            highest = dynamicColorScheme.surface.copy(alpha = 1f),
+            high = dynamicColorScheme.surface.copy(alpha = 0.9f),
+            low = dynamicColorScheme.surface.copy(alpha = 0.7f),
+            lowest = dynamicColorScheme.surface.copy(alpha = 0.5f)
+        ),
+        error = ErrorColors(
+            color = dynamicColorScheme.error,
+            onColor = dynamicColorScheme.onError,
+            container = dynamicColorScheme.errorContainer,
+            onContainer = dynamicColorScheme.onErrorContainer
+        ),
+        outline = OutlineColors(
+            color = dynamicColorScheme.outline,
+            variant = dynamicColorScheme.outlineVariant
+        ),
+        scrim = ScrimColors(
+            color = dynamicColorScheme.scrim
+        ),
+        inverse = InverseColors(
+            primary = dynamicColorScheme.inversePrimary,
+            onPrimary = dynamicColorScheme.onPrimary,
+            secondary = dynamicColorScheme.secondary,
+            onSecondary = dynamicColorScheme.onSecondary,
+            surface = dynamicColorScheme.inverseSurface,
+            onSurface = dynamicColorScheme.inverseOnSurface,
+            background = dynamicColorScheme.background,
+            onBackground = dynamicColorScheme.onBackground
+        )
+    )
+}
 /**
  * Converts a SyncColorScheme to a Material ColorScheme.
  *

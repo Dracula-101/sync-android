@@ -10,7 +10,9 @@ data class SwitchColors(
     val thumb: Color,
     val thumbPressed: Color,
     val disabledTrack: Color,
-    val disabledThumb: Color
+    val disabledThumb: Color,
+    val disabledCheckedTrack: Color,
+    val disabledCheckedThumb: Color
 )
 
 @Composable
@@ -21,6 +23,8 @@ internal fun SyncColorScheme.switchColors(): SwitchColors {
         thumb = surface.high,
         thumbPressed = primary.onColor,
         disabledTrack = surface.lowest,
-        disabledThumb = outline.variant
+        disabledThumb = outline.variant,
+        disabledCheckedTrack = primary.onColor.copy(alpha = 0.2f),
+        disabledCheckedThumb = primary.alpha200,
     )
 }

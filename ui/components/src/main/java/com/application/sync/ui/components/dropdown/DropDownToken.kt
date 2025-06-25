@@ -25,7 +25,5 @@ internal fun SyncColorScheme.dropdownColors(): DropdownColors {
 
 @Composable
 internal fun SyncColorScheme.dropdownCardColors(): CardColors {
-    return CardDefaults.cardColors(
-        containerColor = surface.container            // Consistent with dropdown background
-    )
+    return CardDefaults.cardColors()
 }

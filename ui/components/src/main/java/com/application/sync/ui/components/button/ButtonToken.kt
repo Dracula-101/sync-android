@@ -59,11 +59,12 @@ internal fun SyncColorScheme.outlinedButtonColors(
 @Composable
 internal fun SyncColorScheme.outlinedButtonBorderColor(
     variant: ButtonVariant = ButtonVariant.Primary,
+    enabled: Boolean = true,
 ): Color {
     return when (variant) {
-        ButtonVariant.Primary -> primary.color
-        ButtonVariant.Secondary -> secondary.color
-        ButtonVariant.Error -> error.color
+        ButtonVariant.Primary -> if (enabled) primary.color else primary.alpha400
+        ButtonVariant.Secondary -> if (enabled) secondary.color else secondary.alpha400
+        ButtonVariant.Error -> if (enabled) error.color else error.alpha400
     }
 }
 
