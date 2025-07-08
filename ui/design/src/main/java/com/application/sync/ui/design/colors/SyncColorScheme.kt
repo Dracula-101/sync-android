@@ -35,4 +35,74 @@ data class SyncColorScheme(
     val outline: OutlineColors,
     val scrim: ScrimColors,
     val inverse: InverseColors,
+    val shades: ColorShadesData,
 )
+
+fun SyncColorScheme.toMaterialColorScheme(): androidx.compose.material3.ColorScheme {
+    return androidx.compose.material3.ColorScheme(
+        primary = this.primary.color,
+        onPrimary = this.primary.onColor,
+        primaryContainer = this.primary.container,
+        onPrimaryContainer = this.primary.onContainer,
+        inversePrimary = this.inverse.primary,
+
+        secondary = this.secondary.color,
+        onSecondary = this.secondary.onColor,
+        secondaryContainer = this.secondary.container,
+        onSecondaryContainer = this.secondary.onContainer,
+
+        // For tertiary, you might need to add these to your SyncColorScheme
+        // or use fallback colors. Here I'm using primary colors as fallback
+        tertiary = this.primary.color, // Fallback - add tertiary to SyncColorScheme
+        onTertiary = this.primary.onColor,
+        tertiaryContainer = this.primary.container,
+        onTertiaryContainer = this.primary.onContainer,
+
+        background = this.background.color,
+        onBackground = this.background.onColor,
+
+        surface = this.surface.color,
+        onSurface = this.surface.onColor,
+        surfaceVariant = this.surface.variant,
+        onSurfaceVariant = this.surface.onColor, // You might want to add onSurfaceVariant to SyncColorScheme
+        surfaceTint = this.primary.color, // Typically uses primary color
+
+        inverseSurface = this.inverse.surface,
+        inverseOnSurface = this.inverse.onSurface,
+
+        error = this.error.color,
+        onError = this.error.onColor,
+        errorContainer = this.error.container,
+        onErrorContainer = this.error.onContainer,
+
+        outline = this.outline.color,
+        outlineVariant = this.outline.variant,
+
+        scrim = this.scrim.color,
+
+        // Surface container variants
+        surfaceBright = this.surface.color, // Fallback - you might want to add these to SyncColorScheme
+        surfaceDim = this.surface.color,
+        surfaceContainer = this.surface.container,
+        surfaceContainerHigh = this.surface.high,
+        surfaceContainerHighest = this.surface.highest,
+        surfaceContainerLow = this.surface.low,
+        surfaceContainerLowest = this.surface.lowest,
+
+        // Fixed colors - these might need to be added to your SyncColorScheme
+        primaryFixed = this.primary.color, // Fallback
+        primaryFixedDim = this.primary.dim,
+        onPrimaryFixed = this.primary.onColor,
+        onPrimaryFixedVariant = this.primary.onColor, // Fallback
+
+        secondaryFixed = this.secondary.color, // Fallback
+        secondaryFixedDim = this.secondary.color, // You might want to add dim to SecondaryColors
+        onSecondaryFixed = this.secondary.onColor,
+        onSecondaryFixedVariant = this.secondary.onColor, // Fallback
+
+        tertiaryFixed = this.primary.color, // Fallback
+        tertiaryFixedDim = this.primary.dim,
+        onTertiaryFixed = this.primary.onColor,
+        onTertiaryFixedVariant = this.primary.onColor // Fallback
+    )
+}

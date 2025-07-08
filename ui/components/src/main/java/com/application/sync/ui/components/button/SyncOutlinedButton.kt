@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.application.sync.ui.components.util.IconResource
-import com.application.sync.ui.components.util.toComposable
+import com.application.sync.ui.components.util.ToComposable
 import com.application.sync.ui.design.theme.SyncTheme
 
 @Composable
@@ -46,7 +46,7 @@ fun SyncOutlinedButton(
                     else Modifier
                 )
             ) {
-                icon?.toComposable()
+                icon?.ToComposable()
             }
             ProvideTextStyle(
                 value = SyncTheme.typography.bodyLarge,

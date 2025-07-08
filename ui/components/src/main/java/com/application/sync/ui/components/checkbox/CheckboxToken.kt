@@ -10,9 +10,9 @@ fun SyncColorScheme.checkboxColors(): CheckboxColors {
     return CheckboxDefaults.colors(
         checkedColor = primary.color,
         uncheckedColor = primary.color,
-        disabledCheckedColor = primary.alpha400,
-        disabledUncheckedColor = primary.alpha400,
+        disabledCheckedColor = primary.color.copy(alpha = 0.4f),
+        disabledUncheckedColor = primary.color.copy(alpha = 0.4f),
         checkmarkColor = primary.onColor,
-        disabledIndeterminateColor = primary.alpha200
+        disabledIndeterminateColor = primary.color.copy(alpha = 0.2f),
     )
 }

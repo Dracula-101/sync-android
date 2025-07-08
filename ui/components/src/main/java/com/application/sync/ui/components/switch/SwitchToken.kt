@@ -25,6 +25,6 @@ internal fun SyncColorScheme.switchColors(): SwitchColors {
         disabledTrack = surface.lowest,
         disabledThumb = outline.variant,
         disabledCheckedTrack = primary.onColor.copy(alpha = 0.2f),
-        disabledCheckedThumb = primary.alpha200,
+        disabledCheckedThumb = primary.color.copy(alpha = 0.2f),
     )
 }

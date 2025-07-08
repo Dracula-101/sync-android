@@ -1,9 +1,6 @@
 package com.application.sync.ui.design.colors
 
 import androidx.compose.ui.graphics.Color
-import com.application.sync.ui.design.utils.ColorAlphaData
-import com.application.sync.ui.design.utils.ColorGenerators
-import com.application.sync.ui.design.utils.ColorShadesData
 
 /**
  * Represents secondary colors with their respective variants.
@@ -21,6 +18,4 @@ data class SecondaryColors(
     val onColor: Color,
     val container: Color,
     val onContainer: Color,
-    private val shades: ColorShadesData = ColorGenerators.generateShades(color),
-    private val alphas: ColorAlphaData = ColorGenerators.generateAlpha(color)
-) : ColorShades by shades, ColorAlpha by alphas
+)

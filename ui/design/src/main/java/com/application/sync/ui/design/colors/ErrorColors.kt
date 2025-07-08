@@ -1,8 +1,6 @@
 package com.application.sync.ui.design.colors
 
 import androidx.compose.ui.graphics.Color
-import com.application.sync.ui.design.utils.ColorAlphaData
-import com.application.sync.ui.design.utils.ColorGenerators
 
 /**
  * Represents a complete color scheme for the application.
@@ -17,5 +15,4 @@ data class ErrorColors(
     val onColor: Color,
     val container: Color,
     val onContainer: Color,
-    private val alphas: ColorAlphaData = ColorGenerators.generateAlpha(color),
-) : ColorAlpha by alphas
+)

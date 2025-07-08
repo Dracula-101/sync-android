@@ -1,7 +1,6 @@
 package com.application.sync.ui.design.colors
 
 import androidx.compose.ui.graphics.Color
-import com.application.sync.ui.design.utils.ColorGenerators
 
 
 /**
@@ -11,5 +10,5 @@ import com.application.sync.ui.design.utils.ColorGenerators
  */
 data class ScrimColors(
     val color: Color,
-    private val shades: ColorShades = ColorGenerators.generateShades(color)
-) : ColorShades by shades
+    val variant: Color,
+)

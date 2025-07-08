@@ -25,7 +25,7 @@ import com.application.sync.ui.components.button.SyncOutlinedButton
 import com.application.sync.ui.components.spacing.SyncSpacer
 import com.application.sync.ui.components.spacing.SyncSpacerSize
 import com.application.sync.ui.components.util.IconResource
-import com.application.sync.ui.components.util.toComposable
+import com.application.sync.ui.components.util.ToComposable
 import com.application.sync.ui.design.theme.SyncTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -78,7 +78,7 @@ fun SyncIconActionDialog(
                 ) {
                     SyncSpacer(size = SyncSpacerSize.Small)
 
-                    icon?.toComposable(
+                    icon?.ToComposable(
                         modifier = Modifier
                             .size(80.dp)
                             .align(Alignment.CenterHorizontally),

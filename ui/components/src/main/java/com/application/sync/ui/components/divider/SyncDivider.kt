@@ -16,7 +16,7 @@ fun SyncDivider(
     modifier: Modifier = Modifier,
     thickness: Dp = 1.dp,
     spacing: Dp = SyncTheme.spacing.gap.small,
-    color: Color = SyncTheme.colorScheme.secondary.color,
+    color: Color = SyncTheme.colorScheme.outline.color,
     orientation: SyncDividerOrientation = SyncDividerOrientation.Horizontal,
 ) {
     val alphaColor = color.copy(alpha = 0.5f)

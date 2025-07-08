@@ -187,7 +187,7 @@ fun DropdownMenuItem(
                 LocalContentColor provides if (enabled) {
                     SyncTheme.colorScheme.primary.color
                 } else {
-                    SyncTheme.colorScheme.primary.alpha300
+                    SyncTheme.colorScheme.primary.color.copy(alpha = 0.3f)
                 }
             ) {
                 Box(
@@ -203,7 +203,7 @@ fun DropdownMenuItem(
             LocalContentColor provides if (enabled) {
                 SyncTheme.colorScheme.primary.color
             } else {
-                SyncTheme.colorScheme.primary.alpha300
+                SyncTheme.colorScheme.primary.color.copy(alpha = 0.3f)
             }
         ) {
             ProvideTextStyle(SyncTheme.typography.bodyLarge) {
@@ -218,7 +218,7 @@ fun DropdownMenuItem(
                 LocalContentColor provides if (enabled) {
                     SyncTheme.colorScheme.secondary.color
                 } else {
-                    SyncTheme.colorScheme.secondary.alpha300
+                    SyncTheme.colorScheme.secondary.color.copy(alpha = 0.3f)
                 }
             ) {
                 trailingIcon()

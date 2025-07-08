@@ -21,7 +21,7 @@ internal val syncTypography: SyncTypography = SyncTypography(
         letterSpacing = 0.sp,
         lineHeightStyle = LineHeightStyle(
             alignment = LineHeightStyle.Alignment.Center,
-            trim = LineHeightStyle.Trim.None,
+            trim = LineHeightStyle.Trim.Both,
         ),
         platformStyle = PlatformTextStyle(includeFontPadding = false),
     ),
@@ -33,7 +33,7 @@ internal val syncTypography: SyncTypography = SyncTypography(
         letterSpacing = 0.sp,
         lineHeightStyle = LineHeightStyle(
             alignment = LineHeightStyle.Alignment.Center,
-            trim = LineHeightStyle.Trim.None,
+            trim = LineHeightStyle.Trim.Both,
         ),
         platformStyle = PlatformTextStyle(includeFontPadding = false),
     ),
@@ -45,7 +45,7 @@ internal val syncTypography: SyncTypography = SyncTypography(
         letterSpacing = 0.sp,
         lineHeightStyle = LineHeightStyle(
             alignment = LineHeightStyle.Alignment.Center,
-            trim = LineHeightStyle.Trim.None,
+            trim = LineHeightStyle.Trim.Both,
         ),
         platformStyle = PlatformTextStyle(includeFontPadding = false),
     ),
@@ -57,7 +57,7 @@ internal val syncTypography: SyncTypography = SyncTypography(
         letterSpacing = 0.sp,
         lineHeightStyle = LineHeightStyle(
             alignment = LineHeightStyle.Alignment.Center,
-            trim = LineHeightStyle.Trim.None,
+            trim = LineHeightStyle.Trim.Both,
         ),
         platformStyle = PlatformTextStyle(includeFontPadding = false),
     ),
@@ -69,7 +69,7 @@ internal val syncTypography: SyncTypography = SyncTypography(
         letterSpacing = 0.sp,
         lineHeightStyle = LineHeightStyle(
             alignment = LineHeightStyle.Alignment.Center,
-            trim = LineHeightStyle.Trim.None,
+            trim = LineHeightStyle.Trim.Both,
         ),
         platformStyle = PlatformTextStyle(includeFontPadding = false),
     ),
@@ -81,7 +81,7 @@ internal val syncTypography: SyncTypography = SyncTypography(
         letterSpacing = 0.sp,
         lineHeightStyle = LineHeightStyle(
             alignment = LineHeightStyle.Alignment.Center,
-            trim = LineHeightStyle.Trim.None,
+            trim = LineHeightStyle.Trim.Both,
         ),
         platformStyle = PlatformTextStyle(includeFontPadding = false),
     ),

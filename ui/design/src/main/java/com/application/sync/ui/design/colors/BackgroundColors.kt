@@ -1,9 +1,6 @@
 package com.application.sync.ui.design.colors
 
 import androidx.compose.ui.graphics.Color
-import com.application.sync.ui.design.utils.ColorAlphaData
-import com.application.sync.ui.design.utils.ColorGenerators
-import com.application.sync.ui.design.utils.ColorShadesData
 
 /**
  * Represents background colors used in the application.
@@ -20,6 +17,4 @@ data class BackgroundColors(
     val onColor: Color,
     val bright: Color,
     val dim: Color,
-    private val shades: ColorShadesData = ColorGenerators.generateShades(color),
-    private val alphas: ColorAlphaData = ColorGenerators.generateAlpha(color)
-) : ColorShades by shades, ColorAlpha by alphas
+)

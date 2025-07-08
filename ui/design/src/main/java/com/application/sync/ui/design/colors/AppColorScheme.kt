@@ -1,265 +1,333 @@
 package com.application.sync.ui.design.colors
 
-import androidx.compose.material3.ColorScheme
 import androidx.compose.ui.graphics.Color
 
 /**
- * Social Media Platform Color Schemes
+ * Light theme color scheme for Sync app
  *
- * Light Theme: Uses a vibrant blue (#1DA1F2) similar to Twitter/X for high engagement
- * Dark Theme: Uses a softer blue (#4A9EFF) that's easier on the eyes in dark mode
+ * Provides a clean, professional light theme with blue primary (#4C68D5)
+ * and orange secondary (#FF6B35) colors. Background is slightly darker
+ * than surface to create proper elevation hierarchy.
+ *
+ * @return SyncColorScheme configured for light theme
  */
-
-internal val LightColorScheme = SyncColorScheme(
-    primary = PrimaryColors(
-        color = Color(0xFF1DA1F2), // Vibrant social media blue
-        onColor = Color(0xFFFFFFFF), // White text on blue
-        container = Color(0xFFE3F2FD), // Light blue container
-        onContainer = Color(0xFF0D47A1), // Dark blue text on light container
-        bright = Color(0xFF42A5F5), // Brighter blue for highlights
-        dim = Color(0xFF1976D2) // Dimmer blue for pressed states
-    ),
-
-    secondary = SecondaryColors(
-        color = Color(0xFF7C4DFF), // Purple accent for likes, reactions
-        onColor = Color(0xFFFFFFFF), // White text on purple
-        container = Color(0xFFF3E5F5), // Light purple container
-        onContainer = Color(0xFF4A148C) // Dark purple text
-    ),
-
-    background = BackgroundColors(
-        color = Color(0xFFFFFBFE), // Pure white background
-        onColor = Color(0xFF1C1B1F), // Dark text on white
-        bright = Color(0xFFFFFFFF), // Bright white for elevated surfaces
-        dim = Color(0xFFF5F5F5) // Light gray for subtle backgrounds
-    ),
-
-    surface = SurfaceColors(
-        color = Color(0xFFFFFFFF), // White surface
-        onColor = Color(0xFF1C1B1F), // Dark text on white surface
-        variant = Color(0xFFF8F9FA), // Light gray surface variant
-        container = Color(0xFFF1F3F4), // Light container for cards
-        onContainer = Color(0xFF202124), // Dark text on light container
-        highest = Color(0xFFFFFFFF), // Highest elevation (white)
-        high = Color(0xFFFCFCFC), // High elevation
-        low = Color(0xFFF8F9FA), // Low elevation
-        lowest = Color(0xFFF5F5F5) // Lowest elevation
-    ),
-
-    error = ErrorColors(
-        color = Color(0xFFE53935), // Red for errors
-        onColor = Color(0xFFFFFFFF), // White text on red
-        container = Color(0xFFFFEBEE), // Light red container
-        onContainer = Color(0xFFB71C1C) // Dark red text
-    ),
-
-    outline = OutlineColors(
-        color = Color(0xFFE0E0E0), // Light gray outlines,
-        variant = Color(0xFFBDBDBD) // Slightly darker gray for variant outlines
-    ),
-
-    scrim = ScrimColors(
-        color = Color(0x80000000) // Semi-transparent black scrim
-    ),
-
-    inverse = InverseColors(
-        primary = Color(0xFF4A9EFF), // Lighter blue for inverse
-        onPrimary = Color(0xFF003366), // Dark blue text
-        secondary = Color(0xFFBB86FC), // Light purple for inverse
-        onSecondary = Color(0xFF3700B3), // Dark purple text
-        surface = Color(0xFF121212), // Dark surface
-        onSurface = Color(0xFFE0E0E0), // Light text on dark surface
-        background = Color(0xFF000000), // Black background
-        onBackground = Color(0xFFFFFFFF) // White text on black
+fun lightTheme(): SyncColorScheme {
+    return SyncColorScheme(
+        /**
+         * Primary colors for Sync app branding
+         * Blue-purple (#4C68D5) with proper contrast ratios
+         */
+        /**
+         * Primary colors optimized for dark theme
+         * Brighter blue (#6B7FE3) for better visibility on dark backgrounds
+         */
+        primary = PrimaryColors(
+            color = Color(0xFF4C68D5),
+            onColor = Color(0xFFFFFFFF),
+            container = Color(0xFFE1E7FF),
+            onContainer = Color(0xFF001946),
+            bright = Color(0xFF6B7FE3),
+            dim = Color(0xFF3E56B8)
+        ),
+        /**
+         * Secondary colors for accents and CTAs
+         * Warm orange (#FF6B35) that complements primary
+         */
+        /**
+         * Secondary colors optimized for dark theme
+         * Adjusted orange (#FF7A45) with dark container shade
+         */
+        secondary = SecondaryColors(
+            color = Color(0xFFFF6B35),
+            onColor = Color(0xFFFFFFFF),
+            container = Color(0xFFFFE8E0),
+            onContainer = Color(0xFF2D1400)
+        ),
+        /**
+         * Background colors for main app backdrop
+         * Slightly darker than surface for proper elevation
+         */
+        /**
+         * Background colors for dark theme
+         * True black (#000000) for OLED optimization
+         */
+        background = BackgroundColors(
+            color = Color(0xFFFAFAFA),
+            onColor = Color(0xFF1A1A1A),
+            bright = Color(0xFFFFFFFF),
+            dim = Color(0xFFF5F5F5)
+        ),
+        /**
+         * Surface colors for cards, sheets, and elevated components
+         * Lighter than background with proper hierarchy levels
+         */
+        /**
+         * Surface colors for dark theme elevation
+         * Progressive lightness for proper depth hierarchy
+         */
+        surface = SurfaceColors(
+            color = Color(0xFFFFFFFF),
+            onColor = Color(0xFF1A1A1A),
+            variant = Color(0xFFF8F8F8),
+            container = Color(0xFFFCFCFC),
+            onContainer = Color(0xFF1A1A1A),
+            highest = Color(0xFFFFFFFF),
+            high = Color(0xFFFEFEFE),
+            low = Color(0xFFF8F8F8),
+            lowest = Color(0xFFF0F0F0)
+        ),
+        /**
+         * Error colors for alerts and validation states
+         * Red color family with proper contrast
+         */
+        /**
+         * Error colors for dark theme
+         * Brighter red (#EF4444) for visibility on dark backgrounds
+         */
+        error = ErrorColors(
+            color = Color(0xFFDC2626),
+            onColor = Color(0xFFFFFFFF),
+            container = Color(0xFFFEE2E2),
+            onContainer = Color(0xFF991B1B)
+        ),
+        /**
+         * Outline colors for borders and dividers
+         * Subtle gray tones for clean separation
+         */
+        /**
+         * Outline colors for dark theme borders
+         * Darker gray tones for subtle separation
+         */
+        outline = OutlineColors(
+            color = Color(0xFFD1D5DB),
+            variant = Color(0xFFE5E7EB)
+        ),
+        /**
+         * Stroke colors for icons and graphics
+         * More prominent than outline for visual emphasis
+         */
+        scrim = ScrimColors(
+            color = Color(0xFF9CA3AF),
+            variant = Color(0xFFD1D5DB)
+        ),
+        /**
+         * Inverse colors for tooltips and contrasting elements
+         * Dark theme colors used in light theme context
+         */
+        /**
+         * Inverse colors for dark theme contrasting elements
+         * Light theme colors used in dark theme context
+         */
+        inverse = InverseColors(
+            primary = Color(0xFF6B7FE3),
+            onPrimary = Color(0xFF000000),
+            secondary = Color(0xFFFF8A55),
+            onSecondary = Color(0xFF000000),
+            surface = Color(0xFF1A1F2E),
+            onSurface = Color(0xFFFFFFFF),
+            background = Color(0xFF000000),
+            onBackground = Color(0xFFFFFFFF)
+        ),
+        shades = lightThemeShades()
     )
-)
+}
 
-internal val DarkColorScheme = SyncColorScheme(
-    primary = PrimaryColors(
-        color = Color(0xFF4A9EFF), // Softer blue for dark mode
-        onColor = Color(0xFF003366), // Dark blue text on light blue
-        container = Color(0xFF1E3A5F), // Dark blue container
-        onContainer = Color(0xFFB3D9FF), // Light blue text on dark container
-        bright = Color(0xFF6BB6FF), // Brighter variant
-        dim = Color(0xFF2980B9) // Dimmer variant
-    ),
-
-    secondary = SecondaryColors(
-        color = Color(0xFFBB86FC), // Light purple for dark mode
-        onColor = Color(0xFF3700B3), // Dark purple text
-        container = Color(0xFF4A148C), // Dark purple container
-        onContainer = Color(0xFFE1BEE7) // Light purple text
-    ),
-
-    background = BackgroundColors(
-        color = Color(0xFF0F0F0F), // Very dark background
-        onColor = Color(0xFFE6E1E5), // Light text on dark
-        bright = Color(0xFF1C1C1C), // Slightly lighter for elevation
-        dim = Color(0xFF000000) // Pure black for maximum contrast
-    ),
-
-    surface = SurfaceColors(
-        color = Color(0xFF1C1C1C), // Dark surface
-        onColor = Color(0xFFE6E1E5), // Light text on dark surface
-        variant = Color(0xFF2C2C2C), // Darker surface variant
-        container = Color(0xFF262626), // Dark container for cards
-        onContainer = Color(0xFFE0E0E0), // Light text on dark container
-        highest = Color(0xFF383838), // Highest elevation
-        high = Color(0xFF2E2E2E), // High elevation
-        low = Color(0xFF1A1A1A), // Low elevation
-        lowest = Color(0xFF121212) // Lowest elevation
-    ),
-
-    error = ErrorColors(
-        color = Color(0xFFFF6B6B), // Softer red for dark mode
-        onColor = Color(0xFF690005), // Dark red text
-        container = Color(0xFF93000A), // Dark red container
-        onContainer = Color(0xFFFFDAD6) // Light red text
-    ),
-
-    outline = OutlineColors(
-        color = Color(0xFF404040), // Gray outlines for dark mode
-        variant = Color(0xFF606060) // Slightly lighter gray for variant outlines
-    ),
-
-    scrim = ScrimColors(
-        color = Color(0xCC000000) // Darker scrim for dark mode
-    ),
-
-    inverse = InverseColors(
-        primary = Color(0xFF1DA1F2), // Vibrant blue for inverse
-        onPrimary = Color(0xFFFFFFFF), // White text
-        secondary = Color(0xFF7C4DFF), // Purple for inverse
-        onSecondary = Color(0xFFFFFFFF), // White text
-        surface = Color(0xFFFFFFFF), // White surface
-        onSurface = Color(0xFF1C1B1F), // Dark text on white surface
-        background = Color(0xFFFFFBFE), // Light background
-        onBackground = Color(0xFF1C1B1F) // Dark text on light
-    )
-)
-
-internal fun dynamicTheme(dynamicColorScheme: ColorScheme): SyncColorScheme {
+/**
+ * Dark theme color scheme for Sync app
+ *
+ * Provides a sophisticated dark theme with adjusted blue primary (#6B7FE3)
+ * and orange secondary (#FF7A45) colors optimized for dark backgrounds.
+ * Uses true black background with proper surface elevation.
+ *
+ * @return SyncColorScheme configured for dark theme
+ */
+fun darkTheme(): SyncColorScheme {
     return SyncColorScheme(
         primary = PrimaryColors(
-            color = dynamicColorScheme.primary,
-            onColor = dynamicColorScheme.onPrimary,
-            container = dynamicColorScheme.primaryContainer,
-            onContainer = dynamicColorScheme.onPrimaryContainer,
-            bright = dynamicColorScheme.primary.copy(alpha = 0.85f),
-            dim = dynamicColorScheme.primary.copy(alpha = 0.6f)
+            color = Color(0xFF6B7FE3),
+            onColor = Color(0xFFFFFFFF),
+            container = Color(0xFF2A3B7A),
+            onContainer = Color(0xFFE1E7FF),
+            bright = Color(0xFF8A9AEF),
+            dim = Color(0xFF5A6ED1)
         ),
         secondary = SecondaryColors(
-            color = dynamicColorScheme.secondary,
-            onColor = dynamicColorScheme.onSecondary,
-            container = dynamicColorScheme.secondaryContainer,
-            onContainer = dynamicColorScheme.onSecondaryContainer
+            color = Color(0xFFFF7A45),
+            onColor = Color(0xFFFFFFFF),
+            container = Color(0xFF4A2415),
+            onContainer = Color(0xFFFFD4C4)
         ),
         background = BackgroundColors(
-            color = dynamicColorScheme.background,
-            onColor = dynamicColorScheme.onBackground,
-            bright = dynamicColorScheme.background.copy(alpha = 0.85f),
-            dim = dynamicColorScheme.background.copy(alpha = 0.6f)
+            color = Color(0xFF000000),
+            onColor = Color(0xFFFFFFFF),
+            bright = Color(0xFF1A1A1A),
+            dim = Color(0xFF0A0A0A)
         ),
         surface = SurfaceColors(
-            color = dynamicColorScheme.surface,
-            onColor = dynamicColorScheme.onSurface,
-            variant = dynamicColorScheme.surfaceVariant,
-            container = dynamicColorScheme.surfaceVariant.copy(alpha = 0.9f),
-            onContainer = dynamicColorScheme.onSurfaceVariant,
-            highest = dynamicColorScheme.surface.copy(alpha = 1f),
-            high = dynamicColorScheme.surface.copy(alpha = 0.9f),
-            low = dynamicColorScheme.surface.copy(alpha = 0.7f),
-            lowest = dynamicColorScheme.surface.copy(alpha = 0.5f)
+            color = Color(0xFF0F0F0F),
+            onColor = Color(0xFFFFFFFF),
+            variant = Color(0xFF1A1A1A),
+            container = Color(0xFF151515),
+            onContainer = Color(0xFFFFFFFF),
+            highest = Color(0xFF2A2A2A),
+            high = Color(0xFF1F1F1F),
+            low = Color(0xFF0A0A0A),
+            lowest = Color(0xFF000000)
         ),
         error = ErrorColors(
-            color = dynamicColorScheme.error,
-            onColor = dynamicColorScheme.onError,
-            container = dynamicColorScheme.errorContainer,
-            onContainer = dynamicColorScheme.onErrorContainer
+            color = Color(0xFFEF4444),
+            onColor = Color(0xFFFFFFFF),
+            container = Color(0xFF991B1B),
+            onContainer = Color(0xFFFEE2E2)
         ),
         outline = OutlineColors(
-            color = dynamicColorScheme.outline,
-            variant = dynamicColorScheme.outlineVariant
+            color = Color(0xFF374151),
+            variant = Color(0xFF4B5563)
         ),
+        /**
+         * Stroke colors for dark theme icons and graphics
+         * Balanced gray for visual emphasis without harshness
+         */
         scrim = ScrimColors(
-            color = dynamicColorScheme.scrim
+            color = Color(0xFF6B7280),
+            variant = Color(0xFF4B5563)
         ),
         inverse = InverseColors(
-            primary = dynamicColorScheme.inversePrimary,
-            onPrimary = dynamicColorScheme.onPrimary,
-            secondary = dynamicColorScheme.secondary,
-            onSecondary = dynamicColorScheme.onSecondary,
-            surface = dynamicColorScheme.inverseSurface,
-            onSurface = dynamicColorScheme.inverseOnSurface,
-            background = dynamicColorScheme.background,
-            onBackground = dynamicColorScheme.onBackground
+            primary = Color(0xFF4C68D5),
+            onPrimary = Color(0xFFFFFFFF),
+            secondary = Color(0xFFFF6B35),
+            onSecondary = Color(0xFFFFFFFF),
+            surface = Color(0xFFFFFFFF),
+            onSurface = Color(0xFF1A1A1A),
+            background = Color(0xFFFAFAFA),
+            onBackground = Color(0xFF1A1A1A)
+        ),
+        shades = darkThemeShades()
+    )
+}
+
+/**
+ * Light theme color shades data for Sync app
+ *
+ * Provides complete shade ranges (50-900) for primary, secondary, and background colors.
+ * Each shade offers different intensities for flexible UI design and proper hierarchy.
+ *
+ * @return ColorShadesData configured for light theme
+ */
+fun lightThemeShades(): ColorShadesData {
+    return ColorShadesData(
+        /**
+         * Primary color shades - Blue-purple family (#4C68D5)
+         * From lightest tint (50) to darkest shade (900)
+         */
+        primary = Shades(
+            shade50 = Color(0xFFF4F6FF),
+            shade100 = Color(0xFFE8EDFF),
+            shade200 = Color(0xFFD1DBFF),
+            shade300 = Color(0xFFA3B9FF),
+            shade400 = Color(0xFF7590EA),
+            shade500 = Color(0xFF4C68D5), // Original primary
+            shade600 = Color(0xFF3E56B8),
+            shade700 = Color(0xFF32459A),
+            shade800 = Color(0xFF2A3B7A),
+            shade900 = Color(0xFF1E2B5A)
+        ),
+
+        /**
+         * Secondary color shades - Orange family (#FF6B35)
+         * Warm complement to primary blue for accents and CTAs
+         */
+        secondary = Shades(
+            shade50 = Color(0xFFFFF7F3),
+            shade100 = Color(0xFFFFEDE6),
+            shade200 = Color(0xFFFFD9CC),
+            shade300 = Color(0xFFFFB899),
+            shade400 = Color(0xFFFF9266),
+            shade500 = Color(0xFFFF6B35), // Original secondary
+            shade600 = Color(0xFFE55A2B),
+            shade700 = Color(0xFFCC4A21),
+            shade800 = Color(0xFFB33A18),
+            shade900 = Color(0xFF992A0F)
+        ),
+
+        /**
+         * Background color shades - Neutral gray family (#FAFAFA)
+         * Subtle variations for layering and depth
+         */
+        background = Shades(
+            shade50 = Color(0xFFFFFFFF),
+            shade100 = Color(0xFFFEFEFE),
+            shade200 = Color(0xFFFCFCFC),
+            shade300 = Color(0xFFFAFAFA), // Original background
+            shade400 = Color(0xFFF5F5F5),
+            shade500 = Color(0xFFF0F0F0),
+            shade600 = Color(0xFFE8E8E8),
+            shade700 = Color(0xFFE0E0E0),
+            shade800 = Color(0xFFD5D5D5),
+            shade900 = Color(0xFFC0C0C0)
         )
     )
 }
+
 /**
- * Converts a SyncColorScheme to a Material ColorScheme.
+ * Dark theme color shades data for Sync app
  *
- * This function maps the custom SyncColorScheme to the Material3 ColorScheme
- * format, ensuring compatibility with Material Design components.
+ * Provides complete shade ranges optimized for dark backgrounds.
+ * Colors are adjusted for better visibility and contrast in dark mode.
  *
- * @return A ColorScheme object compatible with Material Design.
+ * @return ColorShadesData configured for dark theme
  */
-fun SyncColorScheme.toMaterialColorScheme() = ColorScheme(
-    // Primary colors
-    primary = primary.color,
-    onPrimary = primary.onColor,
-    primaryContainer = primary.container,
-    onPrimaryContainer = primary.onContainer,
+fun darkThemeShades(): ColorShadesData {
+    return ColorShadesData(
+        /**
+         * Primary color shades for dark theme - Brighter blue-purple family
+         * Optimized for visibility on dark backgrounds
+         */
+        primary = Shades(
+            shade50 = Color(0xFFF4F6FF),
+            shade100 = Color(0xFFE8EDFF),
+            shade200 = Color(0xFFD1DBFF),
+            shade300 = Color(0xFFA3B9FF),
+            shade400 = Color(0xFF8A9AEF),
+            shade500 = Color(0xFF6B7FE3), // Dark theme primary
+            shade600 = Color(0xFF5A6ED1),
+            shade700 = Color(0xFF4C68D5), // Original primary
+            shade800 = Color(0xFF3E56B8),
+            shade900 = Color(0xFF2A3B7A)
+        ),
 
-    // Secondary colors
-    secondary = secondary.color,
-    onSecondary = secondary.onColor,
-    secondaryContainer = secondary.container,
-    onSecondaryContainer = secondary.onContainer,
+        /**
+         * Secondary color shades for dark theme - Adjusted orange family
+         * Balanced warmth for dark mode interfaces
+         */
+        secondary = Shades(
+            shade50 = Color(0xFFFFF7F3),
+            shade100 = Color(0xFFFFEDE6),
+            shade200 = Color(0xFFFFD9CC),
+            shade300 = Color(0xFFFFB899),
+            shade400 = Color(0xFFFFA575),
+            shade500 = Color(0xFFFF7A45), // Dark theme secondary
+            shade600 = Color(0xFFE5724A),
+            shade700 = Color(0xFFFF6B35), // Original secondary
+            shade800 = Color(0xFFE55A2B),
+            shade900 = Color(0xFFCC4A21)
+        ),
 
-    // Tertiary colors (using secondary as fallback since not defined in SyncColorScheme)
-    tertiary = secondary.color,
-    onTertiary = secondary.onColor,
-    tertiaryContainer = secondary.container,
-    onTertiaryContainer = secondary.onContainer,
-
-    // Background colors
-    background = background.color,
-    onBackground = background.onColor,
-
-    // Surface colors
-    surface = surface.color,
-    onSurface = surface.onColor,
-    surfaceVariant = surface.variant,
-    onSurfaceVariant = surface.onContainer,
-    surfaceTint = primary.color,
-
-    // Surface containers (Material 3 additions)
-    surfaceContainer = surface.container,
-    surfaceContainerHigh = surface.high,
-    surfaceContainerHighest = surface.highest,
-    surfaceContainerLow = surface.low,
-    surfaceContainerLowest = surface.lowest,
-
-    // Surface brightness variants
-    surfaceBright = background.bright,
-    surfaceDim = background.dim,
-
-    // Error colors
-    error = error.color,
-    onError = error.onColor,
-    errorContainer = error.container,
-    onErrorContainer = error.onContainer,
-
-    // Outline colors
-    outline = outline.color,
-    outlineVariant = outline.variant, // Standard Material 3 outline variant
-
-    // Scrim
-    scrim = scrim.color,
-
-    // Inverse colors
-    inversePrimary = inverse.primary,
-    inverseSurface = inverse.surface,
-    inverseOnSurface = inverse.onSurface
-)
+        /**
+         * Background color shades for dark theme - True black to gray
+         * Progressive lightness for proper elevation hierarchy
+         */
+        background = Shades(
+            shade50 = Color(0xFF404040),
+            shade100 = Color(0xFF353535),
+            shade200 = Color(0xFF2A2A2A),
+            shade300 = Color(0xFF1F1F1F),
+            shade400 = Color(0xFF151515),
+            shade500 = Color(0xFF0A0A0A),
+            shade600 = Color(0xFF050505),
+            shade700 = Color(0xFF030303),
+            shade800 = Color(0xFF010101),
+            shade900 = Color(0xFF000000) // Original dark background
+        )
+    )
+}

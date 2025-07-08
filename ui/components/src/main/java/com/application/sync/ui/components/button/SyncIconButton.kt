@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import com.application.sync.ui.components.util.IconResource
-import com.application.sync.ui.components.util.toComposable
+import com.application.sync.ui.components.util.ToComposable
 import com.application.sync.ui.design.theme.SyncTheme
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
@@ -30,7 +30,7 @@ fun SyncIconButton(
         ),
         colors = SyncTheme.colorScheme.iconButtonColors(),
         content = {
-            icon.toComposable(
+            icon.ToComposable(
                 modifier = Modifier.size(size),
             )
         }

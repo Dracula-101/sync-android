@@ -1,11 +1,8 @@
 package com.application.sync.ui.design.theme
 
 import android.app.Activity
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ProvidableCompositionLocal
@@ -14,13 +11,11 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import com.application.sync.ui.design.colors.DarkColorScheme
-import com.application.sync.ui.design.colors.LightColorScheme
 import com.application.sync.ui.design.colors.SyncColorScheme
-import com.application.sync.ui.design.colors.dynamicTheme
+import com.application.sync.ui.design.colors.darkTheme
+import com.application.sync.ui.design.colors.lightTheme
 import com.application.sync.ui.design.colors.toMaterialColorScheme
 import com.application.sync.ui.design.dimension.SyncDimensions
 import com.application.sync.ui.design.dimension.syncDimensions
@@ -77,20 +72,11 @@ object SyncTheme {
 @Composable
 fun SyncTheme(
     isDarkTheme: Boolean = isSystemInDarkTheme(),
-    dynamic: Boolean = false,
     content: @Composable () -> Unit
 ) {
-    val context = LocalContext.current
     val syncColorScheme = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && dynamic -> {
-            dynamicTheme(
-                if (isDarkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(
-                    context
-                )
-            )
-        }
-        isDarkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        isDarkTheme -> darkTheme()
+        else -> lightTheme()
     }
 
     val view = LocalView.current
@@ -123,7 +109,7 @@ fun SyncTheme(
 
 
 val LocalSyncColorScheme: ProvidableCompositionLocal<SyncColorScheme> =
-    compositionLocalOf { DarkColorScheme }
+    compositionLocalOf { darkTheme() }
 
 val LocalSyncShapes: ProvidableCompositionLocal<SyncShapes> =
     compositionLocalOf { syncShapes }

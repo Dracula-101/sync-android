@@ -19,7 +19,7 @@ sealed class IconResource {
 }
 
 @Composable
-fun IconResource.toComposable(
+fun IconResource.ToComposable(
     modifier: Modifier = Modifier,
     color: Color? = null,
 ) {

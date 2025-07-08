@@ -17,7 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.application.sync.ui.components.util.IconResource
-import com.application.sync.ui.components.util.toComposable
+import com.application.sync.ui.components.util.ToComposable
 import com.application.sync.ui.design.theme.SyncTheme
 
 @Composable
@@ -62,7 +62,7 @@ fun SyncOutlineBadge(
                     Box(
                         modifier = Modifier.size(SyncTheme.typography.labelMedium.fontSize.value.dp * 1.5f),
                     ) {
-                        icon.toComposable()
+                        icon.ToComposable()
                     }
                 }
                 Text(

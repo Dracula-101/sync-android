@@ -19,9 +19,9 @@ internal fun SyncColorScheme.filledButtonColors(
             ButtonVariant.Error -> error.color
         },
         disabledContainerColor = when (variant) {
-            ButtonVariant.Primary -> primary.alpha200
-            ButtonVariant.Secondary -> secondary.alpha200
-            ButtonVariant.Error -> error.alpha200
+            ButtonVariant.Primary -> primary.color.copy(alpha = 0.2f)
+            ButtonVariant.Secondary -> secondary.color.copy(alpha = 0.2f)
+            ButtonVariant.Error -> error.color.copy(alpha = 0.2f)
         },
         contentColor = when (variant) {
             ButtonVariant.Primary -> primary.onColor
@@ -29,9 +29,9 @@ internal fun SyncColorScheme.filledButtonColors(
             ButtonVariant.Error -> error.onColor
         },
         disabledContentColor = when (variant) {
-            ButtonVariant.Primary -> primary.alpha400
-            ButtonVariant.Secondary -> secondary.alpha400
-            ButtonVariant.Error -> error.alpha400
+            ButtonVariant.Primary -> primary.color.copy(alpha = 0.4f)
+            ButtonVariant.Secondary -> secondary.color.copy(alpha = 0.4f)
+            ButtonVariant.Error -> error.color.copy(alpha = 0.4f)
         }
     )
 }
@@ -49,9 +49,9 @@ internal fun SyncColorScheme.outlinedButtonColors(
         },
         disabledContainerColor = Color.Transparent,
         disabledContentColor = when (variant) {
-            ButtonVariant.Primary -> primary.alpha400
-            ButtonVariant.Secondary -> secondary.alpha400
-            ButtonVariant.Error -> error.alpha400
+            ButtonVariant.Primary -> primary.color.copy(alpha = 0.4f)
+            ButtonVariant.Secondary -> secondary.color.copy(alpha = 0.4f)
+            ButtonVariant.Error -> error.color.copy(alpha = 0.4f)
         }
     )
 }
@@ -62,9 +62,9 @@ internal fun SyncColorScheme.outlinedButtonBorderColor(
     enabled: Boolean = true,
 ): Color {
     return when (variant) {
-        ButtonVariant.Primary -> if (enabled) primary.color else primary.alpha400
-        ButtonVariant.Secondary -> if (enabled) secondary.color else secondary.alpha400
-        ButtonVariant.Error -> if (enabled) error.color else error.alpha400
+        ButtonVariant.Primary -> if (enabled) primary.color else primary.color.copy(alpha = 0.4f)
+        ButtonVariant.Secondary -> if (enabled) secondary.color else secondary.color.copy(alpha = 0.4f)
+        ButtonVariant.Error -> if (enabled) error.color else error.color.copy(alpha = 0.4f)
     }
 }
 
@@ -82,9 +82,9 @@ fun SyncColorScheme.textButtonColors(
         },
         disabledContainerColor = Color.Transparent,
         disabledContentColor = when (variant) {
-            ButtonVariant.Primary -> primary.alpha400
-            ButtonVariant.Secondary -> secondary.alpha400
-            ButtonVariant.Error -> error.alpha400
+            ButtonVariant.Primary -> primary.color.copy(alpha = 0.4f)
+            ButtonVariant.Secondary -> secondary.color.copy(alpha = 0.4f)
+            ButtonVariant.Error -> error.color.copy(alpha = 0.4f)
         }
     )
 }
@@ -102,9 +102,9 @@ fun SyncColorScheme.iconButtonColors(
         },
         disabledContainerColor = Color.Transparent,
         disabledContentColor = when (variant) {
-            ButtonVariant.Primary -> primary.alpha400
-            ButtonVariant.Secondary -> secondary.alpha400
-            ButtonVariant.Error -> error.alpha400
+            ButtonVariant.Primary -> primary.color.copy(alpha = 0.4f)
+            ButtonVariant.Secondary -> secondary.color.copy(alpha = 0.4f)
+            ButtonVariant.Error -> error.color.copy(alpha = 0.4f)
         }
     )
 }
