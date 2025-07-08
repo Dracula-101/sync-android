@@ -17,7 +17,7 @@ data class DropdownColors(
 internal fun SyncColorScheme.dropdownColors(): DropdownColors {
     return DropdownColors(
         background = surface.container,         // Card-like container for dropdown
-        border = outline.color,                 // Default light gray border
+        border = surface.high,                 // Default light gray border
         scrollTrack = surface.lowest,           // Subtle background track
         scrollThumb = outline.variant           // Slightly darker for visibility
     )

@@ -94,13 +94,13 @@ fun SyncColorScheme.iconButtonColors(
     variant: ButtonVariant = ButtonVariant.Primary,
 ): IconButtonColors {
     return IconButtonDefaults.iconButtonColors(
-        containerColor = Color.Transparent,
+        containerColor = surface.container,
         contentColor = when (variant) {
             ButtonVariant.Primary -> primary.color
             ButtonVariant.Secondary -> secondary.color
             ButtonVariant.Error -> error.color
         },
-        disabledContainerColor = Color.Transparent,
+        disabledContainerColor = surface.low,
         disabledContentColor = when (variant) {
             ButtonVariant.Primary -> primary.color.copy(alpha = 0.4f)
             ButtonVariant.Secondary -> secondary.color.copy(alpha = 0.4f)

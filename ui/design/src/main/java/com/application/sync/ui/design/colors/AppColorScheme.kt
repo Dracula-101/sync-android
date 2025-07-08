@@ -265,6 +265,22 @@ fun lightThemeShades(): ColorShadesData {
             shade700 = Color(0xFFE0E0E0),
             shade800 = Color(0xFFD5D5D5),
             shade900 = Color(0xFFC0C0C0)
+        ),
+        /**
+         * On background color shades - Dark gray family
+         * Provides contrast for text and icons on light backgrounds
+         */
+        onBackground = Shades(
+            shade50 = Color(0xFF404040),
+            shade100 = Color(0xFF353535),
+            shade200 = Color(0xFF2A2A2A),
+            shade300 = Color(0xFF1F1F1F),
+            shade400 = Color(0xFF151515),
+            shade500 = Color(0xFF0A0A0A),
+            shade600 = Color(0xFF050505),
+            shade700 = Color(0xFF030303),
+            shade800 = Color(0xFF010101),
+            shade900 = Color(0xFF000000) // Original dark background
         )
     )
 }
@@ -328,6 +344,22 @@ fun darkThemeShades(): ColorShadesData {
             shade700 = Color(0xFF030303),
             shade800 = Color(0xFF010101),
             shade900 = Color(0xFF000000) // Original dark background
+        ),
+        /**
+         * On background color shades for dark theme - Lighter grays
+         * Provides contrast for text and icons on dark backgrounds
+         */
+        onBackground = Shades(
+            shade50 = Color(0xFFFFFFFF),
+            shade100 = Color(0xFFFEFEFE),
+            shade200 = Color(0xFFFCFCFC),
+            shade300 = Color(0xFFFAFAFA), // Original background
+            shade400 = Color(0xFFF5F5F5),
+            shade500 = Color(0xFFF0F0F0),
+            shade600 = Color(0xFFE8E8E8),
+            shade700 = Color(0xFFE0E0E0),
+            shade800 = Color(0xFFD5D5D5),
+            shade900 = Color(0xFFC0C0C0)
         )
     )
 }

@@ -135,7 +135,7 @@ private fun DropdownMenuContent(
         shape = SyncTheme.shapes.dropdown,
         color = dropdownColors.background,
         border = BorderStroke(
-            width = 2.dp,
+            width = 1.dp,
             color = dropdownColors.border
         )
     ) {
@@ -185,9 +185,9 @@ fun DropdownMenuItem(
         if (leading != null) {
             CompositionLocalProvider(
                 LocalContentColor provides if (enabled) {
-                    SyncTheme.colorScheme.primary.color
+                    SyncTheme.colorScheme.surface.onColor
                 } else {
-                    SyncTheme.colorScheme.primary.color.copy(alpha = 0.3f)
+                    SyncTheme.colorScheme.surface.onColor.copy(alpha = 0.3f)
                 }
             ) {
                 Box(
@@ -201,9 +201,9 @@ fun DropdownMenuItem(
 
         CompositionLocalProvider(
             LocalContentColor provides if (enabled) {
-                SyncTheme.colorScheme.primary.color
+                SyncTheme.colorScheme.surface.onColor
             } else {
-                SyncTheme.colorScheme.primary.color.copy(alpha = 0.3f)
+                SyncTheme.colorScheme.surface.onColor.copy(alpha = 0.3f)
             }
         ) {
             ProvideTextStyle(SyncTheme.typography.bodyLarge) {
@@ -216,9 +216,9 @@ fun DropdownMenuItem(
         if (trailingIcon != null) {
             CompositionLocalProvider(
                 LocalContentColor provides if (enabled) {
-                    SyncTheme.colorScheme.secondary.color
+                    SyncTheme.colorScheme.primary.onColor
                 } else {
-                    SyncTheme.colorScheme.secondary.color.copy(alpha = 0.3f)
+                    SyncTheme.colorScheme.primary.onColor.copy(alpha = 0.3f)
                 }
             ) {
                 trailingIcon()
@@ -242,8 +242,8 @@ fun DropdownMenuLabel(text: String) {
 @Composable
 fun DropdownMenuSeparator() {
     HorizontalDivider(
-        color = SyncTheme.colorScheme.background.color,
-        thickness = 2.dp
+        color = SyncTheme.colorScheme.surface.highest,
+        thickness = 1.dp
     )
 }
 
@@ -255,7 +255,7 @@ fun DropdownMenuShortcut(
     Text(
         text = text,
         style = SyncTheme.typography.titleSmall,
-        color = SyncTheme.colorScheme.secondary.color,
+        color = SyncTheme.colorScheme.primary.color,
         modifier = modifier
     )
 }
