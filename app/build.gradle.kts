@@ -29,38 +29,39 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
-        versionName = "1.0"
+        versionName = "0.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables.useSupportLibrary = true
+
+        buildConfigField("String", "APP_NAME", "\"Sync\"")
     }
 
-    lint {
-        checkReleaseBuilds = false
-        abortOnError = false
-        checkDependencies = true
-    }
+    // Product Flavors Configuration
+    flavorDimensions += listOf("environment")
 
-    buildTypes {
-        debug {
-            isDebuggable = true
-            isMinifyEnabled = false
+    productFlavors {
+        create("development") {
+            dimension = "environment"
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-dev"
 
             buildConfigField(
                 "String",
                 "BACKEND_URL",
-                "\"${secretProperties.getProperty("DEV_BACKEND_URL", "http://localhost:8080")}\""
+                "\"${secretProperties.getProperty("DEV_BACKEND_URL")}\""
             )
 
+            manifestPlaceholders["app_name"] = "Sync debug"
+            manifestPlaceholders["app_icon"] = "@mipmap/ic_launcher"
             manifestPlaceholders["crashlytics_enabled"] = "false"
+            manifestPlaceholders["analytics_enabled"] = "false"
+            manifestPlaceholders["perf_enabled"] = "false"
         }
 
-        release {
-            isDebuggable = false
-            isMinifyEnabled = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+        create("production") {
+            dimension = "environment"
 
             buildConfigField(
                 "String",
@@ -68,7 +69,55 @@ android {
                 "\"${secretProperties.getProperty("PROD_BACKEND_URL")}\""
             )
 
+            manifestPlaceholders["app_name"] = "Sync"
+            manifestPlaceholders["app_icon"] = "@mipmap/ic_launcher"
             manifestPlaceholders["crashlytics_enabled"] = "true"
+            manifestPlaceholders["analytics_enabled"] = "true"
+            manifestPlaceholders["perf_enabled"] = "true"
+        }
+    }
+
+    lint {
+        checkReleaseBuilds = true
+        abortOnError = false
+        checkDependencies = true
+        disable += listOf("MissingTranslation", "ExtraTranslation")
+        enable += listOf("UnusedResources", "UnusedIds", "IconDensities")
+        warningsAsErrors = false
+        htmlReport = true
+        xmlReport = true
+        checkGeneratedSources = false
+        ignoreTestSources = true
+
+        fatal += listOf("InvalidPackage", "HardcodedText", "IconMissingDensityFolder")
+        warning += listOf("ContentDescription", "RtlHardcoded", "RtlSymmetry")
+    }
+
+    // Build Types Configuration
+    buildTypes {
+        debug {
+            isDebuggable = true
+            isMinifyEnabled = false
+
+            proguardFiles(
+                getDefaultProguardFile("proguard-android.txt"),
+                "proguard-rules-debug.pro"
+            )
+            signingConfig = signingConfigs.getByName("debug")
+        }
+
+        release {
+            isDebuggable = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            isJniDebuggable = false
+
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+
+            signingConfig = signingConfigs.getByName("debug") // Replace with actual signing config
         }
     }
 
@@ -80,26 +129,53 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+        viewBinding = false
     }
 
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += setOf(
+                "/META-INF/{AL2.0,LGPL2.1}",
+                "/META-INF/LICENSE",
+                "/META-INF/LICENSE.txt",
+                "/META-INF/NOTICE",
+                "/META-INF/NOTICE.txt",
+                "/META-INF/ASL2.0",
+                "/META-INF/DEPENDENCIES",
+                "/META-INF/INDEX.LIST"
+            )
+        }
+
+        jniLibs {
+            useLegacyPackaging = false
         }
     }
 }
 
+// Kotlin Configuration
 kotlin {
     compilerOptions {
         jvmTarget.set(JvmTarget.fromTarget(libs.versions.jvmTarget.get()))
+
+        freeCompilerArgs.addAll(
+            "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
+            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-opt-in=kotlinx.coroutines.FlowPreview"
+        )
     }
 }
 
+// Room Configuration
 room {
     schemaDirectory("$projectDir/schemas")
 }
 
 dependencies {
+
+    fun prodImplementation(dependencyNotation: Any) {
+        add("productionImplementation", dependencyNotation)
+    }
 
     lintChecks(projects.lint)
     implementation(projects.lint)
@@ -133,10 +209,6 @@ dependencies {
     implementation(libs.androidx.work.ktx)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.coil.kt.compose)
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.analytics)
-    implementation(libs.firebase.crashlytics)
-    implementation(libs.firebase.performance)
     implementation(libs.hilt.android)
     implementation(libs.hilt.ext.work)
     implementation(libs.kotlin.stdlib)
@@ -151,6 +223,13 @@ dependencies {
     implementation(libs.square.retrofit)
     implementation(libs.square.retrofit.gson)
     implementation(libs.timber)
+
+    // Firebase dependencies - only for production flavor
+    prodImplementation(platform(libs.firebase.bom))
+    prodImplementation(libs.firebase.analytics)
+    prodImplementation(libs.firebase.crashlytics)
+    prodImplementation(libs.firebase.performance)
+
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.ext.compiler)
     ksp(libs.room.compiler)
