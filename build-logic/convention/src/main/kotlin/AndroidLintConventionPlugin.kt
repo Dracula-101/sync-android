@@ -1,18 +1,33 @@
+import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.api.dsl.LibraryExtension
+import com.android.build.api.dsl.Lint
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.configure
 
 class AndroidLintConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
-            dependencies {
-                // For JVM projects, use compileOnly instead of lintChecks
-                add("compileOnly", libs.findLibrary("lint.api").get())
-                add("compileOnly", libs.findLibrary("lint.checks").get())
+            when {
+                pluginManager.hasPlugin("com.android.application") ->
+                    configure<ApplicationExtension> { lint(Lint::configure) }
+
+                pluginManager.hasPlugin("com.android.library") ->
+                    configure<LibraryExtension> { lint(Lint::configure) }
+
+                else -> {
+                    apply(plugin = "com.android.lint")
+                    configure<Lint>(Lint::configure)
+                }
             }
         }
     }
+}
+
+private fun Lint.configure() {
+    xmlReport = true
+    sarifReport = true
+    checkDependencies = true
+    disable += "GradleDependency"
 }

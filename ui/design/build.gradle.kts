@@ -9,6 +9,7 @@ android {
 
 
 dependencies {
+    lintPublish(projects.lint)
     // Compose BOM
     implementation(platform(libs.androidx.compose.bom))
 

@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     `kotlin-dsl`
+    alias(libs.plugins.android.lint)
 }
 
 group = "com.application.sync.build_logic"
@@ -28,6 +29,7 @@ dependencies {
     compileOnly(libs.hilt.gradlePlugin)
     compileOnly(libs.gms.gradlePlugin)
     compileOnly(libs.compose.gradlePlugin)
+    lintChecks(libs.androidx.lint.gradle)
 }
 
 gradlePlugin {
