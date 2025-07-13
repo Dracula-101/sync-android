@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChatHistoryState">
+    <option name="serializedSessions">
+      <map>
+        <entry key="082f69ca-efae-40df-a29e-a9e4af795893" value="{&quot;id&quot;:&quot;082f69ca-efae-40df-a29e-a9e4af795893&quot;,&quot;name&quot;:&quot;Add Kotlin documentation to ToastManager interface&quot;,&quot;timestamp&quot;:1752156112766,&quot;messages&quot;:[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:[{&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;\n\u003cadditional_data\u003e\nBelow are some potentially helpful/relevant pieces of information for figuring out to respond\n\u003ccurrent_file\u003e\n```kotlin:core/common/src/main/java/com/application/sync/core/common/platform/manager/ToastManager.kt, lines\u003dALL(1-11)\npackage com.application.sync.core.common.platform.manager\n\nimport android.widget.Toast\nimport androidx.annotation.StringRes\n\ninterface ToastManager {\n\n    fun showToast(message: CharSequence, duration: Int \u003d Toast.LENGTH_SHORT)\n\n    fun showToast(@StringRes messageResId: Int, duration: Int \u003d Toast.LENGTH_SHORT)\n}\n```\n\u003c/current_file\u003e\n\u003c/additional_data\u003e\n\u003cuser_query\u003e\nadd kotlin docs\n\u003c/user_query\u003e&quot;}]}]}" />
+      </map>
+    </option>
+  </component>
+</project>

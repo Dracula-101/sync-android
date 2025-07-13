@@ -16,3 +16,6 @@
 local.properties
 secrets.properties
 *.hprof
+
+keystores/release-keystore.jks
+key.properties

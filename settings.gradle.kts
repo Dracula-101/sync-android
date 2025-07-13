@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -30,10 +31,11 @@ rootProject.name = "Sync"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
-include(":core:network")
-include(":ui-showcase")
-include(":ui:design")
-include(":ui:components")
 include(":lint")
+include(":core:network")
 include(":core:common")
 include(":core:analytics")
+include(":ui:components")
+include(":ui:design")
+
+include(":ui-showcase")

@@ -2,8 +2,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     `java-library`
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.android.lint)
+    kotlin("jvm")
+    alias(libs.plugins.sync.android.lint)
 }
 
 java {
@@ -17,15 +17,8 @@ kotlin {
     }
 }
 
-lint {
-    htmlReport = true
-    htmlOutput = file("lint-report.html")
-    textReport = true
-    absolutePaths = false
-    ignoreTestSources = true
-}
 
 dependencies {
+    compileOnly(libs.kotlin.stdlib)
     compileOnly(libs.lint.api)
-    compileOnly(libs.lint.checks)
 }
