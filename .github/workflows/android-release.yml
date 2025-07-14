@@ -299,8 +299,8 @@ jobs:
             - Focus on user impact, not implementation details
             - One line per bullet point - no multi-line explanations
             - Mention specific improvements like "30% faster loading" if commits indicate performance gains
-          model: 'openai/gpt-4o'
-          max-tokens: 2000
+          model: 'deepseek/DeepSeek-R1-0528'
+          max-tokens: 5000
 
       - name: Save release notes to file
         run: |
