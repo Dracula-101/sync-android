@@ -147,14 +147,14 @@ jobs:
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: production-release-apk-v${{ needs.setup.outputs.version-name }}
+          name: Sync-apk-v${{ needs.setup.outputs.version-name }}
           path: app/build/outputs/apk/production/release/*.apk
           retention-days: 30
 
       - name: Upload AAB artifact
         uses: actions/upload-artifact@v4
         with:
-          name: production-release-aab-v${{ needs.setup.outputs.version-name }}
+          name: Sync-aab-v${{ needs.setup.outputs.version-name }}
           path: app/build/outputs/bundle/productionRelease/*.aab
           retention-days: 15
 
@@ -175,13 +175,13 @@ jobs:
       - name: Download APK artifact
         uses: actions/download-artifact@v4
         with:
-          name: production-release-apk-v${{ needs.setup.outputs.version-name }}
+          name: Sync-apk-v${{ needs.setup.outputs.version-name }}
           path: ./apk
 
       - name: Download AAB artifact
         uses: actions/download-artifact@v4
         with:
-          name: production-release-aab-v${{ needs.setup.outputs.version-name }}
+          name: Sync-aab-v${{ needs.setup.outputs.version-name }}
           path: ./aab
 
       - name: Prepare commit data for AI
