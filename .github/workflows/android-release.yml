@@ -119,10 +119,20 @@ jobs:
         run: ./gradlew clean
 
       - name: Build productionRelease APK
-        run: ./gradlew assembleProductionRelease
+        run: ./gradlew assembleProductionRelease --parallel --build-cache --info --stacktrace > build-android-apk.log 2>&1
 
       - name: Build productionRelease AAB
-        run: ./gradlew bundleProductionRelease
+        run: ./gradlew bundleProductionRelease --parallel --build-cache --info --stacktrace > build-android-aab.log 2>&1
+
+      - name: Upload build logs
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: build-logs-v${{ needs.setup.outputs.version-name }}
+          path: |
+            build-android-apk.log
+            build-android-aab.log
+          retention-days: 30
 
       - name: Cleanup sensitive files
         if: always()
@@ -146,7 +156,7 @@ jobs:
         with:
           name: production-release-aab-v${{ needs.setup.outputs.version-name }}
           path: app/build/outputs/bundle/productionRelease/*.aab
-          retention-days: 30
+          retention-days: 15
 
   release:
     if: needs.setup.outputs.should-release == 'true'
@@ -286,4 +296,3 @@ jobs:
         if: always()
         run: |
           rm -f ai-prompt.txt
-
