@@ -198,64 +198,98 @@ jobs:
           
           if [ -z "$PREV_TAG" ]; then
             echo "No previous release found, getting recent commits"
-            COMMITS=$(git log --oneline -n 20 --pretty=format:"%s")
-            COMMIT_DETAILS=$(git log -n 20 --pretty=format:"- %s (%an, %ar)")
+            COMMIT_DETAILS=$(git log -n 20 --pretty=format:"- %s (%an, %ar)" --name-only)
+            FILE_CHANGES=$(git diff --name-only HEAD~20 HEAD | head -20)
+            TOTAL_COMMITS=$(git rev-list --count HEAD | head -20)
           else
             echo "Previous release: $PREV_TAG"
-            COMMITS=$(git log ${PREV_TAG}..HEAD --oneline --pretty=format:"%s")
-            COMMIT_DETAILS=$(git log ${PREV_TAG}..HEAD --pretty=format:"- %s (%an, %ar)")
-          fi
-          
-          # Get commit statistics
-          if [ -z "$PREV_TAG" ]; then
-            TOTAL_COMMITS=$(git rev-list --count HEAD | head -20)
-            FILES_CHANGED=$(git diff --name-only HEAD~20 HEAD | wc -l)
-          else
+            COMMIT_DETAILS=$(git log ${PREV_TAG}..HEAD --pretty=format:"- %s (%an, %ar)" --name-only)
+            FILE_CHANGES=$(git diff --name-only ${PREV_TAG}..HEAD | head -30)
             TOTAL_COMMITS=$(git rev-list --count ${PREV_TAG}..HEAD)
-            FILES_CHANGED=$(git diff --name-only ${PREV_TAG}..HEAD | wc -l)
           fi
           
-          # Create prompt file for AI
-          cat > ai-prompt.txt << EOF
-          Please analyze the following commit messages and create professional release notes in markdown format for an Social media Android app called "Sync".
-          Don't use emojis, focus on user-facing changes, and structure the notes clearly.
+          # Set outputs for use in AI step
+          {
+            echo 'COMMIT_DETAILS<<EOF'
+            echo "$COMMIT_DETAILS"
+            echo 'EOF'
+          } >> $GITHUB_OUTPUT
           
-          Release Information:
-          - Version: $VERSION_NAME
-          - Version Code: $VERSION_CODE
-          - Total Commits: $TOTAL_COMMITS
-          - Files Changed: $FILES_CHANGED
-          - Previous Release: ${PREV_TAG:-"None (First Release)"}
+          {
+            echo 'FILE_CHANGES<<EOF'
+            echo "$FILE_CHANGES"
+            echo 'EOF'
+          } >> $GITHUB_OUTPUT
           
-          Commit Messages:
-          $COMMIT_DETAILS
+          echo "total-commits=$TOTAL_COMMITS" >> $GITHUB_OUTPUT
+          echo "prev-tag=${PREV_TAG:-None (First Release)}" >> $GITHUB_OUTPUT
           
-          Please organize the release notes with the following structure:
-          1. Release Summary - Brief overview of the release
-          2. New Features - Any new functionality added
-          3. Bug Fixes - Issues that were resolved
-          4. Improvements - Performance or UX improvements
-          5. Technical Changes - Code refactoring, dependency updates, etc.
-          6. Installation Instructions - How to install the APK/AAB
-          
-          Requirements:
-          - Use clean markdown formatting
-          - No emojis
-          - Focus on user-facing changes
-          - Be concise but informative
-          - Include technical details like version info and Android compatibility
-          - If no significant changes, mention maintenance release
-          EOF
-          
-          echo "AI prompt prepared"
+          echo "AI data prepared with $TOTAL_COMMITS commits"
 
       - name: Generate release notes with AI
         id: ai-inference
         uses: actions/ai-inference@v1
         continue-on-error: true
         with:
-          prompt: 'You are a technical writer specializing in mobile app release notes. Create professional, clear, and well-structured release notes based on git commit messages. Focus on user-facing changes and improvements.'
-          system-prompt-file: './ai-prompt.txt'
+          prompt: |
+            TASK: Create professional release notes for the Sync Android app based ONLY on the provided commit data.
+            
+            IMPORTANT INSTRUCTIONS:
+            - Do NOT ask for more information or suggest providing commit messages
+            - Do NOT include generic examples or placeholders
+            - Do NOT add phrases like "Feel free to share" or "Thank you for using our app"
+            - Only analyze the actual commit data provided below
+            - If no significant user-facing changes, simply state it's a maintenance release
+            - Focus exclusively on the commits and file changes listed
+            
+            APP INFORMATION:
+            - App Name: Sync (Social Media Android App)
+            - Version: ${{ needs.setup.outputs.version-name }}
+            - Version Code: ${{ needs.setup.outputs.version-code }}
+            - Total Commits: ${{ steps.prepare-data.outputs.total-commits }}
+            - Previous Release: ${{ steps.prepare-data.outputs.prev-tag }}
+            
+            COMMIT DATA TO ANALYZE:
+            ${{ steps.prepare-data.outputs.COMMIT_DETAILS }}
+            
+            FILES CHANGED:
+            ${{ steps.prepare-data.outputs.FILE_CHANGES }}
+            
+            REQUIRED OUTPUT FORMAT:
+            Create markdown release notes with these sections ONLY if relevant changes exist:
+            
+            ## Release Summary
+            Brief overview of this release (always include this section)
+            
+            ## New Features
+            List any new functionality (SKIP this section entirely if no new features were added)
+            
+            ## Bug Fixes
+            List resolved issues (SKIP this section entirely if no bugs were fixed)
+            
+            ## Improvements
+            List performance or UX improvements (SKIP this section entirely if no improvements were made)
+            
+            ## Technical Changes
+            List refactoring, dependency updates, build changes (SKIP this section entirely if no technical work was done)
+            
+            CRITICAL RULES:
+            - If a section has no relevant commits, DO NOT include that section header at all
+            - Do not write "No changes" or "None" - simply omit the entire section
+            - Only include section headers when you have actual content to put under them
+            - If only technical/build changes exist, only include Release Summary and Technical Changes
+            - If only bug fixes exist, only include Release Summary and Bug Fixes
+            - Empty sections make the release notes look unprofessional
+            
+            ANALYSIS GUIDELINES:
+            - UI/UX files: Focus on user experience changes
+            - Build files: Mention dependency updates or build improvements
+            - Core/Network files: Mention backend or API improvements
+            - Bug fix commits: Clearly state what was fixed
+            - Feature commits: Explain new functionality
+            - Skip sections that don't apply to the commits
+            - Keep descriptions concise and user-focused
+            - No emojis or decorative elements
           model: 'openai/gpt-4o'
           max-tokens: 2000
 
