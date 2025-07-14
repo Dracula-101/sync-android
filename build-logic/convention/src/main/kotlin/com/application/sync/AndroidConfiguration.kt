@@ -159,18 +159,17 @@ internal fun Project.configureProductFlavors(applicationExtension: ApplicationEx
                 flavor.applicationIdSuffix()?.let { applicationIdSuffix = it }
                 flavor.versionNameSuffix()?.let { versionNameSuffix = it }
 
-                buildConfigField("String", "API_BASE_URL", "\"${flavor.apiBaseUrl()}\"")
+                buildConfigField(
+                    "String",
+                    "BACKEND_URL",
+                    "\"${SecretsReader.getDevBackendUrl(project)}\""
+                )
                 buildConfigField("String", "WEB_BASE_URL", "\"${flavor.webBaseUrl()}\"")
                 buildConfigField("boolean", "ENABLE_LOGGING", flavor.isLoggingEnabled().toString())
                 buildConfigField(
                     "boolean",
                     "ENABLE_STRICT_MODE",
                     flavor.isStrictModeEnabled().toString()
-                )
-                buildConfigField(
-                    "boolean",
-                    "ENABLE_LEAK_CANARY",
-                    flavor.isLeakCanaryEnabled().toString()
                 )
                 buildConfigField("String", "FLAVOR", "\"$DEVELOPMENT\"")
 
@@ -183,18 +182,17 @@ internal fun Project.configureProductFlavors(applicationExtension: ApplicationEx
                 val flavor = Flavor.PRODUCTION
                 dimension = ENVIRONMENT
 
-                buildConfigField("String", "API_BASE_URL", "\"${flavor.apiBaseUrl()}\"")
+                buildConfigField(
+                    "String",
+                    "BACKEND_URL",
+                    "\"${SecretsReader.getProdBackendUrl(project)}\""
+                )
                 buildConfigField("String", "WEB_BASE_URL", "\"${flavor.webBaseUrl()}\"")
                 buildConfigField("boolean", "ENABLE_LOGGING", flavor.isLoggingEnabled().toString())
                 buildConfigField(
                     "boolean",
                     "ENABLE_STRICT_MODE",
                     flavor.isStrictModeEnabled().toString()
-                )
-                buildConfigField(
-                    "boolean",
-                    "ENABLE_LEAK_CANARY",
-                    flavor.isLeakCanaryEnabled().toString()
                 )
                 buildConfigField("String", "FLAVOR", "\"$PRODUCTION\"")
 

@@ -144,7 +144,7 @@ fun lightTheme(): SyncColorScheme {
 fun darkTheme(): SyncColorScheme {
     return SyncColorScheme(
         primary = PrimaryColors(
-            color = Color(0xFF6B7FE3),
+            color = Color(0xFF6374FF),
             onColor = Color(0xFFFFFFFF),
             container = Color(0xFF2A3B7A),
             onContainer = Color(0xFFE1E7FF),

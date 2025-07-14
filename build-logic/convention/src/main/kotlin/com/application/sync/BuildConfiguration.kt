@@ -73,11 +73,6 @@ internal fun Flavor.isStrictModeEnabled(): Boolean = when (this) {
     Flavor.PRODUCTION -> false
 }
 
-internal fun Flavor.isLeakCanaryEnabled(): Boolean = when (this) {
-    Flavor.DEVELOPMENT -> true
-    Flavor.PRODUCTION -> false
-}
-
 internal fun Flavor.appName(): String = when (this) {
     Flavor.DEVELOPMENT -> "Sync Dev"
     Flavor.PRODUCTION -> "Sync"

@@ -52,6 +52,7 @@ android {
 dependencies {
 
     implementation(projects.core.network)
+    implementation(projects.core.analytics)
     implementation(projects.ui.design)
     implementation(projects.ui.components)
 
