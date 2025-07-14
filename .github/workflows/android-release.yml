@@ -158,38 +158,20 @@ jobs:
           path: app/build/outputs/bundle/productionRelease/*.aab
           retention-days: 15
 
-  release:
+  generate-notes:
     if: needs.setup.outputs.should-release == 'true'
     needs: [ setup, build ]
     runs-on: ubuntu-latest
     permissions:
-      contents: write
       models: read
+    outputs:
+      release-notes: ${{ steps.ai-inference.outputs.response }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Download APK artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: Sync-apk-v${{ needs.setup.outputs.version-name }}
-          path: ./apk
-
-      - name: Download AAB artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: Sync-aab-v${{ needs.setup.outputs.version-name }}
-          path: ./aab
-
-      - name: Rename Releases
-        run: |
-          echo "Renaming release files..."
-          mv ./apk/*.apk ./apk/Sync-v${{ needs.setup.outputs.version-name }}+${{ needs.setup.outputs.version-code }}.apk
-          mv ./aab/*.aab ./aab/Sync-v${{ needs.setup.outputs.version-name }}+${{ needs.setup.outputs.version-code }}.aab
-          echo "Files renamed successfully"
 
       - name: Prepare commit data for AI
         id: prepare-data
@@ -319,6 +301,59 @@ jobs:
           model: 'openai/gpt-4o'
           max-tokens: 2000
 
+      - name: Save release notes to file
+        run: |
+          echo "Saving AI-generated release notes..."
+          {
+            echo 'AI_RELEASE_NOTES<<EOF'
+            echo "${{ steps.ai-inference.outputs.response }}"
+            echo 'EOF'
+          } >> $GITHUB_OUTPUT
+          
+          # Also save to a file for potential debugging
+          echo "${{ steps.ai-inference.outputs.response }}" > release-notes.md
+
+      - name: Upload release notes artifact
+        uses: actions/upload-artifact@v4
+        if: steps.ai-inference.outcome == 'success'
+        with:
+          name: release-notes-v${{ needs.setup.outputs.version-name }}
+          path: release-notes.md
+          retention-days: 30
+
+  release:
+    if: needs.setup.outputs.should-release == 'true'
+    needs: [ setup, build, generate-notes ]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      models: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download APK artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Sync-apk-v${{ needs.setup.outputs.version-name }}
+          path: ./apk
+
+      - name: Download AAB artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Sync-aab-v${{ needs.setup.outputs.version-name }}
+          path: ./aab
+
+      - name: Rename Releases
+        run: |
+          echo "Renaming release files..."
+          mv ./apk/*.apk ./apk/Sync-v${{ needs.setup.outputs.version-name }}+${{ needs.setup.outputs.version-code }}.apk
+          mv ./aab/*.aab ./aab/Sync-v${{ needs.setup.outputs.version-name }}+${{ needs.setup.outputs.version-code }}.aab
+          echo "Files renamed successfully"
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
@@ -331,7 +366,7 @@ jobs:
           prerelease: false
           generate_release_notes: false
           body: |
-            ${{ steps.ai-inference.outcome == 'success' && steps.ai-inference.outputs.response || '' }}
+            ${{ needs.generate-notes.outputs.release-notes || 'New release with various improvements and bug fixes.' }}
             
             ## Technical Details
             
@@ -350,6 +385,17 @@ jobs:
             If you encounter any issues, please report them in our [GitHub Issues](https://github.com/${{ github.repository }}/issues).
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_CREDENTIAL_JSON }}
+          releaseNotes: |
+            Sync Release v${{ needs.setup.outputs.version-name }} (Build ${{ needs.setup.outputs.version-code }})
+            
+            ${{ needs.generate-notes.outputs.release-notes || 'New release with various improvements and bug fixes.' }}
+          file: ./apk/Sync-v${{ needs.setup.outputs.version-name }}+${{ needs.setup.outputs.version-code }}.apk
 
       - name: Cleanup temporary files
         if: always()
