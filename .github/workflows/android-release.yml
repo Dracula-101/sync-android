@@ -252,11 +252,12 @@ jobs:
       - name: Generate release notes with AI
         id: ai-inference
         uses: actions/ai-inference@v1
+        continue-on-error: true
         with:
+          prompt: 'You are a technical writer specializing in mobile app release notes. Create professional, clear, and well-structured release notes based on git commit messages. Focus on user-facing changes and improvements.'
           prompt-file: './ai-prompt.txt'
-          system-prompt: 'You are a technical writer specializing in mobile app release notes. Create professional, clear, and well-structured release notes based on git commit messages. Focus on user-facing changes and improvements.'
           model: 'openai/gpt-4o'
-          max-tokens: 1000
+          max-tokens: 2000
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
@@ -270,15 +271,13 @@ jobs:
           prerelease: false
           generate_release_notes: false
           body: |
-            ${{ steps.ai-inference.outputs.response }}
+            ${{ steps.ai-inference.outcome == 'success' && steps.ai-inference.outputs.response || '' }}
             
             ## Technical Details
             
             - **Version**: ${{ needs.setup.outputs.version-name }}
             - **Version Code**: ${{ needs.setup.outputs.version-code }}
             - **Build Date**: ${{ github.run_started_at }}
-            - **Minimum Android Version**: API 23 (Android 6.0)
-            - **Target Android Version**: API 35 (Android 15)
             
             ## Download
             
