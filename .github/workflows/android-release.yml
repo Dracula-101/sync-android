@@ -184,6 +184,13 @@ jobs:
           name: Sync-aab-v${{ needs.setup.outputs.version-name }}
           path: ./aab
 
+      - name: Rename Releases
+        run: |
+          echo "Renaming release files..."
+          mv ./apk/*.apk ./apk/Sync-v${{ needs.setup.outputs.version-name }}+${{ needs.setup.outputs.version-code }}.apk
+          mv ./aab/*.aab ./aab/Sync-v${{ needs.setup.outputs.version-name }}+${{ needs.setup.outputs.version-code }}.aab
+          echo "Files renamed successfully"
+
       - name: Prepare commit data for AI
         id: prepare-data
         run: |
