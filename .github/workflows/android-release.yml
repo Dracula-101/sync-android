@@ -355,6 +355,19 @@ jobs:
           mv ./apk/*.apk ./apk/Sync-v${{ needs.setup.outputs.version-name }}+${{ needs.setup.outputs.version-code }}.apk
           mv ./aab/*.aab ./aab/Sync-v${{ needs.setup.outputs.version-name }}+${{ needs.setup.outputs.version-code }}.aab
           echo "Files renamed successfully"
+      
+      
+
+      - name: Upload to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_CREDENTIAL_JSON }}
+          releaseNotes: |
+            Sync Release v${{ needs.setup.outputs.version-name }} (Build ${{ needs.setup.outputs.version-code }})
+            
+            ${{ needs.generate-notes.outputs.release-notes || 'New release with various improvements and bug fixes.' }}
+          file: ./apk/Sync-v${{ needs.setup.outputs.version-name }}+${{ needs.setup.outputs.version-code }}.apk
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
@@ -387,17 +400,6 @@ jobs:
             If you encounter any issues, please report them in our [GitHub Issues](https://github.com/${{ github.repository }}/issues).
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload to Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
-        with:
-          appId: ${{ secrets.FIREBASE_APP_ID }}
-          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_CREDENTIAL_JSON }}
-          releaseNotes: |
-            Sync Release v${{ needs.setup.outputs.version-name }} (Build ${{ needs.setup.outputs.version-code }})
-            
-            ${{ needs.generate-notes.outputs.release-notes || 'New release with various improvements and bug fixes.' }}
-          file: ./apk/Sync-v${{ needs.setup.outputs.version-name }}+${{ needs.setup.outputs.version-code }}.apk
 
       - name: Cleanup temporary files
         if: always()
