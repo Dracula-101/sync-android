@@ -255,7 +255,7 @@ jobs:
         continue-on-error: true
         with:
           prompt: 'You are a technical writer specializing in mobile app release notes. Create professional, clear, and well-structured release notes based on git commit messages. Focus on user-facing changes and improvements.'
-          prompt-file: './ai-prompt.txt'
+          system-prompt-file: './ai-prompt.txt'
           model: 'openai/gpt-4o'
           max-tokens: 2000
 
