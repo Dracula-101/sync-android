@@ -3,7 +3,6 @@ name: Android Release Build
 on:
   push:
     branches: [ main, master ]
-    tags: [ 'v*' ]
   pull_request:
     branches: [ main, master ]
   workflow_dispatch:
@@ -14,6 +13,7 @@ jobs:
     outputs:
       version-name: ${{ steps.extract-version.outputs.version-name }}
       version-code: ${{ steps.extract-version.outputs.version-code }}
+      should-release: ${{ steps.check-tag.outputs.should-release }}
 
     steps:
       - name: Checkout code
@@ -33,12 +33,23 @@ jobs:
           VERSION_CODE=$(grep -oP 'versionCode = \K\d+' build-logic/convention/src/main/kotlin/com/application/sync/AndroidConfiguration.kt)
           echo "version-code=$VERSION_CODE" >> $GITHUB_OUTPUT
           echo "Found version code: $VERSION_CODE"
+
+      - name: Check if tag exists
+        id: check-tag
+        run: |
+          VERSION_NAME="${{ steps.extract-version.outputs.version-name }}"
+          VERSION_CODE="${{ steps.extract-version.outputs.version-code }}"
+          TAG_NAME="v${VERSION_NAME}+${VERSION_CODE}"
           
-          # If this is a tag push, use the tag as version name
-          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
-            TAG_VERSION=${GITHUB_REF#refs/tags/}
-            echo "version-name=$TAG_VERSION" >> $GITHUB_OUTPUT
-            echo "Using tag version: $TAG_VERSION"
+          echo "Checking for existing tag: $TAG_NAME"
+          
+          # Check if tag exists on GitHub
+          if git ls-remote --tags origin | grep -q "refs/tags/$TAG_NAME$"; then
+            echo "Tag $TAG_NAME already exists"
+            echo "should-release=false" >> $GITHUB_OUTPUT
+          else
+            echo "Tag $TAG_NAME does not exist, will create release"
+            echo "should-release=true" >> $GITHUB_OUTPUT
           fi
 
   build:
@@ -113,6 +124,16 @@ jobs:
       - name: Build productionRelease AAB
         run: ./gradlew bundleProductionRelease
 
+      - name: Cleanup sensitive files
+        if: always()
+        run: |
+          echo "Cleaning up sensitive files..."
+          rm -f secrets.properties
+          rm -f key.properties
+          rm -f app/google-services.json
+          rm -f keystores/release-keystore.jks
+          echo "Sensitive files cleaned up"
+
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
@@ -127,22 +148,20 @@ jobs:
           path: app/build/outputs/bundle/productionRelease/*.aab
           retention-days: 30
 
-      - name: Upload build reports
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: build-reports-v${{ needs.setup.outputs.version-name }}
-          path: |
-            app/build/reports/
-            build/reports/
-          retention-days: 14
-
   release:
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: needs.setup.outputs.should-release == 'true'
     needs: [ setup, build ]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      models: read
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Download APK artifact
         uses: actions/download-artifact@v4
         with:
@@ -155,24 +174,116 @@ jobs:
           name: production-release-aab-v${{ needs.setup.outputs.version-name }}
           path: ./aab
 
+      - name: Prepare commit data for AI
+        id: prepare-data
+        run: |
+          VERSION_NAME="${{ needs.setup.outputs.version-name }}"
+          VERSION_CODE="${{ needs.setup.outputs.version-code }}"
+          TAG_NAME="v${VERSION_NAME}+${VERSION_CODE}"
+          
+          echo "Preparing commit data for AI analysis..."
+          
+          # Get the previous release tag
+          PREV_TAG=$(git tag --sort=-version:refname | grep -E "^v[0-9]+\.[0-9]+\.[0-9]+\+[0-9]+$" | head -1)
+          
+          if [ -z "$PREV_TAG" ]; then
+            echo "No previous release found, getting recent commits"
+            COMMITS=$(git log --oneline -n 20 --pretty=format:"%s")
+            COMMIT_DETAILS=$(git log -n 20 --pretty=format:"- %s (%an, %ar)")
+          else
+            echo "Previous release: $PREV_TAG"
+            COMMITS=$(git log ${PREV_TAG}..HEAD --oneline --pretty=format:"%s")
+            COMMIT_DETAILS=$(git log ${PREV_TAG}..HEAD --pretty=format:"- %s (%an, %ar)")
+          fi
+          
+          # Get commit statistics
+          if [ -z "$PREV_TAG" ]; then
+            TOTAL_COMMITS=$(git rev-list --count HEAD | head -20)
+            FILES_CHANGED=$(git diff --name-only HEAD~20 HEAD | wc -l)
+          else
+            TOTAL_COMMITS=$(git rev-list --count ${PREV_TAG}..HEAD)
+            FILES_CHANGED=$(git diff --name-only ${PREV_TAG}..HEAD | wc -l)
+          fi
+          
+          # Create prompt file for AI
+          cat > ai-prompt.txt << EOF
+          Please analyze the following commit messages and create professional release notes in markdown format for an Social media Android app called "Sync".
+          Don't use emojis, focus on user-facing changes, and structure the notes clearly.
+          
+          Release Information:
+          - Version: $VERSION_NAME
+          - Version Code: $VERSION_CODE
+          - Total Commits: $TOTAL_COMMITS
+          - Files Changed: $FILES_CHANGED
+          - Previous Release: ${PREV_TAG:-"None (First Release)"}
+          
+          Commit Messages:
+          $COMMIT_DETAILS
+          
+          Please organize the release notes with the following structure:
+          1. Release Summary - Brief overview of the release
+          2. New Features - Any new functionality added
+          3. Bug Fixes - Issues that were resolved
+          4. Improvements - Performance or UX improvements
+          5. Technical Changes - Code refactoring, dependency updates, etc.
+          6. Installation Instructions - How to install the APK/AAB
+          
+          Requirements:
+          - Use clean markdown formatting
+          - No emojis
+          - Focus on user-facing changes
+          - Be concise but informative
+          - Include technical details like version info and Android compatibility
+          - If no significant changes, mention maintenance release
+          EOF
+          
+          echo "AI prompt prepared"
+
+      - name: Generate release notes with AI
+        id: ai-inference
+        uses: actions/ai-inference@v1
+        with:
+          prompt-file: './ai-prompt.txt'
+          system-prompt: 'You are a technical writer specializing in mobile app release notes. Create professional, clear, and well-structured release notes based on git commit messages. Focus on user-facing changes and improvements.'
+          model: 'openai/gpt-4o'
+          max-tokens: 1000
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          name: Release v${{ needs.setup.outputs.version-name }}
-          tag_name: v${{ needs.setup.outputs.version-name }}
+          name: "Sync v${{ needs.setup.outputs.version-name }} (Build ${{ needs.setup.outputs.version-code }})"
+          tag_name: v${{ needs.setup.outputs.version-name }}+${{ needs.setup.outputs.version-code }}
           files: |
             ./apk/*.apk
             ./aab/*.aab
           draft: false
           prerelease: false
-          generate_release_notes: true
+          generate_release_notes: false
           body: |
-            ## Release v${{ needs.setup.outputs.version-name }}
+            ${{ steps.ai-inference.outputs.response }}
             
-            **Version Code:** ${{ needs.setup.outputs.version-code }}
+            ## Technical Details
             
-            ### Files
-            - `*.apk` - Android APK file for direct installation
-            - `*.aab` - Android App Bundle for Google Play Store
+            - **Version**: ${{ needs.setup.outputs.version-name }}
+            - **Version Code**: ${{ needs.setup.outputs.version-code }}
+            - **Build Date**: ${{ github.run_started_at }}
+            - **Minimum Android Version**: API 23 (Android 6.0)
+            - **Target Android Version**: API 35 (Android 15)
+            
+            ## Download
+            
+            Choose the appropriate file for your needs:
+            - **APK**: For direct installation on Android devices
+            - **AAB**: Optimized for Google Play Store distribution
+            
+            ## Support
+            
+            If you encounter any issues, please report them in our [GitHub Issues](https://github.com/${{ github.repository }}/issues).
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cleanup temporary files
+        if: always()
+        run: |
+          rm -f ai-prompt.txt
+
