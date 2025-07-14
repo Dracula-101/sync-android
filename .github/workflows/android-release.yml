@@ -208,6 +208,9 @@ jobs:
             TOTAL_COMMITS=$(git rev-list --count ${PREV_TAG}..HEAD)
           fi
           
+          # Get current date
+          BUILD_DATE=$(date -u +"%Y-%m-%d")
+          
           # Set outputs for use in AI step
           {
             echo 'COMMIT_DETAILS<<EOF'
@@ -223,6 +226,7 @@ jobs:
           
           echo "total-commits=$TOTAL_COMMITS" >> $GITHUB_OUTPUT
           echo "prev-tag=${PREV_TAG:-None (First Release)}" >> $GITHUB_OUTPUT
+          echo "build-date=$BUILD_DATE" >> $GITHUB_OUTPUT
           
           echo "AI data prepared with $TOTAL_COMMITS commits"
 
@@ -259,37 +263,52 @@ jobs:
             Create markdown release notes with these sections ONLY if relevant changes exist:
             
             ## Release Summary
-            Brief overview of this release (always include this section)
+            Brief overview of this release in 1-2 sentences maximum (always include this section)
             
             ## New Features
-            List any new functionality (SKIP this section entirely if no new features were added)
+            List any new functionality in bullet points - maximum 3-4 items, keep each to one line (SKIP this section entirely if no new features were added)
             
             ## Bug Fixes
-            List resolved issues (SKIP this section entirely if no bugs were fixed)
+            List resolved issues in bullet points - maximum 3-4 items, keep each to one line (SKIP this section entirely if no bugs were fixed)
             
             ## Improvements
-            List performance or UX improvements (SKIP this section entirely if no improvements were made)
+            List performance or UX improvements in bullet points - maximum 3-4 items, keep each to one line (SKIP this section entirely if no improvements were made)
+            
+            ## Security & Privacy
+            List security enhancements, permission changes, or privacy improvements - maximum 2-3 items (SKIP this section entirely if no security/privacy changes)
             
             ## Technical Changes
-            List refactoring, dependency updates, build changes (SKIP this section entirely if no technical work was done)
+            List only the most important technical changes in bullet points - maximum 2-3 items, keep each to one line (SKIP this section entirely if no technical work was done)
             
             CRITICAL RULES:
             - If a section has no relevant commits, DO NOT include that section header at all
             - Do not write "No changes" or "None" - simply omit the entire section
             - Only include section headers when you have actual content to put under them
-            - If only technical/build changes exist, only include Release Summary and Technical Changes
-            - If only bug fixes exist, only include Release Summary and Bug Fixes
+            - Keep ALL descriptions to ONE LINE maximum per bullet point
+            - Maximum 3-4 bullet points per section (except Release Summary which is 1-2 sentences)
+            - Be extremely concise - users want quick, scannable information
+            - Focus only on the most important changes, skip minor details
             - Empty sections make the release notes look unprofessional
+            - If it's just dependency updates or minor fixes, just mention "maintenance release" in summary
             
-            ANALYSIS GUIDELINES:
-            - UI/UX files: Focus on user experience changes
-            - Build files: Mention dependency updates or build improvements
-            - Core/Network files: Mention backend or API improvements
-            - Bug fix commits: Clearly state what was fixed
-            - Feature commits: Explain new functionality
-            - Skip sections that don't apply to the commits
-            - Keep descriptions concise and user-focused
-            - No emojis or decorative elements
+            ANALYSIS PRIORITY (analyze commits for these specific improvements):
+            - Performance optimizations (faster loading, reduced memory usage, battery improvements)
+            - UI/UX enhancements (better design, accessibility improvements, dark mode, animations)
+            - Network improvements (faster sync, offline support, connection handling)
+            - User experience (smoother navigation, easier interactions, reduced steps)
+            - Stability fixes (crash fixes, error handling, memory leaks)
+            - Security enhancements (authentication, data protection, permission management)
+            - Accessibility improvements (screen reader support, contrast, text size)
+            - New integrations or API improvements
+            - Database or storage optimizations
+            - Build and deployment improvements
+            
+            WRITING STYLE:
+            - Use simple, direct language
+            - Avoid technical jargon unless necessary
+            - Focus on user impact, not implementation details
+            - One line per bullet point - no multi-line explanations
+            - Mention specific improvements like "30% faster loading" if commits indicate performance gains
           model: 'openai/gpt-4o'
           max-tokens: 2000
 
@@ -311,7 +330,7 @@ jobs:
             
             - **Version**: ${{ needs.setup.outputs.version-name }}
             - **Version Code**: ${{ needs.setup.outputs.version-code }}
-            - **Build Date**: ${{ github.run_started_at }}
+            - **Build Date**: ${{ steps.prepare-data.outputs.build-date }}
             
             ## Download
             
