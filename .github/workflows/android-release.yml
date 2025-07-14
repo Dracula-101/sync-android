@@ -167,6 +167,7 @@ jobs:
       models: read
     outputs:
       release-notes: ${{ steps.ai-inference.outputs.response }}
+      build-date: ${{ steps.prepare-data.outputs.build-date }}
 
     steps:
       - name: Checkout code
@@ -299,8 +300,8 @@ jobs:
             - Focus on user impact, not implementation details
             - One line per bullet point - no multi-line explanations
             - Mention specific improvements like "30% faster loading" if commits indicate performance gains
-          model: 'deepseek/DeepSeek-R1-0528'
-          max-tokens: 5000
+          model: 'openai/gpt-4o'
+          max-tokens: 2000
 
       - name: Save release notes to file
         run: |
@@ -373,7 +374,7 @@ jobs:
             
             - **Version**: ${{ needs.setup.outputs.version-name }}
             - **Version Code**: ${{ needs.setup.outputs.version-code }}
-            - **Build Date**: ${{ steps.prepare-data.outputs.build-date }}
+            - **Build Date**: ${{ needs.generate-notes.outputs.build-date }}
             
             ## Download
             
