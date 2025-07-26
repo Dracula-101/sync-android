@@ -23,4 +23,6 @@ internal abstract class AnalyticsModule {
      */
     @Binds
     abstract fun bindAnalytics(noOpAnalytics: NoOpAnalytics): Analytics
+
+
 }

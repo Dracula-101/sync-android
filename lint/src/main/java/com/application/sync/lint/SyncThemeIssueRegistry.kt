@@ -6,7 +6,10 @@ import com.android.tools.lint.detector.api.CURRENT_API
 
 class SyncThemeIssueRegistry : IssueRegistry() {
     override val issues = listOf(
-        SyncThemeDetector.ISSUE
+        SyncThemeDetector.ISSUE,
+        HardcodedStringDetector.ISSUE,
+        SecurityDetector.ISSUE_HARDCODED_SECRETS,
+        MemoryLeakDetector.ISSUE,
     )
 
     override val api: Int = CURRENT_API
